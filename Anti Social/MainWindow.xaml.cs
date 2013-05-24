@@ -21,6 +21,7 @@ using Xceed.Wpf.Toolkit;
 using System.Collections.ObjectModel;
 using System.Xml;
 using System.Windows.Forms;
+using System.IO.IsolatedStorage;
 
 
 
@@ -49,7 +50,6 @@ namespace WpfApplication2
 
         private void Contact_router(object sender, RoutedEventArgs e)
         {
-
 
 
             //int _listed = domains_present.Count;            // Get the number of the sites listed
@@ -174,7 +174,7 @@ namespace WpfApplication2
 
             XElement root = XElement.Load(@"TextFiles\XMLFile1.xml");
 
-            IEnumerable<string> site = from el in root.Elements("site")
+            IEnumerable<string> site = from el in root.Elements("site").AsParallel()
                                          select el.Element("name").Value;
 
             foreach (string elm in site) 
@@ -201,8 +201,12 @@ namespace WpfApplication2
 
             ManagementObjectCollection oRc = oS.Get();
 
-            using (System.IO.StreamWriter file = new System.IO.StreamWriter(@"TextFiles\DNSBackUp.txt", false))
-                {
+            IsolatedStorageFile dnsFile = IsolatedStorageFile.GetStore(IsolatedStorageScope.User | IsolatedStorageScope.Domain | IsolatedStorageScope.Assembly, null, null);
+
+
+            using (StreamWriter file = new StreamWriter(new IsolatedStorageFileStream("DNSBackUp.bin",FileMode.Create,FileAccess.Write,dnsFile)))
+           {
+
                     foreach (ManagementObject oR in oRc)
                     {
 

@@ -22,14 +22,15 @@ using System.Collections.ObjectModel;
 using System.Xml;
 using System.Windows.Forms;
 using System.IO.IsolatedStorage;
+
 namespace WpfApplication2
 {
     /// <summary>
     /// Interaction logic for Page1.xaml
     /// </summary>
-    public partial class CustomizeList : Page
+    public partial class CustomizeList : CommonFunctions
     {
-        string address = "0.0.0.0";
+        string address = "127.0.0.1";
         string hostfile_location;
         IEnumerable<HostsFileEntry> listed_domains;
         List<string> domains_present = new List<string>();
@@ -38,12 +39,13 @@ namespace WpfApplication2
         List<string> Whitebuffer = new List<string>();
         List<string> Blackbuffer = new List<string>();
         MessageBoxResult result;
-        public CustomizeList()
+        public CustomizeList(string path)
         {
+            filePath = path;
             InitializeComponent();
             //ShowsNavigationUI = false;
             //Loaded += Page1_Loaded;
-
+            //System.Windows.Forms.NotifyIcon ni = new System.Windows.Forms.NotifyIcon();
         }
 
         void Page1_Loaded(object sender, RoutedEventArgs e)
@@ -137,40 +139,42 @@ namespace WpfApplication2
 
         private async void Store_Lists(object sender, RoutedEventArgs e)
         {
-            //Page2 page2 = new Page2();
-            //NavigationService.Navigate(page2);
-            //page2.ShowsNavigationUI = true;
-            hostfile_location = PSHostsFile.HostsFile.GetHostsPath();
-            listed_domains = PSHostsFile.HostsFile.Get(hostfile_location);
-            foreach (HostsFileEntry entry in listed_domains)
-            {
-                domains_present.Add(entry.Hostname);
-            }
-            if (!domains_present.Count.Equals(0))
-            {
-                result = System.Windows.MessageBox.Show("There are domains listed in host file. Do you want to keep them.", "Message", MessageBoxButton.YesNo);
-                //MessageBox.Show("There are domains that are present in host file");
-                //if (result.Equals(MessageBoxResult.Yes))
-                //{
-                //    foreach (string entry in domains_present)
-                //    {
-                //        blackListed.Add(entry);
-                //    }
-                //}
-            }
+            //hostfile_location = PSHostsFile.HostsFile.GetHostsPath();
+            //listed_domains = PSHostsFile.HostsFile.Get(hostfile_location);
+            //foreach (HostsFileEntry entry in listed_domains)
+            //{
+            //    domains_present.Add(entry.Hostname);
+            //}
+            //if (!domains_present.Count.Equals(0))
+            //{
+            //    result = System.Windows.MessageBox.Show("There are domains listed in host file. Do you want to keep them.", "Message", MessageBoxButton.YesNo);
+            //    //MessageBox.Show("There are domains that are present in host file");
+            //    //if (result.Equals(MessageBoxResult.Yes))
+            //    //{
+            //    //    foreach (string entry in domains_present)
+            //    //    {
+            //    //        blackListed.Add(entry);
+            //    //    }
+            //    //}
+            //}
 
           
-            if (!whiteListed.Count.Equals(0))
+            if (!whiteListed.Count.Equals(0) || blackListed.Count.Equals(192))
             {
+                //FileInfo file = new FileInfo(filePath + "WhiteList.bin");
+                //if(file.Exists)
+                //{
+                //    file.Attributes&=
                 IsolatedStorageFile whiteSite = IsolatedStorageFile.GetStore(IsolatedStorageScope.User | IsolatedStorageScope.Domain | IsolatedStorageScope.Assembly, null, null);
                 var Writer = new StreamWriter(new IsolatedStorageFileStream("WhiteList.bin", FileMode.Create , whiteSite));
+
                 foreach (string str in whiteListed)
                 {
                     await Writer.WriteLineAsync(str);
                 }
                 Writer.Close();
             }
-            AdittionalOptions page = new AdittionalOptions(blackListed,result);
+            AdittionalOptions page = new AdittionalOptions(blackListed,result,filePath,true);
             NavigationService.Navigate(page);
             page.ShowsNavigationUI = false;
             
@@ -246,11 +250,14 @@ namespace WpfApplication2
                         LoadAllFromXml();
                     }
                 }
+                Reader.Close();
             }
             catch
             {
                 //System.IO.FileNotFoundException ;
             }
+
+            
             
         }
 
@@ -268,14 +275,25 @@ namespace WpfApplication2
             {
                 blackListed.Add(elm);
             }
-            
-            foreach (string str in whiteListed)
-            {
-                blackListed.Remove(str);
-            }
 
+            if (!whiteListed.Count.Equals(0))
+            {
+                foreach (string str in whiteListed)
+                {
+                    blackListed.Remove(str);
+                }
+
+            }          
+            
             BlackList.ItemsSource = blackListed;
             WhiteList.ItemsSource = whiteListed;
         }
+
+        private void MinimizeToSystemTray(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+     
     }
 }

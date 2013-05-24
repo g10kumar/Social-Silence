@@ -30,3 +30,45 @@ C:\Users\veeru_000\documents\visual studio 2012\Projects\WpfApplication2\WpfAppl
 C:\Users\veeru_000\Documents\Visual Studio 2012\Projects\WpfApplication2\WpfApplication2\obj\Debug\PasswordRequire.baml
 C:\Users\veeru_000\Documents\Visual Studio 2012\Projects\WpfApplication2\WpfApplication2\obj\Debug\PasswordRequire.g.cs
 C:\Users\veeru_000\Documents\Visual Studio 2012\Projects\WpfApplication2\WpfApplication2\bin\Debug\TextFiles\host
+C:\Users\veeru_000\Documents\Visual Studio 2012\Projects\WpfApplication2\Anti Social\bin\Debug\WpfApplication2.exe.config
+C:\Users\veeru_000\Documents\Visual Studio 2012\Projects\WpfApplication2\Anti Social\obj\Debug\WpfApplication2.exe
+C:\Users\veeru_000\Documents\Visual Studio 2012\Projects\WpfApplication2\Anti Social\obj\Debug\WpfApplication2.pdb
+C:\Users\veeru_000\Documents\Visual Studio 2012\Projects\WpfApplication2\Anti Social\bin\Debug\TextFiles\BlackList.txt
+C:\Users\veeru_000\Documents\Visual Studio 2012\Projects\WpfApplication2\Anti Social\bin\Debug\TextFiles\XMLFile1.xml
+C:\Users\veeru_000\Documents\Visual Studio 2012\Projects\WpfApplication2\Anti Social\bin\Debug\TextFiles\host
+C:\Users\veeru_000\Documents\Visual Studio 2012\Projects\WpfApplication2\Anti Social\bin\Debug\WpfApplication2.exe
+C:\Users\veeru_000\Documents\Visual Studio 2012\Projects\WpfApplication2\Anti Social\bin\Debug\WpfApplication2.pdb
+C:\Users\veeru_000\Documents\Visual Studio 2012\Projects\WpfApplication2\Anti Social\bin\Debug\PSHostsFile.dll
+C:\Users\veeru_000\Documents\Visual Studio 2012\Projects\WpfApplication2\Anti Social\bin\Debug\Xceed.Wpf.DataGrid.dll
+C:\Users\veeru_000\Documents\Visual Studio 2012\Projects\WpfApplication2\Anti Social\bin\Debug\Xceed.Wpf.Toolkit.dll
+C:\Users\veeru_000\Documents\Visual Studio 2012\Projects\WpfApplication2\Anti Social\bin\Debug\PSHostsFile.pdb
+C:\Users\veeru_000\Documents\Visual Studio 2012\Projects\WpfApplication2\Anti Social\obj\Debug\AdittionalOptions.baml
+C:\Users\veeru_000\Documents\Visual Studio 2012\Projects\WpfApplication2\Anti Social\obj\Debug\MainWindow.baml
+C:\Users\veeru_000\Documents\Visual Studio 2012\Projects\WpfApplication2\Anti Social\obj\Debug\CustomizeList.baml
+C:\Users\veeru_000\Documents\Visual Studio 2012\Projects\WpfApplication2\Anti Social\obj\Debug\PasswordRequire.baml
+C:\Users\veeru_000\Documents\Visual Studio 2012\Projects\WpfApplication2\Anti Social\obj\Debug\SetPassword.baml
+C:\Users\veeru_000\Documents\Visual Studio 2012\Projects\WpfApplication2\Anti Social\obj\Debug\StartPage.baml
+C:\Users\veeru_000\Documents\Visual Studio 2012\Projects\WpfApplication2\Anti Social\obj\Debug\AdittionalOptions.g.cs
+C:\Users\veeru_000\Documents\Visual Studio 2012\Projects\WpfApplication2\Anti Social\obj\Debug\MainWindow.g.cs
+C:\Users\veeru_000\Documents\Visual Studio 2012\Projects\WpfApplication2\Anti Social\obj\Debug\CustomizeList.g.cs
+C:\Users\veeru_000\Documents\Visual Studio 2012\Projects\WpfApplication2\Anti Social\obj\Debug\PasswordRequire.g.cs
+C:\Users\veeru_000\Documents\Visual Studio 2012\Projects\WpfApplication2\Anti Social\obj\Debug\SetPassword.g.cs
+C:\Users\veeru_000\Documents\Visual Studio 2012\Projects\WpfApplication2\Anti Social\obj\Debug\StartPage.g.cs
+C:\Users\veeru_000\Documents\Visual Studio 2012\Projects\WpfApplication2\Anti Social\obj\Debug\App.g.cs
+C:\Users\veeru_000\Documents\Visual Studio 2012\Projects\WpfApplication2\Anti Social\obj\Debug\WpfApplication2_Content.g.cs
+C:\Users\veeru_000\Documents\Visual Studio 2012\Projects\WpfApplication2\Anti Social\obj\Debug\WpfApplication2_MarkupCompile.cache
+C:\Users\veeru_000\Documents\Visual Studio 2012\Projects\WpfApplication2\Anti Social\obj\Debug\WpfApplication2.g.resources
+C:\Users\veeru_000\Documents\Visual Studio 2012\Projects\WpfApplication2\Anti Social\obj\Debug\WpfApplication2.Properties.Resources.resources
+C:\Users\veeru_000\Documents\Visual Studio 2012\Projects\WpfApplication2\Anti Social\obj\Debug\WpfApplication2.csproj.GenerateResource.Cache
+C:\Users\veeru_000\Documents\Visual Studio 2012\Projects\WpfApplication2\Anti Social\obj\Debug\Interop.SHDocVw.dll
+C:\Users\veeru_000\Documents\Visual Studio 2012\Projects\WpfApplication2\Anti Social\obj\Debug\WpfApplication2.csproj.ResolveComReference.cache
+C:\Users\veeru_000\Documents\Visual Studio 2012\Projects\WpfApplication2\Anti Social\bin\Debug\Hardcodet.Wpf.TaskbarNotification.dll
+C:\Users\veeru_000\Documents\Visual Studio 2012\Projects\WpfApplication2\Anti Social\bin\Debug\Hardcodet.Wpf.TaskbarNotification.pdb
+C:\Users\veeru_000\Documents\Visual Studio 2012\Projects\WpfApplication2\Anti Social\bin\Debug\Hardcodet.Wpf.TaskbarNotification.xml
+C:\Users\veeru_000\Documents\Visual Studio 2012\Projects\WpfApplication2\Anti Social\obj\Debug\ContainerWindow.baml
+C:\Users\veeru_000\Documents\Visual Studio 2012\Projects\WpfApplication2\Anti Social\obj\Debug\ContainerWindow.g.cs
+C:\Users\veeru_000\Documents\Visual Studio 2012\Projects\WpfApplication2\Anti Social\obj\Debug\GeneratedInternalTypeHelper.g.cs
+C:\Users\veeru_000\Documents\Visual Studio 2012\Projects\WpfApplication2\Anti Social\obj\Debug\WpfApplication2_MarkupCompile.lref
+C:\Users\veeru_000\Documents\Visual Studio 2012\Projects\WpfApplication2\Anti Social\obj\Debug\FinalPage.baml
+C:\Users\veeru_000\Documents\Visual Studio 2012\Projects\WpfApplication2\Anti Social\obj\Debug\FinalPage.g.cs
+C:\Users\veeru_000\Documents\Visual Studio 2012\Projects\WpfApplication2\Anti Social\obj\Debug\WpfApplication2.csprojResolveAssemblyReference.cache

@@ -1,4 +1,6 @@
-﻿<Page x:Class="WpfApplication2.CustomizeList"
+﻿<local:CommonFunctions
+      xmlns:local="clr-namespace:WpfApplication2"
+      x:Class="WpfApplication2.CustomizeList"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -6,7 +8,10 @@
       xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
       mc:Ignorable="d" 
       d:DesignHeight="300" d:DesignWidth="300"
-	Title="Page1" WindowHeight="425" WindowWidth="600" Loaded="RetrieveList">
+	Title="Page1" WindowHeight="425" WindowWidth="600" Loaded="RetrieveList"
+      xmlns:tb="http://www.hardcodet.net/taskbar">
+
+    
 
     <Grid Height="320" VerticalAlignment="Bottom">
         <Grid.RowDefinitions>
@@ -39,9 +44,19 @@
         present in BlackList are Blocked.Move Sites to White List to Unblock them .</TextBlock>
         <Grid HorizontalAlignment="Left" Height="45" Grid.Row="3" VerticalAlignment="Top" Width="594" Grid.ColumnSpan="3" Background="{DynamicResource {x:Static SystemColors.ControlLightBrushKey}}">
             <Button Content="Next" HorizontalAlignment="Left" Margin="396,15,0,10" Width="75" Click="Store_Lists"/>
-            <Button Content="Cancel" HorizontalAlignment="Left" Margin="498,15,0,10" Width="75"/>
+            <Button Content="Cancel" IsCancel="True"  HorizontalAlignment="Left" Margin="498,15,0,10" Width="75" Click="btnClose_Click"/>
         </Grid>
+        <tb:TaskbarIcon x:Name="myNotifyIcon"
+                    Visibility="Visible"
+                    ToolTipText="Fallback ToolTip for Windows xp"
+                    MenuActivation="LeftOrRightClick"
+                    PopupActivation="DoubleClick"
+                    IconSource="/Icons/Error.ico"
+      />
+
 
 
     </Grid>
-</Page>
+
+</local:CommonFunctions>
+    

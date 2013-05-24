@@ -8,7 +8,6 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("textfiles/dnsbackup.txt")]
 [assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("textfiles/blacklist.txt")]
 [assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("textfiles/xmlfile1.xml")]
 

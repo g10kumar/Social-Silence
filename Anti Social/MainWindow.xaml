@@ -4,7 +4,8 @@
         xmlns:System="clr-namespace:System;assembly=mscorlib" x:Class="WpfApplication2.MainWindow"
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         Title="MainWindow" Height="425" Width="600" ResizeMode="CanMinimize" Loaded="loaded">
-    <Grid Height="320" VerticalAlignment="Bottom">
+    <Grid Height="320" VerticalAlignment="Bottom"
+           xmlns:tb="http://www.hardcodet.net/taskbar">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="7*"/>
@@ -37,7 +38,15 @@
             <Button Content="Next" HorizontalAlignment="Left" Margin="396,15,0,10" Width="75" Click="Store_Lists"/>
             <Button Content="Cancel" HorizontalAlignment="Left" Margin="498,15,0,10" Width="75"/>
         </Grid>
+        <tb:TaskbarIcon x:Name="myNotifyIcon"
+                    Visibility="Visible"
+                    ToolTipText="Fallback ToolTip for Windows xp"
+                    MenuActivation="LeftOrRightClick"
+                    PopupActivation="DoubleClick"
+                    IconSource="/Icons/Error.ico"
+      />
 
 
     </Grid>
+   
 </Window>
