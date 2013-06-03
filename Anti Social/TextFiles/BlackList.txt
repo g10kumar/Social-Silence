@@ -13956,3 +13956,4 @@
 127.0.0.1  www.stickylogic.com
 127.0.0.1  www.winadiscount.com #[Dr.Web.Adware.Xbarre]
 127.0.0.1  www.winaproduct.com
+127.0.0.1  www.searchnfind.org

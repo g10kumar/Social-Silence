@@ -71,4 +71,7 @@ C:\Users\veeru_000\Documents\Visual Studio 2012\Projects\WpfApplication2\Anti So
 C:\Users\veeru_000\Documents\Visual Studio 2012\Projects\WpfApplication2\Anti Social\obj\Debug\WpfApplication2_MarkupCompile.lref
 C:\Users\veeru_000\Documents\Visual Studio 2012\Projects\WpfApplication2\Anti Social\obj\Debug\FinalPage.baml
 C:\Users\veeru_000\Documents\Visual Studio 2012\Projects\WpfApplication2\Anti Social\obj\Debug\FinalPage.g.cs
+C:\Users\veeru_000\Documents\Visual Studio 2012\Projects\WpfApplication2\Anti Social\obj\Debug\ApplicationFinished.g.cs
+C:\Users\veeru_000\Documents\Visual Studio 2012\Projects\WpfApplication2\Anti Social\obj\Debug\ApplicationFinished.baml
 C:\Users\veeru_000\Documents\Visual Studio 2012\Projects\WpfApplication2\Anti Social\obj\Debug\WpfApplication2.csprojResolveAssemblyReference.cache
+C:\Users\veeru_000\Documents\Visual Studio 2012\Projects\WpfApplication2\Anti Social\obj\Debug\App.baml

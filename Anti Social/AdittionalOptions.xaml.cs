@@ -33,7 +33,7 @@ namespace WpfApplication2
     public partial class AdittionalOptions : CommonFunctions
     {
         string blacklist_path = @"TextFiles\BlackList.txt";
-        string address = "127.0.0.1";
+        string address = "127.0.0.120";
         ObservableCollection<string> domainsToBlock = new ObservableCollection<string>();
         MessageBoxResult PopUpResult;
         List<string> domains_present = new List<string>();
@@ -43,19 +43,21 @@ namespace WpfApplication2
         bool popupBlocked;
         int hours = 0;
         int min = 0;
+        List<string> domainsFromHostFile = new List<string>();
 
         public AdittionalOptions()
         {
             InitializeComponent();
         }
-        public AdittionalOptions(ObservableCollection<string> theList, MessageBoxResult res,string path,bool customized ):this()
+        public AdittionalOptions(ObservableCollection<string> theList, MessageBoxResult res,string path,bool customized , List<string> fromHost ):this()
         {
-            domainsToBlock = theList;
-            PopUpResult = res;
+            domainsToBlock = theList;                                                               // This is the list of names of domains that are going to be blocked . 
+            PopUpResult = res;                                                                      // This is the message box value if the user wants to add domains from host file.
             filePath = path;
             Hours.IsEnabled = false;
             Min.IsEnabled = false;
-            domainCustomized = customized;
+            domainCustomized = customized;                                                          // This is the bool value to show that the domain list has been customized or not.
+            domainsFromHostFile = fromHost;
         }
 
         private void h1_RequestNavigate(object sender, RequestNavigateEventArgs e)                  // This method is to opendns url in internet explorer. 
@@ -67,8 +69,6 @@ namespace WpfApplication2
 
         private void FinishSetting(object sender, RoutedEventArgs e)
         {
-            //NavigationWindow win = (NavigationWindow)Window.GetWindow(this);                      // this code is to hide the current window after completing the task 
-            //win.Hide();
             //Stopwatch watch = new Stopwatch();
            // watch.Start();
             XElement root = XElement.Load(@"TextFiles\XMLFile1.xml");
@@ -83,14 +83,25 @@ namespace WpfApplication2
                 finalblacksites.AddRange(s);
 
             }
+
        
             if ((bool)BlockPopUp.IsChecked)                                                         // This block will execute if user wants to block popup and ads also  
             {
                 if (PopUpResult.Equals(MessageBoxResult.Yes))
                 {
-                    
-                    IEnumerable<HostsFileEntry> listed_domains = PSHostsFile.HostsFile.Get(hostfile_location);
-                    PSHostsFile.HostsFile.Set(listed_domains, blacklist_path);
+
+                    try
+                    {
+
+                        WriteToFileSuperFast(domainsFromHostFile, null, blacklist_path);
+
+                    }
+                    catch
+                    {
+                        Task.Delay(2000);
+                        WriteToFileSuperFast(domainsFromHostFile, null, blacklist_path);
+
+                    }
                 }                
 
                 WriteToFileSuperFast(finalblacksites, address, blacklist_path);
@@ -103,10 +114,21 @@ namespace WpfApplication2
             }
             else                                                                              // This block will execute if the user do not want to block popup and ads
             {
-                if (PopUpResult.Equals(MessageBoxResult.Yes))
+                if (PopUpResult.Equals(MessageBoxResult.Yes))                       // This block is completed. Has to complete above block . 
                 {
-                    IEnumerable<HostsFileEntry> listed_domains = PSHostsFile.HostsFile.Get(hostfile_location);
-                    PSHostsFile.HostsFile.Set(listed_domains, @"TextFiles\host");
+                    try
+                    {
+
+                        WriteToFileSuperFast(domainsFromHostFile, null, @"TextFiles\host");
+
+                    }
+                    catch
+                    {
+                        Task.Delay(2000);
+                        WriteToFileSuperFast(domainsFromHostFile, null, @"TextFiles\host");
+
+                    }
+
                 }
 
                 try
@@ -150,10 +172,10 @@ namespace WpfApplication2
                 time = (hours * 60) + (min); 
             }
 
-            FinalPage finalObj = new FinalPage(domainCustomized, openDnsUsed, popupBlocked,time );
+            FinalPage finalObj = new FinalPage(domainCustomized, openDnsUsed, popupBlocked,time,filePath );
 
             NavigationService.Navigate(finalObj);
-            finalObj.ShowsNavigationUI = false;          
+            //finalObj.ShowsNavigationUI = false;          
 
             
            
@@ -302,12 +324,15 @@ namespace WpfApplication2
 
                 foreach (ManagementObject oR in oRc)
                 {
-
-                    foreach (string str in (Array)(oR.Properties["DNSServerSearchOrder"].Value))
+                    if (!(oR.Properties["DNSServerSearchOrder"].Value == null))
                     {
-                        if (str != "208.67.222.222" && str != "208.67.220.220")
+                      
+                        foreach (string str in (Array)(oR.Properties["DNSServerSearchOrder"].Value))
                         {
-                            file.WriteLine(str);
+                            if (str != "208.67.222.222" && str != "208.67.220.220")
+                            {
+                                file.WriteLine(str);
+                            }
                         }
                     }
 

@@ -1,0 +1,31 @@
+﻿<local:CommonFunctions
+    
+    xmlns:local="clr-namespace:WpfApplication2"
+    x:Class="WpfApplication2.ApplicationFinished"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      mc:Ignorable="d" 
+      d:DesignHeight="300" d:DesignWidth="300"
+	Title="ApplicationFinished">
+
+    <Grid Margin="0,0,-300,0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="48"/>
+            <RowDefinition Height="41"/>
+            <RowDefinition Height="27"/>
+            <RowDefinition Height="184"/>
+        </Grid.RowDefinitions>
+        <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap"  VerticalAlignment="Top" Height="48" Width="529" FontSize="16" Foreground="#FF154AAF" Margin="37,20,0,0" Grid.RowSpan="2">
+            This application is password protected .  Please provide with password .
+        </TextBlock>
+        <PasswordBox x:Name="userpassword"  HorizontalAlignment="Left" Margin="157,0,0,0" Grid.Row="2" VerticalAlignment="Top" Width="120" Height="26" PreviewTextInput="enableProceed"/>
+        <TextBlock HorizontalAlignment="Left" Margin="37,0,0,0" Grid.Row="2" TextWrapping="Wrap"  VerticalAlignment="Top" Width="120" Height="26" FontSize="16" Foreground="#FF154AAF">Password:</TextBlock>
+        <Grid HorizontalAlignment="Left" Height="50" Margin="0,184,0,-50" Grid.Row="3" VerticalAlignment="Top" Width="600" Background="{DynamicResource {x:Static SystemColors.ControlLightBrushKey}}">
+            <Button IsCancel="True" Content="Cancel" HorizontalAlignment="Left" Margin="500,20,0,0" VerticalAlignment="Top" Width="75" RenderTransformOrigin="4.1,0.485" Click="returnToFinalPage"/>
+            <Button x:Name="proceed" Content="Proceed" HorizontalAlignment="Left" Margin="400,20,0,0" VerticalAlignment="Top" Width="75" RenderTransformOrigin="4.1,0.485" Click="CheckPassword"/>
+        </Grid>
+
+    </Grid>
+</local:CommonFunctions>

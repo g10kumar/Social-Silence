@@ -22,6 +22,7 @@ using System.Collections.ObjectModel;
 using System.Xml;
 using System.Windows.Forms;
 using System.IO.IsolatedStorage;
+using System.Text.RegularExpressions;
 
 namespace WpfApplication2
 {
@@ -30,9 +31,6 @@ namespace WpfApplication2
     /// </summary>
     public partial class CustomizeList : CommonFunctions
     {
-        string address = "127.0.0.1";
-        string hostfile_location;
-        IEnumerable<HostsFileEntry> listed_domains;
         List<string> domains_present = new List<string>();
         ObservableCollection<string> blackListed = new ObservableCollection<string>();
         ObservableCollection<string> whiteListed = new ObservableCollection<string>();
@@ -48,11 +46,20 @@ namespace WpfApplication2
             //System.Windows.Forms.NotifyIcon ni = new System.Windows.Forms.NotifyIcon();
         }
 
+        void NavigationService_Navigating(object sender, NavigatingCancelEventArgs e)
+        {
+            if (e.NavigationMode == NavigationMode.Back)
+            {
+                ShowsNavigationUI = false;
+            }
+        }
+
         void Page1_Loaded(object sender, RoutedEventArgs e)
         {
             NavigationWindow win = (NavigationWindow)Window.GetWindow(this);
             win.ShowsNavigationUI = false;
         }
+
         private async void AddToWhiteList(object sender, RoutedEventArgs e)
         {
             if (!BlackList.SelectedItems.Count.Equals(0))                          // When one or more sites are selected then only work.
@@ -139,34 +146,11 @@ namespace WpfApplication2
 
         private async void Store_Lists(object sender, RoutedEventArgs e)
         {
-            //hostfile_location = PSHostsFile.HostsFile.GetHostsPath();
-            //listed_domains = PSHostsFile.HostsFile.Get(hostfile_location);
-            //foreach (HostsFileEntry entry in listed_domains)
-            //{
-            //    domains_present.Add(entry.Hostname);
-            //}
-            //if (!domains_present.Count.Equals(0))
-            //{
-            //    result = System.Windows.MessageBox.Show("There are domains listed in host file. Do you want to keep them.", "Message", MessageBoxButton.YesNo);
-            //    //MessageBox.Show("There are domains that are present in host file");
-            //    //if (result.Equals(MessageBoxResult.Yes))
-            //    //{
-            //    //    foreach (string entry in domains_present)
-            //    //    {
-            //    //        blackListed.Add(entry);
-            //    //    }
-            //    //}
-            //}
 
-          
             if (!whiteListed.Count.Equals(0) || blackListed.Count.Equals(192))
             {
-                //FileInfo file = new FileInfo(filePath + "WhiteList.bin");
-                //if(file.Exists)
-                //{
-                //    file.Attributes&=
                 IsolatedStorageFile whiteSite = IsolatedStorageFile.GetStore(IsolatedStorageScope.User | IsolatedStorageScope.Domain | IsolatedStorageScope.Assembly, null, null);
-                var Writer = new StreamWriter(new IsolatedStorageFileStream("WhiteList.bin", FileMode.Create , whiteSite));
+                var Writer = new StreamWriter(new IsolatedStorageFileStream("WhiteList.bin", FileMode.Create, whiteSite));
 
                 foreach (string str in whiteListed)
                 {
@@ -174,56 +158,48 @@ namespace WpfApplication2
                 }
                 Writer.Close();
             }
-            AdittionalOptions page = new AdittionalOptions(blackListed,result,filePath,true);
+
+            if(File.Exists(filePath+"host"))
+            {
+                File.SetAttributes(filePath+"host",FileAttributes.Normal);
+                string[] lines = File.ReadAllLines(filePath + "host");
+                string matchLine = "^www.";
+                string matchline2 = ".com$";
+                foreach (string line in lines)
+                {
+                    if (Regex.IsMatch(line, matchLine, RegexOptions.IgnoreCase) || Regex.IsMatch(line, matchline2, RegexOptions.IgnoreCase))  // Check the backup host file for domains listed by the user. 
+                    {
+                        result = System.Windows.MessageBox.Show("There are domains listed in host file. Do you want to keep them.", "Message", MessageBoxButton.YesNo);
+                        break;
+                    }
+                }
+
+                foreach (string line in lines)
+                {
+                    if (Regex.IsMatch(line, matchLine, RegexOptions.IgnoreCase) || Regex.IsMatch(line, matchline2, RegexOptions.IgnoreCase))
+                    {
+
+                        domains_present.Add(line);
+                    }
+
+                }
+
+                File.SetAttributes(filePath + "host", FileAttributes.Hidden | FileAttributes.System);
+            }
+            
+            
+
+         
+            AdittionalOptions page = new AdittionalOptions(blackListed,result,filePath,true,domains_present);
             NavigationService.Navigate(page);
             page.ShowsNavigationUI = false;
-            
-            
-            
-            //string blacklist_path = @"TextFiles\BlackList.txt";
-            //string path = System.Windows.Forms.Application.StartupPath;
-            //XElement root = XElement.Load(@"TextFiles\XMLFile1.xml");
-            //List<string> finalblacksites = new List<string>();
-            //IEnumerable<HostsFileEntry> present_sites = PSHostsFile.HostsFile.Get(blacklist_path);
-
-            ////XmlNode node = d
-
-            //foreach (string site in blackListed)
-            //{
-            //    IEnumerable<string> s = from el in root.Elements("site")
-            //                            where el.Element("name").Value.Equals(site)
-            //                            select el.Element("domain").Value;
-            //    foreach (string st in s)
-            //    {
-            //        finalblacksites.Add(st);
-            //    }
-            //}
-
-
-            //Remove obj = new Remove();
-            //foreach (HostsFileEntry prest in present_sites)
-            //{
-            //    obj.RemoveFromFile(prest.Hostname, blacklist_path);
-            //}
-
-
-
-
-
-            //foreach (string st in finalblacksites)
-            //{
-            //    PSHostsFile.HostsFile.Set(st, address, blacklist_path);
-            //}
-
-
-
-            ////}
 
 
             }
 
-        private  async void RetrieveList(object sender, RoutedEventArgs e)
-        {           
+        private  async void RetrieveList(object sender, RoutedEventArgs e)                          // This is the function that is going to be executed on loading . 
+        {
+            this.NavigationService.Navigating += NavigationService_Navigating;
            
             try
             {
@@ -232,7 +208,7 @@ namespace WpfApplication2
                 if (Reader != null)
                 {
                     string p = await Reader.ReadToEndAsync();
-                    if (p == null)
+                    if (p == null || p== "")
                     {
                         LoadAllFromXml();
                     }
@@ -289,9 +265,14 @@ namespace WpfApplication2
             WhiteList.ItemsSource = whiteListed;
         }
 
-        private void MinimizeToSystemTray(object sender, RoutedEventArgs e)
+        private void BlackListSelcectAll(object sender, RoutedEventArgs e)
         {
+            
+            //foreach(string item in BlackList.Items)
+            //{
+            //    BlackList.SelectedMemberPath = item;
 
+            //}
         }
 
      

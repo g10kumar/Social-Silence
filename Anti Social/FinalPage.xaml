@@ -28,7 +28,7 @@
         <TextBlock Grid.Row="2" TextWrapping="Wrap" FontSize="16" Foreground="#FF154AAF" HorizontalAlignment="Left" Width="176" Margin="1,0,0,0" Grid.Column="1"><Run Text="PopUp And Ads Blocked:"/></TextBlock>
         <TextBlock Grid.Row="3" TextWrapping="Wrap" FontSize="16" Foreground="#FF154AAF" HorizontalAlignment="Left" Width="138" Margin="1,0,0,0" Grid.Column="1">OpenDNS used:</TextBlock>
         <TextBlock x:Name="timeLeft" Grid.Column="1" FontSize="16" Foreground="#FF154AAF" HorizontalAlignment="Left" Margin="0,2,0,0" Grid.Row="4" TextWrapping="Wrap"  VerticalAlignment="Top" Width="175" Height="31">Time Left:</TextBlock>
-        <Button Content="Click This Button To Restore" HorizontalAlignment="Left" Margin="11,20,0,0" Grid.Row="5" VerticalAlignment="Top" Width="171" Height="29" Grid.Column="2" Click="btnClose_Click"/>
+        <Button Content="Click This Button To Restore" HorizontalAlignment="Left" Margin="11,20,0,0" Grid.Row="5" VerticalAlignment="Top" Width="171" Height="29" Grid.Column="2" Click="RestoreApplication"/>
         <TextBlock x:Name="domainsAre" HorizontalAlignment="Left" Grid.Row="1"  VerticalAlignment="Top" Height="30" Width="379" Grid.Column="2" Margin="11,0,0,0" Grid.RowSpan="2" Foreground="#FF154AAF"/>
         <TextBlock x:Name="PopUpAre" HorizontalAlignment="Left" Grid.Row="2"  VerticalAlignment="Top" Height="30" Width="379" Grid.Column="2" Margin="11,3,0,0" Grid.RowSpan="2" Foreground="#FF154AAF"/>
         <TextBlock x:Name="openDnsIs" HorizontalAlignment="Left" Grid.Row="3"  VerticalAlignment="Top" Height="31" Width="379" Grid.Column="2" Margin="11,0,0,0" Foreground="#FF154AAF"/>
@@ -38,7 +38,7 @@
         <TextBlock FontSize="16" Foreground="#FF154AAF" Grid.Column="2" HorizontalAlignment="Left" Margin="194,1,0,0" Grid.Row="4" TextWrapping="Wrap" Text="Min" VerticalAlignment="Top" Height="30" Width="65"/>
         <TextBlock x:Name="sec" Grid.Column="2" HorizontalAlignment="Left" Margin="259,2,0,0" Grid.Row="4" TextWrapping="Wrap"  VerticalAlignment="Top" Height="30" Width="65" Foreground="#FF154AAF"/>
         <TextBlock FontSize="16" Foreground="#FF154AAF" Grid.Column="2" HorizontalAlignment="Left" Margin="318,0,0,0" Grid.Row="4" TextWrapping="Wrap" Text="Sec" VerticalAlignment="Top" Height="30" Width="65"/>
-
+        <TextBlock FontSize="16" Foreground="#FF154AAF" Grid.Column="1" Margin="165,61,155,0" Grid.Row="5" TextWrapping="Wrap"  VerticalAlignment="Top" RenderTransformOrigin="-0.46,0.438" Height="22" Grid.ColumnSpan="2">Press "Esc" to close this window</TextBlock>
 
     </Grid>
 </local:CommonFunctions>

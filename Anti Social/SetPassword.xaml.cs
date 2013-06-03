@@ -24,6 +24,7 @@ namespace WpfApplication2
     {
         string passwordPresent ;
         string filePath;
+
         public SetPassword()
         {
             InitializeComponent();
@@ -40,14 +41,19 @@ namespace WpfApplication2
         async void  SetPassword_Loaded(object sender, RoutedEventArgs e)
         {
              IsolatedStorageFile password = IsolatedStorageFile.GetStore(IsolatedStorageScope.User | IsolatedStorageScope.Domain | IsolatedStorageScope.Assembly, null, null);
-             StreamReader passReader = new StreamReader(new IsolatedStorageFileStream("Win32AppPas.bin", FileMode.OpenOrCreate, password));
+             filePath = password.GetType().GetField("m_RootDir", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(password).ToString();
+             if (File.Exists(filePath + "Win32AppPas.bin"))
+             {
+                 File.SetAttributes(filePath + "Win32AppPas.bin", FileAttributes.Normal);               // If the File is going to be there , change the attribute to normal . 
+             }
+             StreamReader passReader = new StreamReader(new IsolatedStorageFileStream("Win32AppPas.bin", FileMode.OpenOrCreate, password));             
+             
              if (passReader != null)
              {
                  string p = await passReader.ReadLineAsync();
-                 if (p != null)                                                      // If there is no password in the file then the application is going to start from Start Page.
+                 if (p != null && p!="")
                  {
-                     filePath = password.GetType().GetField("m_RootDir", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(password).ToString();
-                     File.SetAttributes(filePath + "Win32AppPas.bin", FileAttributes.Normal);               // The File is going to be there , change the attribute to normal . 
+                     
                      passwordPresent = p;
                      Previous_Pass.Visibility = System.Windows.Visibility.Visible;
                      PrePass.Visibility = System.Windows.Visibility.Visible;
@@ -86,60 +92,23 @@ namespace WpfApplication2
             string pass = Password.Password;
             string conpass = ConPassword.Password;
             IsolatedStorageFile password = IsolatedStorageFile.GetStore(IsolatedStorageScope.User | IsolatedStorageScope.Domain | IsolatedStorageScope.Assembly, null, null);
-            if (passwordPresent.ToString().Equals(null))                                // This will execute if there is no password preent in file . 
+            if (passwordPresent == null )                                // This will execute if there is no password preent in file . 
             {
-                if (pass == conpass)
-                {
-                    try
-                    {  
-                        var passWriter = new StreamWriter(new IsolatedStorageFileStream("Win32AppPas.bin", FileMode.Create, password));
-                        await passWriter.WriteLineAsync(pass);
-                        passWriter.Close();
-
-                        //this.Close();
-                        StreamReader passReader = new StreamReader(new IsolatedStorageFileStream("Win32AppPas.bin", FileMode.Open, password));
-                        if (passReader == null)
-                        {
-                            MessageBox.Show("Password Not Created");
-                        }
-                        else
-                        {
-                            string p = await passReader.ReadLineAsync();
-                            MessageBox.Show("Password created successfully . Password set by you is " + p);
-                        }
-                        passReader.Close();
-
-                        this.Close();
-
-
-                    }
-                    catch
+                if (pass == null || conpass == null || pass == "" || conpass == "")
                     {
-
-
+                        MessageBox.Show("All fields are mandatory .");
                     }
-                }
                 else
                 {
-                    MessageBox.Show("Password Provided by You Don't match . Please check");
-                }
-            }
-            else                                                                                        // This will execute if there is password present in the file .
-            {
-                string prePassword = Previous_Pass.Password;
-                if (prePassword == passwordPresent)
+
+                if (pass == conpass)
                 {
-                    if (pass == conpass)
-                    {
                         try
                         {
-                            
                             var passWriter = new StreamWriter(new IsolatedStorageFileStream("Win32AppPas.bin", FileMode.Create, password));
-                            //var filePath = password.GetType().GetField("m_RootDir", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(password).ToString();
                             await passWriter.WriteLineAsync(pass);
                             passWriter.Close();
 
-                            //this.Close();
                             StreamReader passReader = new StreamReader(new IsolatedStorageFileStream("Win32AppPas.bin", FileMode.Open, password));
                             if (passReader == null)
                             {
@@ -161,6 +130,48 @@ namespace WpfApplication2
 
 
                         }
+                 }
+                 else
+                {
+                    MessageBox.Show("Password Provided by You Don't match . Please check");
+                }
+              }
+            }
+            else                                                                                        // This will execute if there is password present in the file .
+            {
+                string prePassword = Previous_Pass.Password;
+                if (prePassword == passwordPresent)
+                {
+                    if (pass == conpass)
+                    {
+                        try
+                        {
+                            
+                            var passWriter = new StreamWriter(new IsolatedStorageFileStream("Win32AppPas.bin", FileMode.Create, password));
+                            await passWriter.WriteLineAsync(pass);
+                            passWriter.Close();
+
+                            StreamReader passReader = new StreamReader(new IsolatedStorageFileStream("Win32AppPas.bin", FileMode.Open, password));
+                            if (passReader == null)
+                            {
+                                MessageBox.Show("Password Not Created");
+                            }
+                            else
+                            {
+                                string p = await passReader.ReadLineAsync();
+                                MessageBox.Show("Password created successfully . Password set by you is " + p);
+                            }
+                            passReader.Close();
+
+                            this.Close();
+
+
+                        }
+                        catch
+                        {
+
+                            MessageBox.Show("There has been an exception while creating the password");
+                        }
                     }
                     else
                     {
@@ -170,7 +181,7 @@ namespace WpfApplication2
                 }
                 else
                 {
-                    MessageBox.Show("The Password present by you is not that set Earlier. Please provide correct Password .");
+                    MessageBox.Show("Old Password provided is not correct . Please provide correct Password .");
                 }
             }
             File.SetAttributes(filePath + "Win32AppPas.bin", FileAttributes.Hidden | FileAttributes.System);
