@@ -27,7 +27,7 @@ using System.IO.IsolatedStorage;
 
 
 
-namespace WpfApplication2
+namespace SocialSilence
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml

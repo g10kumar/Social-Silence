@@ -12,7 +12,7 @@ using System.Runtime.InteropServices;
 using System.Windows.Interop;
 using System.Threading;
 
-namespace WpfApplication2
+namespace SocialSilence
 {
     public class CommonFunctions: Page
     {

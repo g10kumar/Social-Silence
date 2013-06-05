@@ -25,7 +25,7 @@ using System.IO.IsolatedStorage;
 using System.IO;
 using Xceed.Wpf.Toolkit;
 
-namespace WpfApplication2
+namespace SocialSilence
 {
     /// <summary>
     /// Interaction logic for AdittionalOptions.xaml

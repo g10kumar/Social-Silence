@@ -16,9 +16,10 @@ using System.Runtime.InteropServices;
 using System.Windows.Interop;
 using System.Threading;
 using System.IO;
+using Hardcodet.Wpf.TaskbarNotification;
 
 
-namespace WpfApplication2
+namespace SocialSilence
 {
     /// <summary>
     /// Interaction logic for ApplicationFinished.xaml
@@ -35,6 +36,9 @@ namespace WpfApplication2
         [DllImport("user32.dll")]
         private static extern int SetWindowLong(IntPtr hWnd, int nIndex, int dwNewLong);
         FileSystemWatcher hostWatcher;
+        System.Windows.Forms.Timer runningTimer;
+        TaskbarIcon taskBarIcon;
+        //Window.f Timer runningTimer;
 
         public ApplicationFinished()
         {
@@ -42,7 +46,8 @@ namespace WpfApplication2
             proceed.IsEnabled = false;
         }
 
-        public ApplicationFinished(string pass, string desPath, string hostPath, bool resDNS,int getwindow,FileSystemWatcher watchfile):this()
+        public ApplicationFinished(string pass, string desPath, string hostPath, bool resDNS, int getwindow, FileSystemWatcher watchfile, System.Windows.Forms.Timer timer, TaskbarIcon tb)
+            : this()
         {
             password = pass;
             this.filePath = desPath;
@@ -51,6 +56,8 @@ namespace WpfApplication2
             Loaded += ApplicationFinished_Loaded;
             window = getwindow;
             hostWatcher = watchfile;
+            runningTimer = timer;
+            taskBarIcon = tb;
         }
 
         void ApplicationFinished_Loaded(object sender, RoutedEventArgs e)
@@ -78,6 +85,7 @@ namespace WpfApplication2
                 
                // NavigationWindow win = (NavigationWindow)Window.GetWindow(this);
                 hostWatcher.EnableRaisingEvents = false;
+                runningTimer.Stop();
                 Window appwindow = (Window)App.Current.MainWindow;
                 var hwnd = new WindowInteropHelper(appwindow).Handle;
                 SetWindowLong(hwnd, GWL_STYLE, window);
@@ -90,14 +98,15 @@ namespace WpfApplication2
                 {
                     SetWindowLong(hwnd, GWL_STYLE, window);
                 }
-                StartPage startObj = new StartPage();
+                StartPage startObj = new StartPage(filePath);
                 this.NavigationService.Navigate(startObj);
                 ShowsNavigationUI = false;
-                
+                taskBarIcon.Dispatcher.BeginInvoke((Action)delegate { ((System.Windows.Controls.TextBlock)(((System.Windows.Controls.Decorator)(taskBarIcon.TrayToolTip)).Child)).Text = "Windows Social Silence.\nApplication Status : InActive"; }, null);
             }
             else
             {
                 MessageBox.Show("The password provided is not correct.");
+                userpassword.Clear();
 
             }
         }

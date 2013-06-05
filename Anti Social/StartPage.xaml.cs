@@ -21,7 +21,7 @@ using System.Xml.Linq;
 
 
 
-namespace WpfApplication2
+namespace SocialSilence
 {
     /// <summary>
     /// Interaction logic for Page2.xaml

@@ -24,7 +24,7 @@ using System.Windows.Forms;
 using System.IO.IsolatedStorage;
 using System.Text.RegularExpressions;
 
-namespace WpfApplication2
+namespace SocialSilence
 {
     /// <summary>
     /// Interaction logic for Page1.xaml
@@ -64,6 +64,7 @@ namespace WpfApplication2
         {
             if (!BlackList.SelectedItems.Count.Equals(0))                          // When one or more sites are selected then only work.
             {
+                
                 WhiteList.ItemsSource = null;
                 WhiteList.Items.Clear();
                 foreach (string whitesite in whiteListed)                             // Firstly add sites to buffer
@@ -72,14 +73,19 @@ namespace WpfApplication2
                 }
 
                 whiteListed.Clear();                                                 //Clear the white list . 
-                string white_sites = BlackList.SelectedValue;
-                string[] site_array = white_sites.Split(new string[] { "," }, StringSplitOptions.RemoveEmptyEntries);
+                //string white_sites = BlackList.SelectedValue;
+                //string[] site_array = white_sites.Split(new string[] { "," }, StringSplitOptions.RemoveEmptyEntries);
 
 
-                foreach (string wsite in site_array)                                  // Then add sites from blacklist to buffer.
-                {
-                    Whitebuffer.Add(wsite);
-                }
+                //foreach (string wsite in site_array)                                  // Then add sites from blacklist to buffer.
+                //{
+                //    Whitebuffer.Add(wsite);
+                //}
+
+                //var list = (IEnumerable<string>)BlackList.SelectedItems;
+                //IEnumerable<string> newlist = list.Cast<string>();
+
+                Whitebuffer.AddRange(((IEnumerable<object>)BlackList.SelectedItems).Cast<string>());
 
                 Whitebuffer.Sort();                                                  // Sort items in buffer.
 
@@ -91,6 +97,8 @@ namespace WpfApplication2
 
                 WhiteList.ItemsSource = whiteListed;
 
+                string[] site_array = BlackList.SelectedItems.Cast<string>().ToArray();
+
                 foreach (string bsite in site_array)                                 // Remove that site from blacklist. 
                 {
                     await BlackList.Dispatcher.BeginInvoke((Action)delegate { BlackList.ItemsSource = null; blackListed.Remove(bsite); }, null);
@@ -99,6 +107,7 @@ namespace WpfApplication2
                 Whitebuffer.Clear();                                                 //Clear the buffer. 
                 BlackList.Items.Clear();
                 BlackList.ItemsSource = blackListed;
+                SelectAllBlackList.IsChecked = false;
             }
         }
 
@@ -106,6 +115,7 @@ namespace WpfApplication2
         {
             if (!WhiteList.SelectedItems.Count.Equals(0))
             {
+                
                 BlackList.ItemsSource = null;
                 BlackList.Items.Clear();
                 foreach (string blacksite in blackListed)                         // firstly add sites to buffer
@@ -113,14 +123,15 @@ namespace WpfApplication2
                     Blackbuffer.Add(blacksite);
                 }
                 blackListed.Clear();                                            //This line stops repetation of the sites in the list
-                string black_sites = WhiteList.SelectedValue;
-                string[] site_array = black_sites.Split(new string[] { "," }, StringSplitOptions.RemoveEmptyEntries);
+               // string black_sites = WhiteList.SelectedValue;
+               // string[] site_array = black_sites.Split(new string[] { "," }, StringSplitOptions.RemoveEmptyEntries);
 
 
-                foreach (string bsite in site_array)                             // Then add sites from bu
-                {
-                    Blackbuffer.Add(bsite);
-                }
+                //foreach (string bsite in site_array)                             // Then add sites from bu
+                //{
+                //    Blackbuffer.Add(bsite);
+                //}
+                Blackbuffer.AddRange((IEnumerable<string>)WhiteList.SelectedItems);         // This line is adding sites from the buffer . 
 
                 Blackbuffer.Sort();
 
@@ -131,7 +142,10 @@ namespace WpfApplication2
 
                 BlackList.ItemsSource = blackListed;
 
-                foreach (string bsite in site_array)
+                string[] site_array = WhiteList.SelectedItems.Cast<string>().ToArray();
+
+
+                foreach (string bsite in site_array )
                 {
                     await WhiteList.Dispatcher.BeginInvoke((Action)delegate { WhiteList.ItemsSource = null; whiteListed.Remove(bsite); }, null);
                 }
@@ -139,6 +153,7 @@ namespace WpfApplication2
                 Blackbuffer.Clear();
                 WhiteList.Items.Clear();
                 WhiteList.ItemsSource = whiteListed;
+                SelectAllWhiteList.IsChecked = false;
             }
 
 
@@ -240,7 +255,7 @@ namespace WpfApplication2
         private void LoadAllFromXml()
         {          
            
-            BlackList.Items.Clear();            
+            BlackList.Items.Clear();         
 
             XElement root = XElement.Load(@"TextFiles\XMLFile1.xml");
 
@@ -267,13 +282,58 @@ namespace WpfApplication2
 
         private void BlackListSelcectAll(object sender, RoutedEventArgs e)
         {
+            List<string> newlist = new List<string>();
+            newlist.AddRange(blackListed);
+            BlackList.SelectedItemsOverride = newlist;
+            BlackList.ItemSelectionChanged += BlackList_ItemSelectionChanged;
             
-            //foreach(string item in BlackList.Items)
-            //{
-            //    BlackList.SelectedMemberPath = item;
-
-            //}
         }
+
+        void BlackList_ItemSelectionChanged(object sender, Xceed.Wpf.Toolkit.Primitives.ItemSelectionChangedEventArgs e)
+        {
+            BlackList.ItemSelectionChanged -= BlackList_ItemSelectionChanged;
+            SelectAllBlackList.IsChecked = false;
+        }
+
+        private void WhiteListSelcectAll(object sender, RoutedEventArgs e)
+        {
+            List<string> newlist = new List<string>();
+            newlist.AddRange(whiteListed);
+            WhiteList.SelectedItemsOverride = newlist;
+            WhiteList.ItemSelectionChanged += WhiteList_ItemSelectionChanged;
+           
+
+        }
+
+        void WhiteList_ItemSelectionChanged(object sender, Xceed.Wpf.Toolkit.Primitives.ItemSelectionChangedEventArgs e)
+        {
+            WhiteList.ItemSelectionChanged -= WhiteList_ItemSelectionChanged;
+            SelectAllWhiteList.IsChecked = false;
+            
+        }
+
+        private void BlackListUnselectAll(object sender, RoutedEventArgs e)
+        {
+            BlackList.ItemSelectionChanged -= BlackList_ItemSelectionChanged;
+            if (blackListed.Count == BlackList.SelectedItems.Count)
+            {
+                BlackList.SelectedItemsOverride = null;
+            }
+        }
+
+        private void WhiteListUnselectAll(object sender, RoutedEventArgs e)
+        {
+            WhiteList.ItemSelectionChanged -= WhiteList_ItemSelectionChanged;
+            if (whiteListed.Count == WhiteList.SelectedItems.Count)
+            {
+                WhiteList.SelectedItemsOverride = null;
+            }
+
+        }
+
+
+
+
 
      
     }

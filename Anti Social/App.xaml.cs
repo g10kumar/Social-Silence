@@ -8,7 +8,7 @@ using System.Windows;
 using System.Windows.Navigation;
 
 
-namespace WpfApplication2
+namespace SocialSilence
 {
     /// <summary>
     /// Interaction logic for App.xaml

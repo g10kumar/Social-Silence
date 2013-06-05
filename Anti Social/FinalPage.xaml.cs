@@ -26,7 +26,7 @@ using System.Threading;
 using System.Net;
 
 
-namespace WpfApplication2
+namespace SocialSilence
 {
     /// <summary>
     /// Interaction logic for FinalPage.xaml
@@ -217,7 +217,8 @@ namespace WpfApplication2
                 hours.Text = "\u221e";
                 minutes.Text = "\u221e";
                 sec.Text = "\u221e";                  // Or someplaces the infinity sign can be shown as &#x221E; in xaml.
-
+                tb.Dispatcher.BeginInvoke((Action)delegate { ((System.Windows.Controls.TextBlock)(((System.Windows.Controls.Decorator)(tb.TrayToolTip)).Child)).Text = "Application Status : Active" + "\nTime left\n" + hour + "Hours" + " " + min + "Min" + " " + seconds + "Sec"; }, null);
+                
             }
 
             watcher.EnableRaisingEvents = true;
@@ -232,6 +233,7 @@ namespace WpfApplication2
             tcplistner.Start();
             while (true)
             {
+                
                 TcpClient client = tcplistner.AcceptTcpClient();
                 Thread listenThread = new Thread(new ParameterizedThreadStart(ListenThread));
                 listenThread.Start(client);
@@ -291,7 +293,7 @@ namespace WpfApplication2
             if (hour == 0 && min == 0 && seconds == 0)
             {
                 timer.Stop();
-                await tb.Dispatcher.BeginInvoke((Action)delegate { ((System.Windows.Controls.TextBlock)(((System.Windows.Controls.Decorator)(tb.TrayToolTip)).Child)).Text = "Windows Anti Social.\nApplication Status : InActive"; }, null);
+                await tb.Dispatcher.BeginInvoke((Action)delegate { ((System.Windows.Controls.TextBlock)(((System.Windows.Controls.Decorator)(tb.TrayToolTip)).Child)).Text = "Windows Social Silence.\nApplication Status : InActive"; }, null);
                 RestoreApplication();
             }
             else
@@ -320,6 +322,8 @@ namespace WpfApplication2
                     string p = await passReader.ReadLineAsync();
                     if (p == null || p=="")
                     {
+                        timer.Stop();
+                        await tb.Dispatcher.BeginInvoke((Action)delegate { ((System.Windows.Controls.TextBlock)(((System.Windows.Controls.Decorator)(tb.TrayToolTip)).Child)).Text = "Windows Social Silence.\nApplication Status : InActive"; }, null);
                         watcher.EnableRaisingEvents = false;
                         Window appwindow = (Window)App.Current.MainWindow;
                         var hwnd = new WindowInteropHelper(appwindow).Handle;
@@ -339,7 +343,7 @@ namespace WpfApplication2
                     else
                     {
                        // watcher.EnableRaisingEvents = false;                        // This has been moved to next page , and check for password. 
-                        ApplicationFinished passObj = new ApplicationFinished(p, filePath, hostfile_location, openDnsused,getwindow,watcher);
+                        ApplicationFinished passObj = new ApplicationFinished(p, filePath, hostfile_location, openDnsused,getwindow,watcher,timer,tb);
                         NavigationService.Navigate(passObj);
                         ShowsNavigationUI = false;
                         
@@ -377,7 +381,7 @@ namespace WpfApplication2
                 
                         ShowsNavigationUI = false;
                         tb = (TaskbarIcon)FindResource("MyNotifyIcon");
-                        tb.ShowBalloonTip("Windows Anti Social", "Setting has been restored. Now you can access social sites", BalloonIcon.None);
+                        tb.ShowBalloonTip("Windows Social Silence", "Setting has been restored. Now you can access social sites", BalloonIcon.None);
                         //((System.Windows.Controls.TextBlock)(((System.Windows.Controls.Decorator)(tb.TrayToolTip)).Child)).Text = "Application Status : InActive";
                        
                               

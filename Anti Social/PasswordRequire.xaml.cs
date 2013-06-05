@@ -17,7 +17,7 @@ using System.IO;
 using System.Reflection;
 using Hardcodet.Wpf.TaskbarNotification;
 
-namespace WpfApplication2
+namespace SocialSilence
 {
     /// <summary>
     /// Interaction logic for PasswordRequire.xaml
@@ -63,7 +63,7 @@ namespace WpfApplication2
         {
             this.KeyDown += new KeyEventHandler(KeyPress);
             tb = (TaskbarIcon)FindResource("MyNotifyIcon");
-            tb.ShowBalloonTip("Windows Anti Social", "Click on this Icon to restore Anti Social", BalloonIcon.None);
+            tb.ShowBalloonTip("Windows Social Silence", "Click on this Icon to restore Anti Social", BalloonIcon.None);
             ContextMenu menu = tb.ContextMenu;
             MenuItem item2 = (MenuItem)menu.Items[2];
             item2.Click += item2_Click;

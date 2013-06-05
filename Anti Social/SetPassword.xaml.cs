@@ -15,7 +15,7 @@ using System.IO.IsolatedStorage;
 using System.IO;
 using System.Reflection;
 
-namespace WpfApplication2
+namespace SocialSilence
 {
     /// <summary>
     /// Interaction logic for SetPassword.xaml
@@ -24,6 +24,7 @@ namespace WpfApplication2
     {
         string passwordPresent ;
         string filePath;
+        char[] charsToTrim = { ' ', '\t' };
 
         public SetPassword()
         {
@@ -89,8 +90,8 @@ namespace WpfApplication2
 
         private async void StorePassword(object sender, RoutedEventArgs e)
         {
-            string pass = Password.Password;
-            string conpass = ConPassword.Password;
+            string pass = Password.Password.Trim(charsToTrim) ;
+            string conpass = ConPassword.Password.Trim(charsToTrim);
             IsolatedStorageFile password = IsolatedStorageFile.GetStore(IsolatedStorageScope.User | IsolatedStorageScope.Domain | IsolatedStorageScope.Assembly, null, null);
             if (passwordPresent == null )                                // This will execute if there is no password preent in file . 
             {
@@ -139,8 +140,13 @@ namespace WpfApplication2
             }
             else                                                                                        // This will execute if there is password present in the file .
             {
-                string prePassword = Previous_Pass.Password;
-                if (prePassword == passwordPresent)
+                
+                string prePassword = Previous_Pass.Password.Trim(charsToTrim);
+                if (pass == null || conpass == null || pass == "" || conpass == "" || prePassword == null || prePassword == "" )
+                {
+                    MessageBox.Show("All fields are mandatory .Only Spaces and Tabs are not allowed .");
+                }
+                else if  (prePassword == passwordPresent)
                 {
                     if (pass == conpass)
                     {

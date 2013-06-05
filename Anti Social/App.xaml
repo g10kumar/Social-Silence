@@ -1,4 +1,4 @@
-﻿<Application x:Class="WpfApplication2.App"
+﻿<Application x:Class="SocialSilence.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:tb="http://www.hardcodet.net/taskbar"
@@ -9,7 +9,7 @@
   <!-- Globally declared notify icon -->
         <tb:TaskbarIcon x:Key="MyNotifyIcon"
                   IconSource="/Icons/Error.ico"
-                  ToolTipText="Windows Anti Social.\nApplication Status : InActive"
+                  ToolTipText="Windows Social Silence.\nApplication Status : InActive"
                   MenuActivation="LeftClick">
 
             <tb:TaskbarIcon.TrayToolTip>
@@ -22,7 +22,7 @@
       Width="160"
       Height="Auto">
                     <TextBlock
-        Text="Windows Anti Social Application Status : InActive"
+        Text="Windows Social Silence Application Status : InActive"
         HorizontalAlignment="Center"
         VerticalAlignment="Center"
         TextWrapping="Wrap"
