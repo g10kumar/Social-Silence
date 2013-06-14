@@ -1,0 +1,40 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:system="clr-namespace:System;assembly=mscorlib"
+                    xml:space="preserve">
+    <system:String x:Key="Password">Password:</system:String>
+    <system:String x:Key="PassowrdText">Questa applicazione è protetta da password
+Si prega di fornire la password per accedere a più lontano</system:String>
+    <system:String x:Key="Proceed">Procedere</system:String>
+    <system:String x:Key="Cancel">Annulla</system:String>
+    <system:String x:Key="StartPageDefaultText" >Vai Con il Set Predefinito Di Domini Fornito</system:String>
+    <system:String x:Key="StartPageCustomizeText" >Personalizzare l'elenco Dei Siti Da Bloccare</system:String>
+    <system:String x:Key="CustomizeListText">           Domini nel lista nera vengono bloccati
+        Sposta Siti Alla Lista Bianca Per sblocca li.</system:String>
+    <system:String x:Key="SelectAll">Seleziona Tutto</system:String>
+    <system:String x:Key="Add">Add --&gt;</system:String>
+    <system:String x:Key="Remove">&lt;-- Rimuovi</system:String>
+    <system:String x:Key="Next">Accanto</system:String>
+    <system:String x:Key="FinalPageText">Modifiche effettuate con successo Questi sono la configurazione è fatto.:</system:String>
+    <system:String x:Key="AdditionalOption1">Configurare </system:String>
+    <system:String x:Key="AdditionalOption2"> come DNS di questo computer</system:String>
+    <system:String x:Key="AdditionalOption3">Block Unwanted PopUp e Annunci</system:String>
+    <system:String x:Key="AdditionalOption4">Tenere Impostazione Per sempre</system:String>
+    <system:String x:Key="AdditionalOption5">Fai Impostazione per il seguente periodo di tempo:</system:String>
+    <system:String x:Key="Hours">Ore</system:String>
+    <system:String x:Key="Min">Minuti</system:String>
+    <system:String x:Key="Finish">Accanto</system:String>
+    <system:String x:Key="FinalPageText2">Domini Bloccati:</system:String>
+    <system:String x:Key="FinalPageText3">Popup e Annunci Bloccati:</system:String>
+    <system:String x:Key="FinalPageText4">OpenDNS utilizzata:</system:String>
+    <system:String x:Key="FinalPageText5">Tempo Rimasto:</system:String>
+    <system:String x:Key="Second">Secondo</system:String>
+    <system:String x:Key="FinalPageText6">Impostazione Ripristina</system:String>
+    <system:String x:Key="FinalPageText7">Premere il tasto "Esc" per chiudere questa finestra</system:String>
+    <system:String x:Key="BrowserMessage">Per le modifiche abbiano effetto, è necessario riavviare browser.</system:String>
+    <system:String x:Key="hostMessage">Ci sono domini elencati nel file host. Vuoi tenerli.</system:String>
+    <system:String x:Key="PasswordWrongMessage">Password fornite dall'utente non è corretto. Si prega di fornire  daccapo</system:String>
+    <system:String x:Key="WrongOldPass">Precedenti password fornita non è corretta. Si prega di fornire la password corretta.</system:String>
+    <system:String x:Key="PassNotMatch">Password da Lei forniti non corrispondono. Si prega di verificare</system:String>
+ 
+</ResourceDictionary>

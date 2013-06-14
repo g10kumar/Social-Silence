@@ -14,24 +14,30 @@
             <Setter Property="HorizontalContentAlignment" Value="Center"/>
             <Setter Property="VerticalContentAlignment" Value="Center"/>
             <Setter Property="Padding" Value="1"/>
-            <Setter Property="Template">
+            <Setter Property="Opacity" Value="1"/>
+            <Setter Property="FontSize" Value="18"/>
+            <Setter Property="Foreground" Value="#FF007ACC"/>
+                    <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type Button}">
                         <Grid x:Name="grid" Opacity="{TemplateBinding Opacity}">
-                            <Border x:Name="border" CornerRadius="10" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="4">
+                            <Border x:Name="border" CornerRadius="10" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="2">
                                 <ContentPresenter HorizontalAlignment="Center"
                          VerticalAlignment="Center"
                          TextElement.FontWeight="Light"></ContentPresenter>
                             </Border>
                         </Grid>
                         <ControlTemplate.Triggers>
-                            <Trigger Property="IsMouseOver" Value="true">
-                                <Setter Property="BorderBrush" TargetName="border" Value="Red"/>
+                            <Trigger Property="IsMouseOver" Value="true" >
+                                <Setter Property="BorderBrush" TargetName="border" Value="#333366"/>
                                 <Setter Property="Opacity" TargetName="grid" Value="1"/>
+                                <Setter Property="FontSize" Value="20"/>
+                                <Setter Property="Foreground" Value="#333366"/>
 
                             </Trigger>
                             <Trigger Property="IsMouseOver" Value="false">
                                 <Setter Property="BorderBrush" TargetName="border" Value="Aqua"/>
+                                <Setter Property="Opacity" TargetName="grid" Value=".85"/>
                                 <!--<Setter Property="Opacity" TargetName="grid" Value=".25"/>-->
 
 
@@ -54,12 +60,10 @@
 
     </Page.Resources>
     <Grid>
-        <Button Content="Customize the list of Sites to be Blocked " Style="{StaticResource RoundCorner}" Margin="26,141,25,0" VerticalAlignment="Top" FontSize="16" Height="76" Click="GoToCustomizeList"/>
-
-
-        <Button x:Name="DefaultSetting" Margin="26,44,25,0" VerticalAlignment="Top" Style="{StaticResource RoundCorner}" Height="76" MouseEnter="Highlight" FontSize="16" Content="Go with the default set of domains provided" Click="GoWithDefault"/>
+        <Button x:Name="DefaultSetting" Margin="26,44,25,0" VerticalAlignment="Top" Style="{StaticResource RoundCorner}" Height="76"  Content="{DynamicResource StartPageDefaultText}" Click="GoWithDefault" />
+        <Button Content="{DynamicResource StartPageCustomizeText}" Style="{StaticResource RoundCorner}" Margin="26,141,25,0" VerticalAlignment="Top"  Height="76" Click="GoToCustomizeList"/>
         <Grid HorizontalAlignment="Left" Height="45" VerticalAlignment="Bottom" Width="594" Background="{DynamicResource {x:Static SystemColors.ControlLightBrushKey}}" Margin="0,255,-294,0">
-            <Button Content="Cancel" HorizontalAlignment="Left" Margin="498,15,0,10" Width="75" IsCancel="True" Click="btnClose_Click"/>
+            <Button Content="{DynamicResource Cancel}" HorizontalAlignment="Left" Margin="498,15,0,10" Width="75" Height="Auto" IsCancel="True" Click="btnClose_Click" FontSize="16"/>
         </Grid>
     </Grid>
 </local:CommonFunctions>

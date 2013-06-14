@@ -18,7 +18,6 @@ using System.Collections.ObjectModel;
 using PSHostsFile;
 using PSHostsFile.Core;
 using System.Threading;
-using SHDocVw;
 using System.Windows.Forms;
 using System.Management;
 using System.IO.IsolatedStorage;
@@ -32,7 +31,7 @@ namespace SocialSilence
     /// </summary>
     public partial class AdittionalOptions : CommonFunctions
     {
-        string blacklist_path = @"TextFiles\BlackList.txt";
+        string blacklist_path = @"Resources\BlackList.txt";
         string address = "127.0.0.120";
         ObservableCollection<string> domainsToBlock = new ObservableCollection<string>();
         MessageBoxResult PopUpResult;
@@ -44,6 +43,7 @@ namespace SocialSilence
         int hours = 0;
         int min = 0;
         List<string> domainsFromHostFile = new List<string>();
+        List<string> browserToclose = new List<string>();
 
         public AdittionalOptions()
         {
@@ -69,9 +69,14 @@ namespace SocialSilence
 
         private void FinishSetting(object sender, RoutedEventArgs e)
         {
-            //Stopwatch watch = new Stopwatch();
+            if(hourTextBox.Text != null)
+            hours = Convert.ToInt32(hourTextBox.Text);
+
+            if(minTextBox.Text != null)
+            min = Convert.ToInt32(minTextBox.Text);
+           //Stopwatch watch = new Stopwatch();
            // watch.Start();
-            XElement root = XElement.Load(@"TextFiles\XMLFile1.xml");
+            XElement root = XElement.Load(@"Resources\XMLFile1.xml");
             List<string> finalblacksites = new List<string>();
 
             foreach (string site in domainsToBlock)                                                 // Populate the final blacklist with the domains to be blocked . 
@@ -119,13 +124,13 @@ namespace SocialSilence
                     try
                     {
 
-                        WriteToFileSuperFast(domainsFromHostFile, null, @"TextFiles\host");
+                        WriteToFileSuperFast(domainsFromHostFile, null, @"Resources\host");
 
                     }
                     catch
                     {
                         Task.Delay(2000);
-                        WriteToFileSuperFast(domainsFromHostFile, null, @"TextFiles\host");
+                        WriteToFileSuperFast(domainsFromHostFile, null, @"Resources\host");
 
                     }
 
@@ -133,15 +138,15 @@ namespace SocialSilence
 
                 try
                 {
-                    WriteToFileSuperFast(finalblacksites, address, @"TextFiles\host");
+                    WriteToFileSuperFast(finalblacksites, address, @"Resources\host");
 
 
-                    System.IO.File.Copy(@"TextFiles\host", hostfile_location, true);
+                    System.IO.File.Copy(@"Resources\host", hostfile_location, true);
                 }
                 catch 
                 {
                     Task.Delay(2000);
-                    System.IO.File.Copy(@"TextFiles\host", hostfile_location, true);
+                    System.IO.File.Copy(@"Resources\host", hostfile_location, true);
                 }
 
                 popupBlocked = false; 
@@ -164,12 +169,24 @@ namespace SocialSilence
             int time;
 
             if (hours == 0 && min == 0)
-            {
+            {               
                 time = 0;
             }
             else
             {
-                time = (hours * 60) + (min); 
+                if (hours > 23)
+                {
+                    hours = 23;
+                    if (min > 60)
+                    {
+                        min = 60;
+                    }
+                }
+                time = (hours * 60) + (min);
+                if (time > 1440)
+                {
+                    time = 1440;
+                }
             }
 
             FinalPage finalObj = new FinalPage(domainCustomized, openDnsUsed, popupBlocked,time,filePath );
@@ -181,8 +198,10 @@ namespace SocialSilence
            
         }
 
-        private static void CheckForOpenBrowser()
+        private void CheckForOpenBrowser()
         {
+
+            string browserMessage = (string)this.FindResource("BrowserMessage");
             Process[] currentProcess = Process.GetProcesses();
             List<string> browsers = new List<string>();
             MessageBoxResult result = MessageBoxResult.No;
@@ -190,9 +209,10 @@ namespace SocialSilence
             {
                 browsers.Add(pro.ProcessName);
             }
-            if (browsers.Contains("firefox") || browsers.Contains("iexplore") || browsers.Contains("chrome")) // Checking for Instances of current browser running . 
+            if (browsers.Contains("firefox") || browsers.Contains("iexplore") || browsers.Contains("chrome") || browsers.Contains("opera") || browsers.Contains("Safari"))// Checking for Instances of current browser running . 
             {
-                result = System.Windows.MessageBox.Show("For the changes to take effect , browser need to be restarted.", "Message", MessageBoxButton.YesNo);
+
+                result = Xceed.Wpf.Toolkit.MessageBox.Show(browserMessage, "Message", MessageBoxButton.YesNo);
             }
 
             if (result == MessageBoxResult.Yes)
@@ -206,12 +226,69 @@ namespace SocialSilence
                 {
                     RestartInterExplorer();
                 }
-                if(browsers.Contains("chrome"))
+                if (browsers.Contains("chrome"))
                 {
                     RestartChrome();
                 }
+                if(browsers.Contains("opera"))
+                {
+                    RestartOpera();
+                }
+                if(browsers.Contains("Safari"))
+                {
+                    RestartSafari();
+                }
 
+                if (!browserToclose.Count().Equals(0))
+                {
 
+                    Xceed.Wpf.Toolkit.MessageBox.Show("Please close these browsers manually\n " + string.Join(Environment.NewLine, browserToclose));
+                }
+
+            }
+        }
+
+        private void RestartInterExplorer()
+        {
+            browserToclose.Add("Internet Explorer");
+        }
+
+        private void RestartSafari()
+        {
+            browserToclose.Add("Safari");
+            
+        }
+
+        private void RestartOpera()
+        {
+            Process.Start("taskkill.exe", "/F /IM opera.exe*");
+            Thread.Sleep(500);
+            Process[] opera = Process.GetProcessesByName("opera");
+            if (opera.Count().Equals(0))
+            {
+                Process.Start("opera.exe");
+            }
+            else
+            {
+                List<DateTime> processTime = new List<DateTime>();
+                Dictionary<int, int> process = new Dictionary<int, int>();
+                List<int> processId = new List<int>();
+                foreach (Process item in opera)
+                {
+                    processTime.Add(item.StartTime);
+                }
+                foreach (Process item in opera)
+                {
+                    if (item.StartTime == processTime.Min())
+                    {
+                        process.Add(item.Threads.Count, item.Id);
+                        processId.Add(item.Threads.Count);
+                    }
+                }
+                Process processToKill = Process.GetProcessById(process[processId.Min()]);
+                processToKill.Kill();
+                Thread.Sleep(500);
+                Process.Start("opera.exe");
             }
         }
 
@@ -229,47 +306,11 @@ namespace SocialSilence
             }
         }       
 
-        private static void RestartInterExplorer()
-        {          
-            Process.Start("taskkill.exe", "/F /IM iexplore.exe");                   // First the application will try to close internet explorer through taskkill.
-            Task.Delay(2000);
-            Process[] iexplorer = Process.GetProcessesByName("iexplore");
-
-            if (iexplorer.Count().Equals(0))
-            {
-                Process.Start("iexplore.exe");
-            }
-            else
-            {                                                                       // If taskkill fails then IE is going to be close using process.kill . 
-                List<DateTime> processTime = new List<DateTime>();
-                Dictionary<int, int> process = new Dictionary<int, int>();
-                List<int> processId = new List<int>();
-                foreach (Process item in iexplorer)
-                {
-                    processTime.Add(item.StartTime);
-                }
-                foreach (Process item in iexplorer)
-                {
-                    if (item.StartTime == processTime.Min())
-                    {
-                        process.Add(item.Threads.Count, item.Id);
-                        processId.Add(item.Threads.Count);
-                    }
-                }
-
-                Process processToKill = Process.GetProcessById(process[processId.Min()]);
-                processToKill.Kill();
-                Thread.Sleep(1000);
-                Process.Start("iexplore.exe");
-            }
-                           
-            
-        }
 
         private static void RestartChrome()
         {
             Process.Start("taskkill.exe", "/F /IM chrome.exe");
-            Task.Delay(2000);
+            Thread.Sleep(500);
             Process[] chrome = Process.GetProcessesByName("chrome");
             if (chrome.Count().Equals(0))
             {
@@ -294,7 +335,7 @@ namespace SocialSilence
                 }
                 Process processToKill = Process.GetProcessById(process[processId.Min()]);
                 processToKill.Kill();
-                Thread.Sleep(1000);
+                Thread.Sleep(500);
                 Process.Start("chrome.exe");
             }
         }

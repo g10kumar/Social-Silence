@@ -37,10 +37,13 @@ namespace SocialSilence
         List<string> Whitebuffer = new List<string>();
         List<string> Blackbuffer = new List<string>();
         MessageBoxResult result;
-        public CustomizeList(string path)
+        bool backUpHost;
+
+        public CustomizeList(string path,bool hostBackUP)
         {
             filePath = path;
             InitializeComponent();
+            backUpHost = hostBackUP;
             //ShowsNavigationUI = false;
             //Loaded += Page1_Loaded;
             //System.Windows.Forms.NotifyIcon ni = new System.Windows.Forms.NotifyIcon();
@@ -174,7 +177,7 @@ namespace SocialSilence
                 Writer.Close();
             }
 
-            if(File.Exists(filePath+"host"))
+            if (File.Exists(filePath + "host") && backUpHost)
             {
                 File.SetAttributes(filePath+"host",FileAttributes.Normal);
                 string[] lines = File.ReadAllLines(filePath + "host");
@@ -184,7 +187,7 @@ namespace SocialSilence
                 {
                     if (Regex.IsMatch(line, matchLine, RegexOptions.IgnoreCase) || Regex.IsMatch(line, matchline2, RegexOptions.IgnoreCase))  // Check the backup host file for domains listed by the user. 
                     {
-                        result = System.Windows.MessageBox.Show("There are domains listed in host file. Do you want to keep them.", "Message", MessageBoxButton.YesNo);
+                        result = Xceed.Wpf.Toolkit.MessageBox.Show("There are domains listed in host file. Do you want to keep them.", "Message", MessageBoxButton.YesNo);
                         break;
                     }
                 }
@@ -255,9 +258,9 @@ namespace SocialSilence
         private void LoadAllFromXml()
         {          
            
-            BlackList.Items.Clear();         
+            BlackList.Items.Clear();
 
-            XElement root = XElement.Load(@"TextFiles\XMLFile1.xml");
+            XElement root = XElement.Load(@"Resources\XMLFile1.xml");
 
             IEnumerable<string> site = from el in root.Elements("site")
                                        select el.Element("name").Value;

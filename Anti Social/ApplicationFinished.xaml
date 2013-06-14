@@ -17,14 +17,12 @@
             <RowDefinition Height="27"/>
             <RowDefinition Height="184"/>
         </Grid.RowDefinitions>
-        <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap"  VerticalAlignment="Top" Height="48" Width="529" FontSize="16" Foreground="#FF154AAF" Margin="37,20,0,0" Grid.RowSpan="2">
-            This application is password protected .  Please provide with password .
-        </TextBlock>
+        <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap"  VerticalAlignment="Top" Height="48" Width="529" FontSize="16" Foreground="#FF154AAF" Margin="37,20,0,0" Grid.RowSpan="2" Text="{DynamicResource PassowrdText}"/>
         <PasswordBox x:Name="userpassword"  HorizontalAlignment="Left" Margin="157,0,0,0" Grid.Row="2" VerticalAlignment="Top" Width="120" Height="26" PreviewTextInput="enableProceed" MaxLength="8"/>
-        <TextBlock HorizontalAlignment="Left" Margin="37,0,0,0" Grid.Row="2" TextWrapping="Wrap"  VerticalAlignment="Top" Width="120" Height="26" FontSize="16" Foreground="#FF154AAF">Password:</TextBlock>
+        <TextBlock HorizontalAlignment="Left" Margin="37,0,0,0" Grid.Row="2" TextWrapping="Wrap"  VerticalAlignment="Top" Width="120" Height="26" FontSize="16" Foreground="#FF154AAF" Text="{DynamicResource Password}"/>
         <Grid HorizontalAlignment="Left" Height="50" Margin="-1,216,0,-82" Grid.Row="3" VerticalAlignment="Top" Width="600" Background="{DynamicResource {x:Static SystemColors.ControlLightBrushKey}}">
-            <Button IsCancel="True" Content="Cancel" HorizontalAlignment="Left" Margin="500,20,0,0" VerticalAlignment="Top" Width="75" RenderTransformOrigin="4.1,0.485" Click="returnToFinalPage"/>
-            <Button x:Name="proceed" Content="Proceed" HorizontalAlignment="Left" Margin="400,20,0,0" VerticalAlignment="Top" Width="75" RenderTransformOrigin="4.1,0.485" Click="CheckPassword"/>
+            <Button IsCancel="True" Content="{DynamicResource Cancel}" HorizontalAlignment="Left" Margin="500,20,0,0" VerticalAlignment="Top" Width="75" RenderTransformOrigin="4.1,0.485" Click="returnToFinalPage"/>
+            <Button x:Name="proceed" Content="{DynamicResource Proceed}" HorizontalAlignment="Left" Margin="400,20,0,0" VerticalAlignment="Top" Width="75" RenderTransformOrigin="4.1,0.485" Click="CheckPassword"/>
         </Grid>
 
     </Grid>

@@ -1,0 +1,49 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:system="clr-namespace:System;assembly=mscorlib"
+                    xml:space="preserve">
+    <system:String x:Key="Password">Password:</system:String>
+    <system:String x:Key="PassowrdText">    This application is password Protected
+Please provide password to Access further.</system:String>
+    <system:String x:Key="Proceed">Proceed</system:String>
+    <system:String x:Key="Cancel">Cancel</system:String>
+    <system:String x:Key="StartPageDefaultText" >Go with the default set of domains provided</system:String>
+    <system:String x:Key="StartPageCustomizeText" >Customize the list of Sites to be Blocked</system:String>
+    <system:String x:Key="CustomizeListText"> By Default all sites present in BlackList are Blocked. 
+        Move Sites to White List to Unblock them .</system:String>
+    <system:String x:Key="SelectAll">Select All</system:String>
+    <system:String x:Key="Add">Add --&gt;</system:String>
+    <system:String x:Key="Remove">&lt;-- Remove</system:String>
+    <system:String x:Key="Next">Next</system:String>
+    <system:String x:Key="FinalPageText">Changes Made Successfully .Below are the configuration done :</system:String>
+    <system:String x:Key="AdditionalOption1">Configure </system:String>
+    <system:String x:Key="AdditionalOption2"> as DNS of this Computer</system:String>
+    <system:String x:Key="AdditionalOption3">Block Unwanted PopUp and Ads</system:String>
+    <system:String x:Key="AdditionalOption4">Keep Setting Forever</system:String>
+    <system:String x:Key="AdditionalOption5">Make Setting for the following period of Time:</system:String>
+    <system:String x:Key="Hours">Hrs</system:String>
+    <system:String x:Key="Min">Min</system:String>
+    <system:String x:Key="Finish">Finish</system:String>
+    <system:String x:Key="FinalPageText2">Domains Blocked:</system:String>
+    <system:String x:Key="FinalPageText3">PopUp And Ads Blocked:</system:String>
+    <system:String x:Key="FinalPageText4">OpenDNS used:</system:String>
+    <system:String x:Key="FinalPageText5">Time Left:</system:String>
+    <system:String x:Key="Second">Sec</system:String>
+    <system:String x:Key="FinalPageText6">Click This Button To Restore</system:String>
+    <system:String x:Key="FinalPageText7">Press "Esc" to close this window</system:String>
+    <system:String x:Key="BrowserMessage">For the changes to take effect , browser need to be restarted.</system:String>
+    <system:String x:Key="hostMessage">There are domains listed in host file. Do you want to keep them.</system:String>
+    <system:String x:Key="PasswordWrongMessage">Password Provided By You is Not Correct . Please Provide Again</system:String>
+    <system:String x:Key="WrongOldPass">Previous Password provided is not correct . Please provide correct Password .</system:String>
+    <system:String x:Key="PassNotMatch">Password Provided by You Don't match . Please check</system:String>
+    
+    
+    
+    
+    
+    
+    
+
+    
+    
+</ResourceDictionary>

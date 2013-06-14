@@ -97,7 +97,7 @@ namespace SocialSilence
             {
                 if (pass == null || conpass == null || pass == "" || conpass == "")
                     {
-                        MessageBox.Show("All fields are mandatory .");
+                        Xceed.Wpf.Toolkit.MessageBox.Show("All fields are mandatory .");
                     }
                 else
                 {
@@ -113,12 +113,12 @@ namespace SocialSilence
                             StreamReader passReader = new StreamReader(new IsolatedStorageFileStream("Win32AppPas.bin", FileMode.Open, password));
                             if (passReader == null)
                             {
-                                MessageBox.Show("Password Not Created");
+                                Xceed.Wpf.Toolkit.MessageBox.Show("Password Not Created");
                             }
                             else
                             {
                                 string p = await passReader.ReadLineAsync();
-                                MessageBox.Show("Password created successfully . Password set by you is " + p);
+                                Xceed.Wpf.Toolkit.MessageBox.Show("Password created successfully . Password set by you is " + p);
                             }
                             passReader.Close();
 
@@ -134,7 +134,7 @@ namespace SocialSilence
                  }
                  else
                 {
-                    MessageBox.Show("Password Provided by You Don't match . Please check");
+                    Xceed.Wpf.Toolkit.MessageBox.Show("Password Provided by You Don't match . Please check");
                 }
               }
             }
@@ -144,7 +144,7 @@ namespace SocialSilence
                 string prePassword = Previous_Pass.Password.Trim(charsToTrim);
                 if (pass == null || conpass == null || pass == "" || conpass == "" || prePassword == null || prePassword == "" )
                 {
-                    MessageBox.Show("All fields are mandatory .Only Spaces and Tabs are not allowed .");
+                    Xceed.Wpf.Toolkit.MessageBox.Show("All fields are mandatory .Only Spaces and Tabs are not allowed .");
                 }
                 else if  (prePassword == passwordPresent)
                 {
@@ -160,12 +160,12 @@ namespace SocialSilence
                             StreamReader passReader = new StreamReader(new IsolatedStorageFileStream("Win32AppPas.bin", FileMode.Open, password));
                             if (passReader == null)
                             {
-                                MessageBox.Show("Password Not Created");
+                                Xceed.Wpf.Toolkit.MessageBox.Show("Password Not Created");
                             }
                             else
                             {
                                 string p = await passReader.ReadLineAsync();
-                                MessageBox.Show("Password created successfully . Password set by you is " + p);
+                                Xceed.Wpf.Toolkit.MessageBox.Show("Password created successfully . Password set by you is " + p);
                             }
                             passReader.Close();
 
@@ -181,13 +181,16 @@ namespace SocialSilence
                     }
                     else
                     {
-                        MessageBox.Show("Password Provided by You Don't match . Please check");
+                        string passMismatch = (string)this.FindResource("PassNotMatch");
+                        Xceed.Wpf.Toolkit.MessageBox.Show(passMismatch);
                     }
 
                 }
                 else
                 {
-                    MessageBox.Show("Old Password provided is not correct . Please provide correct Password .");
+                    
+                    string wrongOldPass = (string)this.FindResource("WrongOldPass");
+                    Xceed.Wpf.Toolkit.MessageBox.Show(wrongOldPass, "Message");
                 }
             }
             File.SetAttributes(filePath + "Win32AppPas.bin", FileAttributes.Hidden | FileAttributes.System);

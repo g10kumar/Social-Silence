@@ -20,10 +20,10 @@ using System.Runtime.InteropServices;
 using System.Windows.Interop;
 using System.IO.IsolatedStorage;
 using System.Reflection;
-using Hardcodet.Wpf.TaskbarNotification;
 using System.Net.Sockets;
 using System.Threading;
 using System.Net;
+using System.Diagnostics;
 
 
 namespace SocialSilence
@@ -48,6 +48,8 @@ namespace SocialSilence
         private int port = 8080;
         IPAddress localAddr = IPAddress.Parse("127.0.0.120");
         TcpListener tcplistner;
+        Stopwatch watch = new Stopwatch();
+        double timeUsed = 0;
 
         [DllImport("user32.dll", SetLastError = true)]
         private static extern int GetWindowLong(IntPtr hWnd, int nIndex);
@@ -124,10 +126,6 @@ namespace SocialSilence
             var hwnd = new WindowInteropHelper(win).Handle;
             getwindow = GetWindowLong(hwnd, GWL_STYLE);       
             win.KeyDown += FinalPage_PreviewKeyDown;
-            tb = (TaskbarIcon)FindResource("MyNotifyIcon");                                                // This code handles the clicking event of the restore item in icon
-            ContextMenu menu = tb.ContextMenu;
-            MenuItem item0 = (MenuItem)menu.Items[0];
-            item0.Click += item0_Click;
             File.SetAttributes(hostfile_location, FileAttributes.Hidden | FileAttributes.ReadOnly | FileAttributes.System); // Here we are setting the host file attributes.
             watcher.Filter = "hosts";
             watcher.NotifyFilter = NotifyFilters.LastWrite | NotifyFilters.Attributes | NotifyFilters.Size;
@@ -217,7 +215,6 @@ namespace SocialSilence
                 hours.Text = "\u221e";
                 minutes.Text = "\u221e";
                 sec.Text = "\u221e";                  // Or someplaces the infinity sign can be shown as &#x221E; in xaml.
-                tb.Dispatcher.BeginInvoke((Action)delegate { ((System.Windows.Controls.TextBlock)(((System.Windows.Controls.Decorator)(tb.TrayToolTip)).Child)).Text = "Application Status : Active" + "\nTime left\n" + hour + "Hours" + " " + min + "Min" + " " + seconds + "Sec"; }, null);
                 
             }
 
@@ -275,7 +272,8 @@ namespace SocialSilence
         }
 
         async void timer_Tick(object sender, EventArgs e)
-        {            
+        {
+            watch.Start();
             seconds--;
             if (seconds < 0)
             {
@@ -292,17 +290,17 @@ namespace SocialSilence
             sec.Text = seconds.ToString();
             if (hour == 0 && min == 0 && seconds == 0)
             {
+                watch.Stop();
                 timer.Stop();
-                await tb.Dispatcher.BeginInvoke((Action)delegate { ((System.Windows.Controls.TextBlock)(((System.Windows.Controls.Decorator)(tb.TrayToolTip)).Child)).Text = "Windows Social Silence.\nApplication Status : InActive"; }, null);
                 RestoreApplication();
             }
             else
             {
-                await tb.Dispatcher.BeginInvoke((Action)delegate { ((System.Windows.Controls.TextBlock)(((System.Windows.Controls.Decorator)(tb.TrayToolTip)).Child)).Text = "Application Status : Active" + "\nTime left\n" + hour + "Hours" + " " + min + "Min" + " " + seconds + "Sec"; }, null);
             }
 
 
-
+            watch.Stop();
+            timeUsed =  timeUsed + watch.Elapsed.TotalSeconds;
         }
 
         private  async void RestoreApplication(object sender, RoutedEventArgs e)
@@ -323,14 +321,13 @@ namespace SocialSilence
                     if (p == null || p=="")
                     {
                         timer.Stop();
-                        await tb.Dispatcher.BeginInvoke((Action)delegate { ((System.Windows.Controls.TextBlock)(((System.Windows.Controls.Decorator)(tb.TrayToolTip)).Child)).Text = "Windows Social Silence.\nApplication Status : InActive"; }, null);
                         watcher.EnableRaisingEvents = false;
                         Window appwindow = (Window)App.Current.MainWindow;
                         var hwnd = new WindowInteropHelper(appwindow).Handle;
                         SetWindowLong(hwnd, GWL_STYLE, getwindow );
                         int getwin = GetWindowLong(hwnd, GWL_STYLE);
                         SettingRestore(filePath, hostfile_location, openDnsused);
-                        MessageBox.Show("System Settings Has Been restored ");
+                        Xceed.Wpf.Toolkit.MessageBox.Show("System Settings Has Been restored ");
                         if (getwin != 382337024)
                         {
                             SetWindowLong(hwnd, GWL_STYLE, getwindow);
@@ -343,7 +340,7 @@ namespace SocialSilence
                     else
                     {
                        // watcher.EnableRaisingEvents = false;                        // This has been moved to next page , and check for password. 
-                        ApplicationFinished passObj = new ApplicationFinished(p, filePath, hostfile_location, openDnsused,getwindow,watcher,timer,tb);
+                        ApplicationFinished passObj = new ApplicationFinished(p, filePath, hostfile_location, openDnsused,getwindow,watcher,timer);
                         NavigationService.Navigate(passObj);
                         ShowsNavigationUI = false;
                         
@@ -380,9 +377,6 @@ namespace SocialSilence
                         this.NavigationService.Navigate(startObj);
                 
                         ShowsNavigationUI = false;
-                        tb = (TaskbarIcon)FindResource("MyNotifyIcon");
-                        tb.ShowBalloonTip("Windows Social Silence", "Setting has been restored. Now you can access social sites", BalloonIcon.None);
-                        //((System.Windows.Controls.TextBlock)(((System.Windows.Controls.Decorator)(tb.TrayToolTip)).Child)).Text = "Application Status : InActive";
                        
                               
             }

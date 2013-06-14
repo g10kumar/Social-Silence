@@ -15,7 +15,8 @@ using System.Windows.Shapes;
 using System.IO.IsolatedStorage;
 using System.IO;
 using System.Reflection;
-using Hardcodet.Wpf.TaskbarNotification;
+using Microsoft.Win32;
+using System.Management;
 
 namespace SocialSilence
 {
@@ -26,6 +27,9 @@ namespace SocialSilence
     {
         
         string passwordStored;
+        string userLanguage;
+        public  static System.Windows.Forms.NotifyIcon notifyIcon = null;
+        private Dictionary<string, System.Drawing.Icon> IconHandles = null;
 
         public PasswordRequire()
         {
@@ -61,12 +65,33 @@ namespace SocialSilence
 
         async void PasswordRequire_Loaded(object sender, RoutedEventArgs e)
         {
+
+            
+            var OSname = (from x in new ManagementObjectSearcher("SELECT * FROM Win32_OperatingSystem").Get().OfType<ManagementObject>()
+                         select x.GetPropertyValue("Caption")).FirstOrDefault();
+
+            if (OSname.ToString().Contains("Windows 8"))
+            {
+                string[] languageSet = (string[])Registry.GetValue(@"HKEY_CURRENT_USER\Control Panel\International\User Profile", "Languages", null);
+                userLanguage = languageSet[0].Remove(2) ;
+            }
+            else if (OSname.ToString().Contains("Windows 7"))
+            {
+                string[] languageSet = (string[])Registry.GetValue(@"HKEY_CURRENT_USER\Control Panel\Desktop\MuiCached", "MachinePreferredUILanguages", null);
+                userLanguage = languageSet[0].Remove(2);
+            }
+
+
+            SetLanguageDictionary(userLanguage);
             this.KeyDown += new KeyEventHandler(KeyPress);
-            tb = (TaskbarIcon)FindResource("MyNotifyIcon");
-            tb.ShowBalloonTip("Windows Social Silence", "Click on this Icon to restore Anti Social", BalloonIcon.None);
-            ContextMenu menu = tb.ContextMenu;
-            MenuItem item2 = (MenuItem)menu.Items[2];
-            item2.Click += item2_Click;
+
+            IconHandles = new Dictionary<string, System.Drawing.Icon>();
+            IconHandles.Add("QuickLaunch", new System.Drawing.Icon(@"C:\Users\veeru_000\Desktop\Anti Social\Icons\Error.ico"));
+            notifyIcon = new System.Windows.Forms.NotifyIcon();
+            notifyIcon.Click += notifyIcon_Click;
+            notifyIcon.Icon = IconHandles["QuickLaunch"];
+            notifyIcon.Visible = true;
+          
             Rect workArea = System.Windows.SystemParameters.WorkArea;
             App.Current.MainWindow.Left = workArea.Left + (workArea.Width - this.WindowWidth) / 2;
             App.Current.MainWindow.Top = workArea.Top + (workArea.Height - this.WindowHeight) / 2 ;
@@ -103,6 +128,13 @@ namespace SocialSilence
 
         }
 
+        private void notifyIcon_Click(object sender, EventArgs e)
+        {
+            SocialSilence.SysTrayMenu systray = new SysTrayMenu();
+            systray.IsOpen = true;
+
+        }
+
         void item2_Click(object sender, RoutedEventArgs e)
         {
             SetPassword passObj = new SetPassword();
@@ -113,6 +145,7 @@ namespace SocialSilence
 
         public void CheckPassword(object sender, RoutedEventArgs e)
         {
+            string passWrong = (string)this.FindResource("PasswordWrongMessage");
             string userPassword = Password.Password;
             if (userPassword == passwordStored && userPassword != null && userPassword != "")
             {
@@ -122,13 +155,14 @@ namespace SocialSilence
             }
             else 
             {
-                MessageBox.Show("Password Provided By You is Not Correct . Please Provide Again");
+                Xceed.Wpf.Toolkit.MessageBox.Show(passWrong);
                 Password.Clear();
             }
 
         }
         public void CheckPassword()
         {
+            string passWrong = (string)this.FindResource("PasswordWrongMessage");
             string userPassword = Password.Password;
             if (userPassword == passwordStored && userPassword != null && userPassword != "")
             {
@@ -138,7 +172,7 @@ namespace SocialSilence
             }
             else
             {
-                MessageBox.Show("Password Provided By You is Not Correct . Please Provide Again");
+                Xceed.Wpf.Toolkit.MessageBox.Show(passWrong);
                 Password.Clear();
             }
         }

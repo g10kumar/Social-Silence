@@ -16,7 +16,6 @@ using System.Runtime.InteropServices;
 using System.Windows.Interop;
 using System.Threading;
 using System.IO;
-using Hardcodet.Wpf.TaskbarNotification;
 
 
 namespace SocialSilence
@@ -37,7 +36,6 @@ namespace SocialSilence
         private static extern int SetWindowLong(IntPtr hWnd, int nIndex, int dwNewLong);
         FileSystemWatcher hostWatcher;
         System.Windows.Forms.Timer runningTimer;
-        TaskbarIcon taskBarIcon;
         //Window.f Timer runningTimer;
 
         public ApplicationFinished()
@@ -46,7 +44,7 @@ namespace SocialSilence
             proceed.IsEnabled = false;
         }
 
-        public ApplicationFinished(string pass, string desPath, string hostPath, bool resDNS, int getwindow, FileSystemWatcher watchfile, System.Windows.Forms.Timer timer, TaskbarIcon tb)
+        public ApplicationFinished(string pass, string desPath, string hostPath, bool resDNS, int getwindow, FileSystemWatcher watchfile, System.Windows.Forms.Timer timer)
             : this()
         {
             password = pass;
@@ -57,7 +55,6 @@ namespace SocialSilence
             window = getwindow;
             hostWatcher = watchfile;
             runningTimer = timer;
-            taskBarIcon = tb;
         }
 
         void ApplicationFinished_Loaded(object sender, RoutedEventArgs e)
@@ -93,7 +90,7 @@ namespace SocialSilence
                
 
                 SettingRestore(filePath, hostfile_location, restoreDNS);
-                MessageBox.Show("System Settings Has Been restored ");
+                Xceed.Wpf.Toolkit.MessageBox.Show("System Settings Has Been restored ");
                 if (getwin != 382337024)
                 {
                     SetWindowLong(hwnd, GWL_STYLE, window);
@@ -101,11 +98,11 @@ namespace SocialSilence
                 StartPage startObj = new StartPage(filePath);
                 this.NavigationService.Navigate(startObj);
                 ShowsNavigationUI = false;
-                taskBarIcon.Dispatcher.BeginInvoke((Action)delegate { ((System.Windows.Controls.TextBlock)(((System.Windows.Controls.Decorator)(taskBarIcon.TrayToolTip)).Child)).Text = "Windows Social Silence.\nApplication Status : InActive"; }, null);
             }
             else
             {
-                MessageBox.Show("The password provided is not correct.");
+                string passWrong = (string)this.FindResource("PasswordWrongMessage");
+                Xceed.Wpf.Toolkit.MessageBox.Show(passWrong);
                 userpassword.Clear();
 
             }

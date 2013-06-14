@@ -1,0 +1,40 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:system="clr-namespace:System;assembly=mscorlib"
+                    xml:space="preserve">
+    <system:String x:Key="Password">Passwort:</system:String>
+    <system:String x:Key="PassowrdText">Diese Anwendung ist durch ein Passwort geschützt
+Bitte geben Sie Kennwort.</system:String>
+    <system:String x:Key="Proceed">Fortfahren</system:String>
+    <system:String x:Key="Cancel">Stornieren</system:String>
+    <system:String x:Key="StartPageDefaultText" >Gehen Sie mit dem standardmäßig Satz von Domänen bereitgestellt</system:String>
+    <system:String x:Key="StartPageCustomizeText" >Passen Sie die Liste der Sites blockiert werden</system:String>
+    <system:String x:Key="CustomizeListText">Standardmäßig werden alle Sites in BlackList blockiert. 
+Verschieben Sites zu Weiße Liste, um sie Entblocken. .</system:String>
+     <system:String x:Key="SelectAll">Alle auswählen</system:String>
+        <system:String x:Key="Add">Addieren --&gt;</system:String>
+    <system:String x:Key="Remove">&lt;-- Entfernen</system:String>
+     <system:String x:Key="Next">Nächste</system:String>
+     <system:String x:Key="FinalPageText">                      Änderungen erfolgreich vorgenommen .
+                    Unten sehen Sie die Konfiguration erledigt :</system:String>
+        <system:String x:Key="AdditionalOption1">Konfigurieren </system:String>
+    <system:String x:Key="AdditionalOption2"> als DNS für diesem Computer</system:String>
+        <system:String x:Key="AdditionalOption3">Blockieren Sie unerwünschte PopUp und  Ads</system:String>
+    <system:String x:Key="AdditionalOption4">Behalten Sie für Immer Festlegen</system:String>
+    <system:String x:Key="AdditionalOption5">Behalten Sie Festlegen für den Folgenden Zeitraum:</system:String>
+    <system:String x:Key="Finish">Finish</system:String>
+    <system:String x:Key="Hours">Stunden</system:String>
+    <system:String x:Key="Min">Minuten</system:String>
+    <system:String x:Key="FinalPageText2">Domänen Blockiert:</system:String>
+    <system:String x:Key="FinalPageText3">PopUp And Ads Blockiert:</system:String>
+    <system:String x:Key="FinalPageText4">OpenDNS Benutzt:</system:String>
+    <system:String x:Key="FinalPageText5">Restzeit:</system:String>
+    <system:String x:Key="Second">Sekunde</system:String>
+    <system:String x:Key="FinalPageText6">Wiederherstellen Einstellung</system:String>
+    <system:String x:Key="FinalPageText7">Presse "Esc", um dieses Fenster zu schließen</system:String>
+    <system:String x:Key="BrowserMessage">Damit die Änderungen wirksam werden, müssen Browser neu gestartet werden.</system:String>
+    <system:String x:Key="hostMessage">Es gibt Domänen in Host-Datei aufgelistet. Wollen Sie sie zu halten.</system:String>
+    <system:String x:Key="PasswordWrongMessage">Passwort zur Verfügung gestellt von Ihnen ist nicht korrekt. Bitte geben Sie wieder</system:String>
+    <system:String x:Key="WrongOldPass">Vorherige Passwort ist nicht korrekt. Verfügung stellen korrekte Passwort.</system:String>
+    <system:String x:Key="PassNotMatch">Kennwort eingegebenen nicht übereinstimmt . Bitte überprüfen Sie</system:String>
+</ResourceDictionary>

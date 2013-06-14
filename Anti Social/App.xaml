@@ -6,40 +6,5 @@
     <Application.Resources>
          
 
-  <!-- Globally declared notify icon -->
-        <tb:TaskbarIcon x:Key="MyNotifyIcon"
-                  IconSource="/Icons/Error.ico"
-                  ToolTipText="Windows Social Silence.\nApplication Status : InActive"
-                  MenuActivation="LeftClick">
-
-            <tb:TaskbarIcon.TrayToolTip>
-                <Border
-      Background="White"
-      BorderBrush="Orange"
-      BorderThickness="2"
-      CornerRadius="4"
-      Opacity="0.8"
-      Width="160"
-      Height="Auto">
-                    <TextBlock
-        Text="Windows Social Silence Application Status : InActive"
-        HorizontalAlignment="Center"
-        VerticalAlignment="Center"
-        TextWrapping="Wrap"
-        />
-                </Border>
-            </tb:TaskbarIcon.TrayToolTip>
-            <tb:TaskbarIcon.ContextMenu>
-                <ContextMenu
-      Background="LightCoral" >
-                    <MenuItem x:Name="restoreApplicationButton" Header="Restore Application" />
-                    <MenuItem Header="About Us" />
-                    <MenuItem Header="Set/Change Password" />
-                </ContextMenu>
-                
-            </tb:TaskbarIcon.ContextMenu>
-        </tb:TaskbarIcon>
-
-
     </Application.Resources>
 </Application>

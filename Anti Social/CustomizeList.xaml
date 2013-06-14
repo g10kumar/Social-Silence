@@ -22,7 +22,7 @@
             <RowDefinition Height="67"/>
             <RowDefinition Height="49"/>
         </Grid.RowDefinitions>
-        <TextBlock HorizontalAlignment="Left" Foreground="#FF007ACC" FontSize="16" TextWrapping="Wrap"  VerticalAlignment="Top" Height="40" Width="600" Grid.ColumnSpan="3">By Default all sites present in BlackList are Blocked. Move Sites to White List to Unblock them .</TextBlock>
+        <TextBlock Foreground="#FF007ACC" FontSize="16" TextWrapping="Wrap"  VerticalAlignment="Top" Height="40" Grid.ColumnSpan="3" Text="{DynamicResource CustomizeListText}" Margin="100,0"/>
         <Grid Grid.Row="1" Margin="10,15,10,25">
             <xctk:CheckListBox x:Name="BlackList" BorderBrush="Black" FontSize="14" />
         </Grid>
@@ -30,13 +30,13 @@
             <xctk:CheckListBox x:Name="WhiteList" BorderBrush="Black" FontSize="14" />
         </Grid>
         <Grid HorizontalAlignment="Left" Height="50" Grid.Row="3" VerticalAlignment="Bottom" Width="600" Grid.ColumnSpan="3" Background="{DynamicResource {x:Static SystemColors.ControlLightBrushKey}}" Margin="0,0,0,15" >
-            <Button Content="Next" HorizontalAlignment="Left" Margin="400,15,0,10" Width="75" Click="Store_Lists"/>
-            <Button Content="Cancel" IsCancel="True"  HorizontalAlignment="Left" Margin="500,15,0,10" Width="75" Click="btnClose_Click"/>
+            <Button Content="{DynamicResource Next}" HorizontalAlignment="Left" Margin="400,15,0,10" Width="75" Click="Store_Lists"/>
+            <Button Content="{DynamicResource Cancel}" IsCancel="True"  HorizontalAlignment="Left" Margin="500,15,0,10" Width="75" Click="btnClose_Click"/>
         </Grid>
-        <Button Content="Add --&gt;" Grid.Column="1" Margin="20,45,20,0" Grid.Row="1" VerticalAlignment="Top" Height="30" Click="AddToWhiteList"/>
-        <Button Content="&lt;-- Remove" Grid.Column="1" Margin="20,128,20,0" Grid.Row="1" VerticalAlignment="Top" Height="30" Click="AddToBlackList"/>
-        <CheckBox Content="Select All" x:Name="SelectAllWhiteList" Grid.Column="2" HorizontalAlignment="Left" Margin="30,220,0,28" Grid.Row="1" Width="110" Grid.RowSpan="2" Checked="WhiteListSelcectAll" Unchecked="WhiteListUnselectAll"/>
-        <CheckBox Content="Select All" x:Name="SelectAllBlackList" Margin="10,220,0,28" Grid.Row="1" HorizontalAlignment="Left" Width="108" Grid.RowSpan="2" Checked="BlackListSelcectAll" Unchecked="BlackListUnselectAll" />
+        <Button Content="{DynamicResource Add}" Grid.Column="1" Margin="20,45,20,0" Grid.Row="1" VerticalAlignment="Top" Height="30" Click="AddToWhiteList"/>
+        <Button Content="{DynamicResource Remove}" Grid.Column="1" Margin="20,128,20,0" Grid.Row="1" VerticalAlignment="Top" Height="30" Click="AddToBlackList"/>
+        <CheckBox Content="{DynamicResource SelectAll}" x:Name="SelectAllWhiteList" Grid.Column="2" HorizontalAlignment="Left" Margin="30,220,0,28" Grid.Row="1" Width="110" Grid.RowSpan="2" Checked="WhiteListSelcectAll" Unchecked="WhiteListUnselectAll"/>
+        <CheckBox Content="{DynamicResource SelectAll}" x:Name="SelectAllBlackList" Margin="10,220,0,28" Grid.Row="1" HorizontalAlignment="Left" Width="108" Grid.RowSpan="2" Checked="BlackListSelcectAll" Unchecked="BlackListUnselectAll" />
     </Grid>
 
 

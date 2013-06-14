@@ -22,26 +22,24 @@
             <ColumnDefinition Width="295*"/>
         </Grid.ColumnDefinitions>
         <CheckBox x:Name="SetOpenDns" HorizontalAlignment="Left" Margin="25,28,0,0" VerticalAlignment="Top" Height="25" Width="558" Grid.ColumnSpan="3">
-            <TextBlock Foreground="#FF154AAF" FontSize="16" Width="457" Height="42"><Run Text="Configure "/><Hyperlink x:Name="h1" NavigateUri="http://www.opendns.com/"  RequestNavigate="h1_RequestNavigate"><Run Text="OpenDNS"/></Hyperlink><Run Text=" as DNS of this Computer"/><LineBreak/><Run/></TextBlock>
+            <TextBlock Foreground="#FF154AAF" FontSize="16" Width="457" Height="42"><Run Text="{DynamicResource AdditionalOption1}"/><Hyperlink x:Name="h1" NavigateUri="http://www.opendns.com/"  RequestNavigate="h1_RequestNavigate"><Run Text="OpenDNS"/></Hyperlink><Run Text="{DynamicResource AdditionalOption2}"/><LineBreak/><Run/></TextBlock>
 
         </CheckBox>
-        <CheckBox x:Name="BlockPopUp" HorizontalAlignment="Left" Margin="25,80,0,0" Width="270" Foreground="#FF154AAF" FontSize="16" VerticalAlignment="Top" Height="20" Grid.ColumnSpan="2">
-            Block Unwanted PopUp and Ads
-        </CheckBox>
-        <CheckBox x:Name="SettingForever" HorizontalAlignment="Left" Margin="25,129,0,0" Width="270" Foreground="#FF154AAF" FontSize="16" VerticalAlignment="Top"  Height="20" Grid.ColumnSpan="2" Checked="DisableTimeSetting" Unchecked="EnableTimeSetting">Keep Setting Forever</CheckBox>
-        <CheckBox x:Name="SettingTime" HorizontalAlignment="Left" Margin="25,179,0,0" Foreground="#FF154AAF" VerticalAlignment="Top" Grid.ColumnSpan="3" Width="378" FontSize="16" Height="20" Unchecked="DisableTimeSpinner" Checked="EnableTimeSpinner">Make Setting for the following period of Time:</CheckBox>
+        <CheckBox x:Name="BlockPopUp" HorizontalAlignment="Left" Margin="25,80,0,0" Width="400" Foreground="#FF154AAF" FontSize="16" VerticalAlignment="Top" Height="20" Grid.ColumnSpan="3" Content="{DynamicResource AdditionalOption3}"/>
+        <CheckBox x:Name="SettingForever" HorizontalAlignment="Left" Margin="25,129,0,0" Width="400" Foreground="#FF154AAF" FontSize="16" VerticalAlignment="Top"  Height="20" Grid.ColumnSpan="3" Checked="DisableTimeSetting" Unchecked="EnableTimeSetting" Content="{DynamicResource AdditionalOption4}"/>
+        <CheckBox x:Name="SettingTime" HorizontalAlignment="Left" Margin="25,179,0,0" Foreground="#FF154AAF" VerticalAlignment="Top" Grid.ColumnSpan="3" Width="400" FontSize="16" Height="20" Unchecked="DisableTimeSpinner" Checked="EnableTimeSpinner" Content="{DynamicResource AdditionalOption5}" Grid.RowSpan="2"/>
         <xctk:ButtonSpinner x:Name="Hours" Spin="HourButtonSpinner_Spin" Margin="0,5,80,4" Grid.Column="1" Grid.Row="1">
-            <TextBox Text="0" HorizontalContentAlignment="Right" Height="33" Margin="0,0,0,0" />
+            <TextBox x:Name="hourTextBox" Text="0" HorizontalContentAlignment="Right" Height="33" Margin="0,0,0,0" />
         </xctk:ButtonSpinner>
-        <TextBlock Foreground="#FF154AAF"  Text="Hrs" FontSize="16" Grid.Column="1" Margin="73,8,40,0" Grid.Row="1"/>
+        <TextBlock  Foreground="#FF154AAF"  Text="{DynamicResource Hours}" FontSize="16" Grid.Column="1" Margin="69,8,5,0" Grid.Row="1"/>
         <xctk:ButtonSpinner x:Name="Min" Spin="MinButtonSpinner_Spin" Margin="0,5,231,4" Grid.Column="2" Grid.Row="1">
-            <TextBox Text="0" HorizontalContentAlignment="Right" Height="33                      " />
+            <TextBox x:Name="minTextBox" Text="0" HorizontalContentAlignment="Right" Height="33                      " />
         </xctk:ButtonSpinner>
-        <TextBlock Foreground="#FF154AAF" Margin="73,8,190,0" TextWrapping="Wrap" Text="Min" FontSize="16" Grid.Column="2" Grid.Row="1"/>
+        <TextBlock Foreground="#FF154AAF" Margin="69,8,119,0" TextWrapping="Wrap" Text="{DynamicResource Min}" FontSize="16" Grid.Column="2" Grid.Row="1"/>
 
         <Grid HorizontalAlignment="Left" Height="45" VerticalAlignment="Bottom" Width="594" Background="{DynamicResource {x:Static SystemColors.ControlLightBrushKey}}" Margin="0,0,-1,0" Grid.ColumnSpan="3" Grid.Row="2">
             <Button Content="Finish" HorizontalAlignment="Left" Margin="396,15,0,10" Width="75" Click="FinishSetting" />
-            <Button Content="Cancel" HorizontalAlignment="Left" Margin="498,15,0,10" Width="75" IsCancel="True" Click="btnClose_Click"/>
+            <Button Content="{DynamicResource Cancel}" HorizontalAlignment="Left" Margin="498,15,0,10" Width="75" IsCancel="True" Click="btnClose_Click"/>
         </Grid>
 
 

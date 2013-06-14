@@ -7,17 +7,18 @@ using System.Windows;
 using System.Windows.Controls;
 using System.IO;
 using System.Management;
-using Hardcodet.Wpf.TaskbarNotification;
 using System.Runtime.InteropServices;
 using System.Windows.Interop;
 using System.Threading;
+using System.Security;
+using System.Diagnostics;
 
 namespace SocialSilence
 {
     public class CommonFunctions: Page
     {
         public string filePath;
-        public TaskbarIcon tb;
+        //public System.Windows.Forms.NotifyIcon notifyIcon = null;
 
 
         public void btnClose_Click(object sender, RoutedEventArgs e)
@@ -25,8 +26,9 @@ namespace SocialSilence
 
             if (sender.GetType().Name == "Button")
             {
-                tb = (TaskbarIcon)FindResource("MyNotifyIcon");
-                tb.Dispose();
+                PasswordRequire.notifyIcon.Dispose();
+               // System.Windows.Forms.NotifyIcon notifyIcon = objPass.notifyIcon;
+                
                 App.Current.MainWindow.Close();
                 //Window.GetWindow(this).Close();
  
@@ -108,5 +110,38 @@ namespace SocialSilence
         }
 
 
+        public void SetLanguageDictionary(string userLanguage)
+        {
+
+            ResourceDictionary dictionary = new ResourceDictionary();
+
+            try
+            {
+                switch(userLanguage)
+                {
+                    case "en":
+                        dictionary.Source = new Uri(Environment.CurrentDirectory + @"\resources\string.en.xaml");
+                        break;
+                    case "de":
+                        dictionary.Source = new Uri(Environment.CurrentDirectory + @"\resources\string.de.xaml");
+                        break;
+                    case "it":
+                        dictionary.Source = new Uri(Environment.CurrentDirectory + @"\resources\string.it.xaml");
+                        break;                            
+                    default:
+                        dictionary.Source = new Uri(Environment.CurrentDirectory+ @"\resources\string.en.xaml");
+                       break;
+                }
+                App.Current.Resources.MergedDictionaries.Add(dictionary);
+            }
+            catch(Exception ex)
+            {
+                Uri test = new Uri(Environment.CurrentDirectory + @"/Resources/string.en.xaml");
+                MessageBox.Show("A fault has occured on the common function page. " +ex.Message+ex.StackTrace);
+            }
+
+        }
+
+     
     }
 }
