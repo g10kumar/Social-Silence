@@ -59,10 +59,17 @@ namespace SocialSilence
                 VerticalOffset = mousePosition.Y - 2;
                 HorizontalOffset = mousePosition.X - 8;
 
+                PasswordRequire.notifyIcon.ContextMenuStrip.MouseLeave += ContextMenuStrip_MouseLeave;
 
             }
             catch
             { }
+        }
+
+        void ContextMenuStrip_MouseLeave(object sender, EventArgs e)
+        {
+            SocialSilence.SysTrayMenu systray = new SysTrayMenu();
+            systray.IsOpen = false;
         }
     }
 }

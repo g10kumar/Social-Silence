@@ -85,17 +85,28 @@ namespace SocialSilence
             SetLanguageDictionary(userLanguage);
             this.KeyDown += new KeyEventHandler(KeyPress);
 
-            IconHandles = new Dictionary<string, System.Drawing.Icon>();
-            IconHandles.Add("QuickLaunch", new System.Drawing.Icon(@"C:\Users\veeru_000\Desktop\Anti Social\Icons\Error.ico"));
-            notifyIcon = new System.Windows.Forms.NotifyIcon();
-            notifyIcon.Click += notifyIcon_Click;
-            notifyIcon.Icon = IconHandles["QuickLaunch"];
-            notifyIcon.Visible = true;
-          
-            Rect workArea = System.Windows.SystemParameters.WorkArea;
-            App.Current.MainWindow.Left = workArea.Left + (workArea.Width - this.WindowWidth) / 2;
-            App.Current.MainWindow.Top = workArea.Top + (workArea.Height - this.WindowHeight) / 2 ;
-            ((NavigationWindow)LogicalTreeHelper.GetParent(this)).ResizeMode = ResizeMode.CanMinimize;            
+            try
+            {
+                IconHandles = new Dictionary<string, System.Drawing.Icon>();
+                IconHandles.Add("QuickLaunch", new System.Drawing.Icon(Environment.CurrentDirectory + @"\resources\error.ico"));
+                notifyIcon = new System.Windows.Forms.NotifyIcon();
+                notifyIcon.Click += notifyIcon_Click;
+                notifyIcon.Icon = IconHandles["QuickLaunch"];
+                notifyIcon.BalloonTipTitle = "Windows Social Silence";
+                notifyIcon.BalloonTipText = "Click on this icon to make changes";
+                //notifyIcon.ContextMenuStrip.MouseLeave += ContextMenuStrip_MouseLeave;
+                notifyIcon.Visible = true;
+
+                Rect workArea = System.Windows.SystemParameters.WorkArea;
+                App.Current.MainWindow.Left = workArea.Left + (workArea.Width - this.WindowWidth) / 2;
+                App.Current.MainWindow.Top = workArea.Top + (workArea.Height - this.WindowHeight) / 2;
+                ((NavigationWindow)LogicalTreeHelper.GetParent(this)).ResizeMode = ResizeMode.CanMinimize;
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("An exception created while creating the taskbar icon " + ex.Message + ex.StackTrace);
+            }
 
             try
             {
@@ -120,13 +131,19 @@ namespace SocialSilence
                 passReader.Close();
                 
             }
-            catch
+            catch(Exception ex)
             {
-                //System.IO.FileNotFoundException ;
+                MessageBox.Show("An exception occured while opening the password from the file . " + ex.Message + ex.StackTrace);
             }
 
 
         }
+
+        //void ContextMenuStrip_MouseLeave(object sender, EventArgs e)
+        //{
+        //    SocialSilence.SysTrayMenu systray = new SysTrayMenu();
+        //    systray.IsOpen = false;
+        //}
 
         private void notifyIcon_Click(object sender, EventArgs e)
         {
