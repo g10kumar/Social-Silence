@@ -34,14 +34,9 @@ namespace SocialSilence
         public PasswordRequire()
         {
             InitializeComponent();
-            //NavigationWindow win = (NavigationWindow)Window.GetWindow(this);
-            //win.WindowStartupLocation = WindowStartupLocation.CenterScreen;
             ShowsNavigationUI = false;
             Proceed.IsEnabled = false;
-            //this.PreviewKeyDown += new KeyEventHandler(KeyPress);
-            Loaded += PasswordRequire_Loaded;
-
-         
+            Loaded += PasswordRequire_Loaded;         
             
         }
 
@@ -57,7 +52,6 @@ namespace SocialSilence
                 e.Handled = true;
                 NavigationWindow win = (NavigationWindow)Window.GetWindow(this);
                 win.Close();
-
                 
             }
 
@@ -65,6 +59,10 @@ namespace SocialSilence
 
         async void PasswordRequire_Loaded(object sender, RoutedEventArgs e)
         {
+            Rect workArea = System.Windows.SystemParameters.WorkArea;
+            App.Current.MainWindow.Left = workArea.Left + (workArea.Width - this.WindowWidth) / 2;
+            App.Current.MainWindow.Top = workArea.Top + (workArea.Height - this.WindowHeight) / 2;
+            ((NavigationWindow)LogicalTreeHelper.GetParent(this)).ResizeMode = ResizeMode.CanMinimize;
 
             
             var OSname = (from x in new ManagementObjectSearcher("SELECT * FROM Win32_OperatingSystem").Get().OfType<ManagementObject>()
@@ -87,6 +85,7 @@ namespace SocialSilence
 
             try
             {
+              
                 IconHandles = new Dictionary<string, System.Drawing.Icon>();
                 IconHandles.Add("QuickLaunch", new System.Drawing.Icon(Environment.CurrentDirectory + @"\resources\error.ico"));
                 notifyIcon = new System.Windows.Forms.NotifyIcon();
@@ -95,12 +94,7 @@ namespace SocialSilence
                 notifyIcon.BalloonTipTitle = "Windows Social Silence";
                 notifyIcon.BalloonTipText = "Click on this icon to make changes";
                 //notifyIcon.ContextMenuStrip.MouseLeave += ContextMenuStrip_MouseLeave;
-                notifyIcon.Visible = true;
-
-                Rect workArea = System.Windows.SystemParameters.WorkArea;
-                App.Current.MainWindow.Left = workArea.Left + (workArea.Width - this.WindowWidth) / 2;
-                App.Current.MainWindow.Top = workArea.Top + (workArea.Height - this.WindowHeight) / 2;
-                ((NavigationWindow)LogicalTreeHelper.GetParent(this)).ResizeMode = ResizeMode.CanMinimize;
+                notifyIcon.Visible = true;             
 
             }
             catch (Exception ex)

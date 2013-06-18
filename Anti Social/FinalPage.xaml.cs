@@ -155,32 +155,34 @@ namespace SocialSilence
 
                 foreach (ManagementObject oR in oRc)
                 {
-
-                    foreach (string str in (Array)(oR.Properties["DNSServerSearchOrder"].Value))
+                    if (oR.Properties["DNSServerSearchOrder"].Value != null)
                     {
-                        if (str == "208.67.222.222" && openDnsused)
+                        foreach (string str in (Array)(oR.Properties["DNSServerSearchOrder"].Value))
                         {
-                            openDnsIs.Text = "OpenDNS is configured as the DNS of this system.";
-                            break;
-                        }
-                        else if (str != "208.67.222.222" && !openDnsused)
-                        {
+                            if (str == "208.67.222.222" && openDnsused)
+                            {
+                                openDnsIs.Text = "OpenDNS is configured as the DNS of this system.";
+                                break;
+                            }
+                            else if (str != "208.67.222.222" && !openDnsused)
+                            {
 
-                            openDnsIs.Text = "OpenDNS is not configured on this system.";
-                            break;
-                            
-                        }
-                        else if (str == "208.67.222.222")
-                        {
+                                openDnsIs.Text = "OpenDNS is not configured on this system.";
+                                break;
 
-                            openDnsIs.Text = "OpenDNS was already configured as the DNS of this system.";
-                            break;
+                            }
+                            else if (str == "208.67.222.222")
+                            {
 
-                        }
-                        else
-                        {
-                            openDnsIs.Text = "Application was unbale to configure OpenDNS on this system."; 
-                            break;
+                                openDnsIs.Text = "OpenDNS was already configured as the DNS of this system.";
+                                break;
+
+                            }
+                            else
+                            {
+                                openDnsIs.Text = "Application was unbale to configure OpenDNS on this system.";
+                                break;
+                            }
                         }
                     }
 
@@ -333,8 +335,8 @@ namespace SocialSilence
                             SetWindowLong(hwnd, GWL_STYLE, getwindow);
                         }
 
-                        PasswordRequire passObj = new PasswordRequire();
-                        this.NavigationService.Navigate(passObj);
+                        StartPage startObj = new StartPage();
+                        this.NavigationService.Navigate(startObj);
                         ShowsNavigationUI = false;
                     }
                     else
