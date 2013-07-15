@@ -36,14 +36,44 @@ Please provide password to Access further.</system:String>
     <system:String x:Key="PasswordWrongMessage">Password Provided By You is Not Correct . Please Provide Again</system:String>
     <system:String x:Key="WrongOldPass">Previous Password provided is not correct . Please provide correct Password .</system:String>
     <system:String x:Key="PassNotMatch">Password Provided by You Don't match . Please check</system:String>
-    
-    
-    
-    
-    
-    
-    
-
-    
-    
+    <system:String x:Key="OpenDnsc">OpenDNS is configured as the DNS of this system.</system:String>
+    <system:String x:Key="OpenDnsnc">OpenDNS is not configured on this system.</system:String>
+    <system:String x:Key="OpenDnsac">OpenDNS was already configured as the DNS of this system.</system:String>
+    <system:String x:Key="UnableToOpenDns">Application was unable to configure OpenDNS on this system.</system:String>
+    <system:String x:Key="PopUpBlocked">PopUp And Ads are blocked on this system.</system:String>
+    <system:String x:Key="PopUpNotBlocked">PopUp And Ads are not blocked on this system.</system:String>
+    <system:String x:Key="DomainsCustomized">Customized By User.</system:String>
+    <system:String x:Key="DomainsDefault">Default set of Domains Used.</system:String>
+    <system:String x:Key="SettingRestored">Setting has been restored. Now you can access social sites</system:String>
+    <system:String x:Key="SettingRestoredMessage">System Settings Has Been restored</system:String>
+    <system:String x:Key="ApplicationInactive">You are Socially Communicative</system:String>
+    <system:String x:Key="ApplicaitonActive">You are Socially Silent</system:String>
+    <system:String x:Key="UsePassword">Use Password To Access Application</system:String>
+    <system:String x:Key="OldPassword">Previous Password</system:String>
+    <system:String x:Key="ConfirmPassword">Confirm Password</system:String>
+    <system:String x:Key="SettingPassword">Password(Max 8 letters):</system:String>
+    <system:String x:Key="RestoreApp">Restore Application</system:String>
+    <system:String x:Key="AboutUs">About Us</system:String>
+    <system:String x:Key="SetPassword">Set/Change Password</system:String>
+    <system:String x:Key="RemovePassword">Remove Password</system:String>
+    <system:String x:Key="RemovePasswordText1">Password has been removed successfully</system:String>
+    <system:String x:Key="RemovePasswordText2">Password Removed</system:String>
+    <system:String x:Key="RemovePasswordText3">Please provide password to confirm user.</system:String>
+    <system:String x:Key="ClickIcon">Click on this Icon to make changes</system:String>
+    <system:String x:Key="RestoreSettingText1">It seems that the previous session of the Application was not closed properly.</system:String>
+    <system:String x:Key="RestoreSettingText2">Restore system DNS </system:String>
+    <system:String x:Key="RestoreSettingText3">Click below Button to Restore Setting </system:String>
+    <system:String x:Key="CustomerSurveyText1">Please complete an One Time Survey </system:String>
+    <system:String x:Key="CustomerSurveyText2">Please rate this application</system:String>
+    <system:String x:Key="CustomerSurveyText3">Application was Easy to use</system:String>
+    <system:String x:Key="CustomerSurveyText4">Recommend this application to Friends</system:String>
+    <system:String x:Key="CustomerSurveyText5">Native Language Supported</system:String>
+    <system:String x:Key="CustomerSurveyText6">Enough Functionality</system:String>
+    <system:String x:Key="CustomerSurveyText7">Operating System</system:String>
+    <system:String x:Key="Yes">Yes</system:String>
+    <system:String x:Key="No">No</system:String>
+    <system:String x:Key="SetPasswordText1">All fields are mandatory</system:String>
+    <system:String x:Key="SetPasswordText2">Password not Created.</system:String>
+    <system:String x:Key="SetPasswordText3">Password created successfully .</system:String>
+    <system:String x:Key="SetPasswordText4">All fields are mandatory . Only Spaces and Tabs are not allowed .</system:String>
 </ResourceDictionary>

@@ -1,0 +1,82 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:system="clr-namespace:System;assembly=mscorlib"
+                    xml:space="preserve">
+    <system:String x:Key="Password">Parola:</system:String>
+    <system:String x:Key="PassowrdText">Bu uygulama, parola korumalı
+Sağlamak üzere parola  erişim  daha da</system:String>
+    <system:String x:Key="Proceed">İlerlemek</system:String>
+    <system:String x:Key="Cancel">İptal</system:String>
+    <system:String x:Key="StartPageDefaultText" >Sağlanan etki kümesi varsayılan ile gidin</system:String>
+    <system:String x:Key="StartPageCustomizeText" >Bloke edilecek Siteleri listesini özelleştirme</system:String>
+    <system:String x:Key="CustomizeListText">Varsayılan olarak da kara liste tüm siteleri engellenir.
+Onları Engeli için Beyaz Liste Siteler taşıyın.</system:String>
+    <system:String x:Key="SelectAll">Tümünü Seç</system:String>
+    <system:String x:Key="Add">Eklemek  --&gt;</system:String>
+    <system:String x:Key="Remove">&lt;-- çıkarmak</system:String>
+    <system:String x:Key="Next">Sonraki</system:String>
+    <system:String x:Key="FinalPageText">Değişiklikler başarıyla yapılmış.Aşağıda  yapılandırmadaki yapılmaktadır yapılmış :</system:String>
+    <system:String x:Key="AdditionalOption1">Yapabilendir </system:String>
+    <system:String x:Key="AdditionalOption2"> DNS Bu Bilgisayar olarak</system:String>
+    <system:String x:Key="AdditionalOption3">İstenmeyen PopUp ve Reklamlar engelle</system:String>
+    <system:String x:Key="AdditionalOption4">Sonsuza dek ayarları saklamak</system:String>
+    <system:String x:Key="AdditionalOption5">Ayarlamaları yapın aşağıdakiler için süre:</system:String>
+    <system:String x:Key="Hours">Saatleri</system:String>
+    <system:String x:Key="Min">Dakika</system:String>
+    <system:String x:Key="Finish">Bitirmek</system:String>
+    <system:String x:Key="FinalPageText2">Domains Engellendi:</system:String>
+    <system:String x:Key="FinalPageText3">Açılır Ve Reklamlar Bloke:</system:String>
+    <system:String x:Key="FinalPageText4">OpenDNS kullanılır:</system:String>
+    <system:String x:Key="FinalPageText5">Sol Zaman:</system:String>
+    <system:String x:Key="Second">Saniye</system:String>
+    <system:String x:Key="FinalPageText6">Restore etmek</system:String>
+    <system:String x:Key="FinalPageText7">bu pencereyi kapatmak için basın "Esc"</system:String>
+    <system:String x:Key="BrowserMessage">Değişikliklerin etkili olması için, tarayıcı yeniden başlatılması gerekir.</system:String>
+    <system:String x:Key="hostMessage">Listelenen vardır da etki alanları ana bilgisayar dosyası. istiyorsun tutmak için  onları</system:String>
+    <system:String x:Key="PasswordWrongMessage">Şifre Sağlanan doğru değil .Tekrar sağlamak lütfen</system:String>
+    <system:String x:Key="WrongOldPass">Önceki Şifre Sağlanan doğru değil .Lütfen sağlayın  doğru parola .</system:String>
+    <system:String x:Key="PassNotMatch">Şifre Sağlanan maç etmeyin .Lütfen  kontrol</system:String>
+    <system:String x:Key="OpenDnsc">OpenDNS bu sistem üzerinde yapılandırılır</system:String>
+    <system:String x:Key="OpenDnsnc">OpenDNS bu sistem üzerinde yapılandırılmamış</system:String>
+    <system:String x:Key="OpenDnsac">OpenDNS  zaten yapılandırılmış bu sistemi.</system:String>
+    <system:String x:Key="UnableToOpenDns">Uygulama bu sistem üzerinde OpenDNS yapılandıramadı.</system:String>
+    <system:String x:Key="PopUpBlocked">Açılır pencere Ve Reklamlar  bu sistem üzerinde  bloke edilmiş</system:String>
+    <system:String x:Key="PopUpNotBlocked">Açılır pencere Ve Reklamlar  bu sistem üzerinde  engellenmez.</system:String>
+    <system:String x:Key="DomainsCustomized">Kullanıcı  tarafından özelleştirilmiştir</system:String>
+    <system:String x:Key="DomainsDefault">Varsayılan etki alanı seti kullanılır</system:String>
+    <system:String x:Key="SettingRestored">Ayar restore edilmiştir. Şimdi sosyal siteler erişebilirsiniz</system:String>
+    <system:String x:Key="SettingRestoredMessage">Sistem Ayarları geri yüklenir</system:String>
+    <system:String x:Key="ApplicationInactive">Social Silence.
+Uygulama Durum: Aktif değil</system:String>
+    <system:String x:Key="ApplicaitonActive">Social Silence.
+Uygulama Durum: Aktif</system:String>
+    <system:String x:Key="UsePassword">Erişim için Parola Kullanın Uygulama</system:String>
+    <system:String x:Key="OldPassword">Önceki Şifrenizi</system:String>
+    <system:String x:Key="ConfirmPassword">Parolayı Onayla</system:String>
+    <system:String x:Key="SettingPassword">Parola (en fazla 8 harf)</system:String>
+     <system:String x:Key="RestoreApp">Geri Yükleme Uygulama</system:String>
+    <system:String x:Key="AboutUs">Hakkımızda</system:String>
+    <system:String x:Key="SetPassword">Seti / Şifre Değiştir</system:String>
+    <system:String x:Key="RemovePassword">Şifreyi Çıkarın</system:String>
+    <system:String x:Key="RemovePasswordText1">Parola başarıyla kaldırıldı</system:String>
+    <system:String x:Key="ClickIcon">Değişiklik yapmak için bu simgeye tıklayın</system:String>
+    <system:String x:Key="RemovePasswordText3">Lütfen parolayı girin</system:String>
+    <system:String x:Key="RestoreSettingText1">Meğer önceki Uygulama  oturumu düzgün kapalı değildi.</system:String>
+    <system:String x:Key="RestoreSettingText2">Sistemi Geri Yükleme DNS</system:String>
+    <system:String x:Key="RestoreSettingText3">Ayarı iade etmek için aşağıdaki butona tıklayın</system:String>
+    <system:String x:Key="CustomerSurveyText1">Anket aşağıda doldurun</system:String>
+    <system:String x:Key="CustomerSurveyText2">Lütfen bu uygulamayı oranı</system:String>
+    <system:String x:Key="CustomerSurveyText23">Uygulamanın Kullanımı Kolay </system:String>
+    <system:String x:Key="CustomerSurveyText4">Bu uygulam arkadaşlara tavsiye ederim</system:String>
+    <system:String x:Key="CustomerSurveyText5">Yerel dil Desteklenen </system:String>
+    <system:String x:Key="CustomerSurveyText6">Yeterli işlevsellik</system:String>
+    <system:String x:Key="CustomerSurveyText7">İşletim Sistemi</system:String>
+    <system:String x:Key="SetPasswordText1">Bütün alanların doldurulması zorunludur </system:String>
+    <system:String x:Key="SetPasswordText2">Parola Oluşturulma değil</system:String>
+    <system:String x:Key="SetPasswordText3">Parola başarıyla oluşturuldu</system:String>
+    <system:String x:Key="SetPasswordText4">Bütün alanların doldurulması zorunludur . Yalnızca boşluk ve tırnaklar izin verilmiyor .</system:String>
+    <system:String x:Key="RemovePasswordText2">Şifre kaldırıldıktan</system:String>
+    <system:String x:Key="Yes">Evet</system:String>
+    <system:String x:Key="No">Hayır</system:String>
+
+</ResourceDictionary>

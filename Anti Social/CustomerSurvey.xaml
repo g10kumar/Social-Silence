@@ -1,0 +1,63 @@
+﻿<Window x:Class="SocialSilence.CustomerSurvey"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="CustomerSurvey" Height="450" Width="400" WindowStartupLocation="CenterScreen" WindowStyle="None" AllowsTransparency="True">
+    <Grid x:Name="myGrid">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="179"/>
+            <ColumnDefinition Width="30"/>
+            <ColumnDefinition Width="30"/>
+            <ColumnDefinition Width="30"/>
+            <ColumnDefinition Width="30"/>
+            <ColumnDefinition Width="30"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="100*"/>
+            <RowDefinition Height="24"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="10*"/>
+            <RowDefinition Height="22*"/>
+            <RowDefinition Height="17*"/>
+            <RowDefinition Height="37"/>
+            <RowDefinition Height="8*"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="38"/>
+            <RowDefinition Height="94*"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.ColumnSpan="6" Margin="52,20,-47,23">
+            <TextBlock Foreground="#FF154AAF" FontSize="16" Width="318" TextWrapping="Wrap" Text="{DynamicResource CustomerSurveyText1}" RenderTransformOrigin="-0.792,-2.598" VerticalAlignment="Top" Height="43" HorizontalAlignment="Left"/>
+        </Grid>
+        <TextBlock Foreground="#333366" HorizontalAlignment="Left" Grid.Row="1" TextWrapping="Wrap" Text="{DynamicResource CustomerSurveyText2}" VerticalAlignment="Top" Width="150" Height="24" Margin="10,0,0,0"/>
+        <TextBlock Foreground="#333366" Grid.Column="1" HorizontalAlignment="Left" Margin="10,77,0,0" TextWrapping="Wrap" Text=" 5       4       3       2       1" VerticalAlignment="Top" Height="23" Grid.ColumnSpan="5" Width="137"/>
+        <RadioButton Grid.Row="1" Margin="8,5,0,2" Grid.Column="1" GroupName="rating" Tag="5"/>
+        <RadioButton Grid.Row="1" Margin="8,5,0,2" Grid.Column="2" GroupName="rating" Tag="4"/>
+        <RadioButton Grid.Row="1" Margin="8,5,0,2" Grid.Column="3" GroupName="rating" Tag="3"/>
+        <RadioButton Grid.Row="1" Margin="8,5,0,2" Grid.Column="4" GroupName="rating" Tag="2"/>
+        <RadioButton Grid.Row="1" Margin="8,5,0,2" Grid.Column="5" GroupName="rating" Tag="1"/>
+        <TextBlock Foreground="#333366" HorizontalAlignment="Left" Margin="8,24,0,0" Grid.Row="2" TextWrapping="Wrap" Text="{DynamicResource Yes}" VerticalAlignment="Top" Grid.Column="2" Width="23" Height="16"/>
+        <TextBlock Foreground="#333366" HorizontalAlignment="Left" Margin="8,24,0,0" Grid.Row="2" TextWrapping="Wrap" Text="{DynamicResource No}" VerticalAlignment="Top" Grid.Column="4" Width="23" Height="16"/>
+        <TextBlock Foreground="#333366" HorizontalAlignment="Left" Grid.Row="4" TextWrapping="Wrap" Text="{DynamicResource CustomerSurveyText3}" VerticalAlignment="Top" Width="180" Height="24" Margin="10,0,0,0" Grid.ColumnSpan="2" Grid.RowSpan="2"/>
+        <RadioButton Grid.Row="4" Margin="8,7,0,6" Grid.Column="2" GroupName="Ease" Grid.RowSpan="2" Tag="Yes"/>
+        <RadioButton Grid.Row="4" Margin="8,7,0,6" Grid.Column="4" GroupName="Ease" Grid.RowSpan="2" Tag="No"/>
+        <TextBlock Foreground="#333366" HorizontalAlignment="Left" Grid.Row="6" TextWrapping="Wrap" Text="{DynamicResource CustomerSurveyText4}" VerticalAlignment="Top" Width="160" Height="36" Margin="10,1,0,0"/>
+        <RadioButton Name="Yes" Grid.Row="6" Margin="8,10,0,5" Grid.Column="2" GroupName="Recomendation" Tag="Yes"/>
+        <RadioButton Grid.Row="6" Margin="8,10,0,5" Grid.Column="4" GroupName="Recomendation" Tag="No"/>
+        <TextBlock Foreground="#333366" HorizontalAlignment="Left" Grid.Row="8" TextWrapping="Wrap" Text="{DynamicResource CustomerSurveyText5}" VerticalAlignment="Top" Width="180" Height="24" Margin="10,2,0,0" Grid.ColumnSpan="2"/>
+        <RadioButton Grid.Row="8" Margin="8,7,0,0" Grid.Column="2" GroupName="language" Tag="Yes"/>
+        <RadioButton Grid.Row="8" Margin="8,7,0,0" Grid.Column="4" GroupName="language" Tag="No"/>
+        <TextBlock Foreground="#333366" HorizontalAlignment="Left" Grid.Row="9" TextWrapping="Wrap" Text="{DynamicResource CustomerSurveyText6}" VerticalAlignment="Top" Width="180" Height="24" Margin="10,7,0,0" Grid.ColumnSpan="2"/>
+        <RadioButton Grid.Row="9" Margin="8,10,0,91" Grid.Column="2" GroupName="Functionality" Grid.RowSpan="2" Tag="Yes"/>
+        <RadioButton Grid.Row="9" Margin="8,10,0,91" Grid.Column="4" GroupName="Functionality" Grid.RowSpan="2" Tag="No"/>
+        <TextBlock Foreground="#333366" HorizontalAlignment="Left" Grid.Row="10" TextWrapping="Wrap" VerticalAlignment="Top" Width="180" Height="24" Margin="10,28,0,0" Grid.ColumnSpan="2"><Run Text="{DynamicResource CustomerSurveyText7}"/></TextBlock>
+        <TextBlock Foreground="#333366" HorizontalAlignment="Left" Grid.Row="10" TextWrapping="Wrap" Text="  XP   Win7  Vista   Win8 " VerticalAlignment="Top" Width="180" Height="24" Margin="1,0,-57,0" Grid.ColumnSpan="4" Grid.Column="2"/>
+        <RadioButton Grid.Row="10" Margin="8,32,0,31" Grid.Column="2" GroupName="OS" Tag="XP"/>
+        <RadioButton Grid.Row="10" Margin="8,32,0,31" Grid.Column="3" GroupName="OS" Tag="Win7"/>
+        <RadioButton Grid.Row="10" Margin="8,32,0,31" Grid.Column="4" GroupName="OS" Tag="Vista"/>
+        <RadioButton Grid.Row="10" Margin="8,32,0,31" Grid.Column="5" GroupName="OS" Tag="Win8"/>
+        <Button Content="{DynamicResource Finish}" Margin="167,63,0,0" Grid.Row="10" VerticalAlignment="Top" Grid.ColumnSpan="3" HorizontalAlignment="Left" Width="65" Height="21" Click="SendData"/>
+
+
+
+
+    </Grid>
+</Window>

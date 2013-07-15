@@ -1,0 +1,86 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:system="clr-namespace:System;assembly=mscorlib"
+                    xml:space="preserve">
+    <system:String x:Key="Password">Пароль:</system:String>
+    <system:String x:Key="PassowrdText">Это приложение защищено паролем
+Пожалуйста, обеспечьте пароль для доступа в дальнейшем.</system:String>
+    <system:String x:Key="Proceed">продолжить</system:String>
+    <system:String x:Key="Cancel">Отменить</system:String>
+    <system:String x:Key="StartPageDefaultText" >Пойдите с набором по умолчанию доменов условии</system:String>
+    <system:String x:Key="StartPageCustomizeText" >Настроить список сайтов быть заблокированным</system:String>
+    <system:String x:Key="CustomizeListText">По умолчанию все сайты, существующие в BlackList, Заблокированы.
+Переместите сайтов в белый список, чтобы разблокировать их.</system:String>
+    <system:String x:Key="SelectAll">Выбрать все</system:String>
+    <system:String x:Key="Add">Добавить --&gt;</system:String>
+    <system:String x:Key="Remove">&lt;-- удалять</system:String>
+    <system:String x:Key="Next">рядом</system:String>
+    <system:String x:Key="FinalPageText">изменения сделанный  Успешно  .Ниже конфигурация, делается</system:String>
+    <system:String x:Key="AdditionalOption1">конфигурировать </system:String>
+    <system:String x:Key="AdditionalOption2"> как DNS этого Компьютера</system:String>
+    <system:String x:Key="AdditionalOption3">Заблокируйте нежелательный PopUp и объявления</system:String>
+    <system:String x:Key="AdditionalOption4">Держите настройка Навсегда</system:String>
+    <system:String x:Key="AdditionalOption5">держать Настройку по следующим периода времени:</system:String>
+    <system:String x:Key="Hours">часов</system:String>
+    <system:String x:Key="Min">Минуты</system:String>
+    <system:String x:Key="Finish">добить</system:String>
+    <system:String x:Key="FinalPageText2">заблокированных доменов:</system:String>
+    <system:String x:Key="FinalPageText3">всплывающих окон и объявления :</system:String>
+    <system:String x:Key="FinalPageText4">OpenDNS языками:</system:String>
+    <system:String x:Key="FinalPageText5">Осталось времени:</system:String>
+    <system:String x:Key="Second">секунды</system:String>
+    <system:String x:Key="FinalPageText6">Нажмите к  восстанавливать</system:String>
+    <system:String x:Key="FinalPageText7">Нажмите "Esc" для закрытия этого окна</system:String>
+    <system:String x:Key="BrowserMessage">Для изменений, чтобы вступить в силу, должен быть перезапущен браузер.</system:String>
+    <system:String x:Key="hostMessage">Есть домены, перечисленные в хост-файл. Вы хотите, чтобы держать их.</system:String>
+    <system:String x:Key="PasswordWrongMessage">Пароль, предоставленный Вы не правильно. Пожалуйста, укажите еще ​​раз</system:String>
+    <system:String x:Key="WrongOldPass">Предыдущая пароль не является не правильное . Пожалуйста Обеспечьте корректный Пароль</system:String>
+    <system:String x:Key="PassNotMatch">Пароль, предоставленный вы не совпадать . Пожалуйста проверите</system:String>
+    <system:String x:Key="OpenDnsc">OpenDNS настроен как DNS этой системы.</system:String>
+    <system:String x:Key="OpenDnsnc">OpenDNS не настроен на данной системе.</system:String>
+    <system:String x:Key="OpenDnsac">OpenDNS был уже настроен как DNS этой системы.</system:String>
+    <system:String x:Key="UnableToOpenDns">Применение не мог настроить OpenDNS в этой системе.</system:String>
+    <system:String x:Key="PopUpBlocked">Всплывающих окон и Реклама блокируется на в этой системе.</system:String>
+    <system:String x:Key="PopUpNotBlocked">Всплывающих окон и объявления не заблокированы .</system:String>
+    <system:String x:Key="DomainsCustomized">Подгонянные пользователем.</system:String>
+    <system:String x:Key="DomainsDefault">По умолчанию набор доменов, используемых.</system:String>
+    <system:String x:Key="SettingRestored">Настройка была восстановлена. Теперь вы можете получить доступ к сайтам социальных</system:String>
+    <system:String x:Key="SettingRestoredMessage">Параметры системы была восстановлена</system:String>
+    <system:String x:Key="ApplicationInactive">Social Silence.
+Статус заявления: неактивный</system:String>
+    <system:String x:Key="ApplicaitonActive">Social Silence.
+Статус заявления: Активный</system:String>
+    <system:String x:Key="UsePassword">Используйте пароль для доступа к применению</system:String>
+    <system:String x:Key="OldPassword">Предыдущий Пароль</system:String>
+    <system:String x:Key="ConfirmPassword">Подтвердите пароль</system:String>
+    <system:String x:Key="SettingPassword">Пароль (макс. 8 символов)</system:String>
+    <system:String x:Key="RestoreApp">Восстановить приложения</system:String>
+    <system:String x:Key="AboutUs">О нас</system:String>
+    <system:String x:Key="SetPassword">Установка / Изменение пароля</system:String>
+    <system:String x:Key="RemovePassword">Удаление пароля</system:String>
+    <system:String x:Key="RemovePasswordText1">Пароль успешно удалена</system:String>
+    <system:String x:Key="ClickIcon">Нажмите на этот значок, чтобы внести изменения</system:String>
+    <system:String x:Key="RemovePasswordText3">Введите пароль, чтобы подтвердить пользователя .</system:String>
+    <system:String x:Key="RestoreSettingText1">Кажется, что на предыдущей сессии приложения была не закрыта надлежащим образом .</system:String>
+    <system:String x:Key="RestoreSettingText2">Восстановление системы DNS .</system:String>
+    <system:String x:Key="RestoreSettingText3">Нажмите ниже кнопку, чтобы восстановить настройки</system:String>
+    <system:String x:Key="CustomerSurveyText1">Пожалуйста, заполните следующие обследования</system:String>
+    <system:String x:Key="CustomerSurveyText2">Пожалуйста, оцените это приложение </system:String>
+    <system:String x:Key="CustomerSurveyText23">Заявка была простота в использовании</system:String>
+    <system:String x:Key="CustomerSurveyText4">Рекомендуйте это приложение к друзьям</system:String>
+    <system:String x:Key="CustomerSurveyText5">Родной язык поддерживаемыми</system:String>
+    <system:String x:Key="CustomerSurveyText6">Достаточно функциональности </system:String>
+    <system:String x:Key="CustomerSurveyText7">Операционная система</system:String>
+    <system:String x:Key="SetPasswordText1">Все поля являются обязательными .</system:String>
+    <system:String x:Key="SetPasswordText2">Пароль Не Созданный</system:String>
+    <system:String x:Key="SetPasswordText3">Пароль успешно создан .</system:String>
+    <system:String x:Key="SetPasswordText4">Все поля являются обязательными .Только пробелы и табуляция не допускаются .</system:String>
+    <system:String x:Key="RemovePasswordText2">Пароль удаляется</system:String>
+    <system:String x:Key="Yes">да</system:String>
+    <system:String x:Key="No">нет</system:String>
+
+
+
+
+
+</ResourceDictionary>

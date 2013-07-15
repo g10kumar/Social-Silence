@@ -16,6 +16,8 @@ using System.Runtime.InteropServices;
 using System.Windows.Interop;
 using System.Threading;
 using System.IO;
+using System.Security.Cryptography;
+using System.Text.RegularExpressions;
 
 
 namespace SocialSilence
@@ -28,15 +30,42 @@ namespace SocialSilence
         string password;
         string hostfile_location;
         bool restoreDNS;
-        int window;
         private const int GWL_STYLE = -16;
-        [DllImport("user32.dll", SetLastError = true)]
-        private static extern int GetWindowLong(IntPtr hWnd, int nIndex);
-        [DllImport("user32.dll")]
-        private static extern int SetWindowLong(IntPtr hWnd, int nIndex, int dwNewLong);
+        System.Security.Cryptography.MD5CryptoServiceProvider hashConverter = new System.Security.Cryptography.MD5CryptoServiceProvider();
         FileSystemWatcher hostWatcher;
         System.Windows.Forms.Timer runningTimer;
         //Window.f Timer runningTimer;
+
+        public static int GetWindowLong(IntPtr hWnd, int nIndex)
+        {
+            if (IntPtr.Size == 4)
+            {
+                return GetWindowLong32(hWnd, nIndex);
+            }
+            return GetWindowLongPtr64(hWnd, nIndex);
+        }
+
+
+        [DllImport("user32.dll", EntryPoint = "GetWindowLong", CharSet = CharSet.Auto)]
+        public static extern int GetWindowLong32(IntPtr hWnd, int nIndex);
+
+        [DllImport("user32.dll", EntryPoint = "GetWindowLongPtr", CharSet = CharSet.Auto)]
+        public static extern int GetWindowLongPtr64(IntPtr hWnd, int nIndex);
+
+
+        public static int SetWindowLongPtr(IntPtr hWnd, int nIndex, int dwNewLong)
+        {
+            if (IntPtr.Size == 8)
+                return SetWindowLongPtr64(hWnd, nIndex, dwNewLong);
+            else
+                return SetWindowLong32(hWnd, nIndex, dwNewLong);
+        }
+
+        [DllImport("user32.dll", EntryPoint = "SetWindowLong")]
+        public static extern int SetWindowLong32(IntPtr hWnd, int nIndex, int dwNewLong);
+
+        [DllImport("user32.dll", EntryPoint = "SetWindowLongPtr")]
+        public static extern int SetWindowLongPtr64(IntPtr hWnd, int nIndex, int dwNewLong);
 
         public ApplicationFinished()
         {
@@ -44,15 +73,13 @@ namespace SocialSilence
             proceed.IsEnabled = false;
         }
 
-        public ApplicationFinished(string pass, string desPath, string hostPath, bool resDNS, int getwindow, FileSystemWatcher watchfile, System.Windows.Forms.Timer timer)
+        public ApplicationFinished(string pass, string hostPath, bool resDNS, FileSystemWatcher watchfile, System.Windows.Forms.Timer timer)
             : this()
         {
             password = pass;
-            this.filePath = desPath;
             hostfile_location = hostPath;
             restoreDNS = resDNS;
             Loaded += ApplicationFinished_Loaded;
-            window = getwindow;
             hostWatcher = watchfile;
             runningTimer = timer;
         }
@@ -77,34 +104,58 @@ namespace SocialSilence
 
         private void CheckPassword(object sender, RoutedEventArgs e)
         {
-            if (userpassword.Password == password)
+            try
             {
-                
-               // NavigationWindow win = (NavigationWindow)Window.GetWindow(this);
-                hostWatcher.EnableRaisingEvents = false;
-                runningTimer.Stop();
-                Window appwindow = (Window)App.Current.MainWindow;
-                var hwnd = new WindowInteropHelper(appwindow).Handle;
-                SetWindowLong(hwnd, GWL_STYLE, window);
-                int getwin = GetWindowLong(hwnd, GWL_STYLE);
-               
 
-                SettingRestore(filePath, hostfile_location, restoreDNS);
-                Xceed.Wpf.Toolkit.MessageBox.Show("System Settings Has Been restored ");
-                if (getwin != 382337024)
+                string userPassword = userpassword.Password;
+
+                byte[] data = System.Text.Encoding.ASCII.GetBytes(userPassword);
+
+                data = hashConverter.ComputeHash(data);
+
+                userPassword = System.Text.Encoding.ASCII.GetString(data);
+
+                userPassword = Regex.Replace(userPassword, @"\t|\n|\r", "");
+
+                password = Regex.Replace(password, @"\t|\n|\r", "");
+
+
+                if (userPassword == password)
                 {
-                    SetWindowLong(hwnd, GWL_STYLE, window);
-                }
-                StartPage startObj = new StartPage(filePath);
-                this.NavigationService.Navigate(startObj);
-                ShowsNavigationUI = false;
-            }
-            else
-            {
-                string passWrong = (string)this.FindResource("PasswordWrongMessage");
-                Xceed.Wpf.Toolkit.MessageBox.Show(passWrong);
-                userpassword.Clear();
+                    // NavigationWindow win = (NavigationWindow)Window.GetWindow(this);
+                    hostWatcher.EnableRaisingEvents = false;
+                    runningTimer.Stop();
+                    Window appwindow = (Window)App.Current.MainWindow;
+                    var hwnd = new WindowInteropHelper(appwindow).Handle;
+                    SetWindowLongPtr(hwnd, GWL_STYLE, StartPage.getwindow);
+                    appwindow.UpdateLayout();
+                    int getwin = GetWindowLong(hwnd, GWL_STYLE);
 
+                    string systemRest = (string)this.FindResource("SettingRestoredMessage");
+                    SettingRestore(PasswordRequire.filePath, hostfile_location, restoreDNS);
+                    Xceed.Wpf.Toolkit.MessageBox.Show(systemRest);
+                    if (getwin != 382337024)
+                    {
+                        SetWindowLongPtr(hwnd, GWL_STYLE, StartPage.getwindow);
+                    }
+                    FinalPage.httpserver.Dispose();                                                                             // Stopping HttpServer
+                    StartPage startObj = new StartPage();
+                    this.NavigationService.Navigate(startObj);
+                    ShowsNavigationUI = false;
+                    // string appStatus = (string)this.FindResource("ApplicationInactive");
+                    setNotifyIconText(PasswordRequire.notifyIcon, (string)FindResource("ApplicationInactive"));
+                }
+                else
+                {
+                    //string passWrong = (string)this.FindResource("PasswordWrongMessage");
+                    Xceed.Wpf.Toolkit.MessageBox.Show((string)this.FindResource("PasswordWrongMessage"));
+                    userpassword.Clear();
+
+                }
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message + ex.StackTrace);
             }
         }
 

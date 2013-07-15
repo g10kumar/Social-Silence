@@ -145,6 +145,10 @@
     <domain>www.Draugiem.lv</domain>
   </site>
   <site>
+    <name>Dropbox</name>
+    <domain>www.dropbox.com</domain>
+  </site>
+  <site>
     <name>DXY.cn</name>
     <domain>www.DXY.cn</domain>
   </site>
@@ -347,6 +351,10 @@
   <site>
     <name>Indaba Music</name>
     <domain>www.indabamusic.com</domain>
+  </site>
+  <site>
+    <name>Instagram</name>
+    <domain>instagram.com</domain>
   </site>
   <site>
     <name>IRC-Galleria</name>
@@ -641,6 +649,10 @@
     <domain>www.Taringa.net</domain>
   </site>
   <site>
+    <name>Tencent QQ</name>
+    <domain>www.qq.com</domain>
+  </site>
+  <site>
     <name>TeachStreet</name>
     <domain>www.TeachStreet.com</domain>
   </site>
@@ -671,6 +683,10 @@
   <site>
     <name>Tuenti</name>
     <domain>www.Tuenti.com</domain>
+  </site>
+  <site>
+    <name>Tumblr</name>
+    <domain>www.tumblr.com</domain>
   </site>
   <site>
     <name>Twitter</name>

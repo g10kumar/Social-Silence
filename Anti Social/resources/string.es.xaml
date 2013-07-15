@@ -1,0 +1,82 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:system="clr-namespace:System;assembly=mscorlib"
+                    xml:space="preserve">
+<system:String x:Key="Password">Contraseña:</system:String>
+    <system:String x:Key="PassowrdText">Esta aplicación está protegida con contraseña
+Por favor, proporcione la contraseña para acceder más lejos</system:String>
+    <system:String x:Key="Proceed">Proceder</system:String>
+    <system:String x:Key="Cancel">Cancelar</system:String>
+    <system:String x:Key="StartPageDefaultText" >Vaya con el conjunto defecto de dominios proporcionado</system:String>
+    <system:String x:Key="StartPageCustomizeText" >Personalizar la lista de sitios para ser bloqueados</system:String>
+    <system:String x:Key="CustomizeListText">Todos los sitios presentes en la lista negra se bloquean.
+Mueva sitios a la Lista Blanca para desbloquearlos.</system:String>
+    <system:String x:Key="SelectAll">Seleccione todas</system:String>
+    <system:String x:Key="Add">Agregar --&gt;</system:String>
+    <system:String x:Key="Remove">&lt;- Quitar</system:String>
+    <system:String x:Key="Next">Próximo</system:String>
+    <system:String x:Key="FinalPageText">Cambios realizados con éxito . A continuación se realiza la configuración </system:String>
+    <system:String x:Key="AdditionalOption1">Configurar </system:String>
+    <system:String x:Key="AdditionalOption2"> como DNS de este equipo</system:String>
+    <system:String x:Key="AdditionalOption3">Bloquear ventanas emergentes y anuncios no deseados</system:String>
+    <system:String x:Key="AdditionalOption4">Mantenga Configuración siempre</system:String>
+    <system:String x:Key="AdditionalOption5">Hacen que la configuración para el siguiente período de tiempo:</system:String>
+    <system:String x:Key="Hours">Horas</system:String>
+    <system:String x:Key="Min">Minutos</system:String>
+    <system:String x:Key="Finish">Acabado</system:String>
+    <system:String x:Key="FinalPageText2">Dominios bloqueados:</system:String>
+    <system:String x:Key="FinalPageText3">PopUp y anuncios bloqueados:</system:String>
+    <system:String x:Key="FinalPageText4">OpenDNS utilizadas:</system:String>
+    <system:String x:Key="FinalPageText5">Tiempo restante:</system:String>
+    <system:String x:Key="Second">Segundos</system:String>
+    <system:String x:Key="FinalPageText6">Restaurar Configuración</system:String>
+    <system:String x:Key="FinalPageText7">Presione "Esc" para cerrar esta ventana</system:String>
+    <system:String x:Key="BrowserMessage">Para que los cambios surtan efecto, navegador necesitará ser reiniciado.</system:String>
+    <system:String x:Key="hostMessage">Existen dominios enumerados en el archivo de host.¿Desea mantener.</system:String>
+    <system:String x:Key="PasswordWrongMessage">Contraseña otorgada por el usuario no es correcta. Por favor Proporcionar nuevo</system:String>
+    <system:String x:Key="WrongOldPass">contraseña anterior proporcionada no es correcta. Proporcione contraseña correcta.</system:String>
+    <system:String x:Key="PassNotMatch">Contraseña proporcionada por usted no coinciden. Por favor, compruebe</system:String>
+    <system:String x:Key="OpenDnsc">OpenDNS se configura como el DNS de este sistema.</system:String>
+    <system:String x:Key="OpenDnsnc">OpenDNS no está configurado en el sistema.</system:String>
+    <system:String x:Key="OpenDnsac">OpenDNS ya se configuró como el DNS de este sistema.</system:String>
+    <system:String x:Key="UnableToOpenDns">Aplicación no pudo configurar OpenDNS en este sistema.</system:String>
+    <system:String x:Key="PopUpBlocked">Ventana emergente y los anuncios están bloqueados .</system:String>
+    <system:String x:Key="PopUpNotBlocked">Ventana emergente y los anuncios no están bloqueados.</system:String>
+    <system:String x:Key="DomainsCustomized">Personalizado por el usuario.</system:String>
+    <system:String x:Key="DomainsDefault">Conjunto defecto de dominios utilizados.</system:String>
+    <system:String x:Key="SettingRestored">Configuración ha sido restaurada.Ahora, se puede acceder a sitios de redes sociales </system:String>
+    <system:String x:Key="SettingRestoredMessage">Ajustes sistema ha sido restaurado</system:String>
+    <system:String x:Key="ApplicationInactive">Social Silence.
+Estado de la aplicación: Inactivo</system:String>
+    <system:String x:Key="ApplicaitonActive">Social Silence.
+Estado de la aplicación: Activo</system:String>
+    <system:String x:Key="UsePassword">Uso contraseña para acceder a la aplicación</system:String>
+    <system:String x:Key="OldPassword">Contraseña Anterior</system:String>
+    <system:String x:Key="ConfirmPassword">Confirmar contraseña</system:String>
+    <system:String x:Key="SettingPassword">Contraseña (máximo 8 letras)</system:String>
+    <system:String x:Key="RestoreApp">Restaurar Aplicación</system:String>
+    <system:String x:Key="AboutUs">Acerca de Nosotros</system:String>
+    <system:String x:Key="SetPassword">Conjunto/Cambiar la contraseña</system:String>
+    <system:String x:Key="RemovePassword">Quitar contraseña</system:String>
+    <system:String x:Key="RemovePasswordText1">Contraseña se ha eliminado con éxito</system:String>
+    <system:String x:Key="ClickIcon">Haga clic en este icono para realizar cambios</system:String>
+    <system:String x:Key="RemovePasswordText3">Por favor, proporcione la contraseña para confirmar usuario.</system:String>
+    <system:String x:Key="RestoreSettingText1">Parece que la sesión anterior de la aplicación no se cerró correctamente.</system:String>
+    <system:String x:Key="RestoreSettingText2">Restaurar sistema DNS</system:String>
+    <system:String x:Key="RestoreSettingText3">Haga clic abajo botón para restaurar configuración</system:String>
+    <system:String x:Key="CustomerSurveyText1">Por favor, completar una encuesta</system:String>
+    <system:String x:Key="CustomerSurveyText2">Por favor califique esta aplicación</system:String>
+    <system:String x:Key="CustomerSurveyText23">Aplicación es fácil de usar</system:String>
+    <system:String x:Key="CustomerSurveyText4">Recomendar este aplicación a Amigos</system:String>
+    <system:String x:Key="CustomerSurveyText5">Idioma Nativo Apoyado</system:String>
+    <system:String x:Key="CustomerSurveyText6">Suficiente funcionalidad</system:String>
+    <system:String x:Key="CustomerSurveyText7">Sistema Operativo</system:String>
+    <system:String x:Key="SetPasswordText1">Todos los campos son obligatorios.</system:String>
+    <system:String x:Key="SetPasswordText2">Contraseña No se ha creado</system:String>
+    <system:String x:Key="SetPasswordText3">Contraseña creada con éxito.</system:String>
+    <system:String x:Key="SetPasswordText4">Todos los campos son obligatorios .Sólo los espacios y las tabulaciones no están permitidos.</system:String>
+    <system:String x:Key="RemovePasswordText2">Contraseña Quitada</system:String>
+    <system:String x:Key="Yes">sí </system:String>
+    <system:String x:Key="No">No</system:String>
+
+</ResourceDictionary>

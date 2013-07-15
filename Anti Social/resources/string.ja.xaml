@@ -1,0 +1,82 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:system="clr-namespace:System;assembly=mscorlib"
+                    xml:space="preserve">
+    <system:String x:Key="Password">パスワード:</system:String>
+    <system:String x:Key="PassowrdText">このアプリケーションは、保護されているパスワードです
+さらなるにアクセスするためのパスワードを提供してください</system:String>
+    <system:String x:Key="Proceed">続行</system:String>
+    <system:String x:Key="Cancel">キャンセル</system:String>
+    <system:String x:Key="StartPageDefaultText" >指定されたドメインのデフォルト設定を使用</system:String>
+    <system:String x:Key="StartPageCustomizeText" >ブロックされるサイトのリストをカスタマイズ</system:String>
+    <system:String x:Key="CustomizeListText">デフォルトでブラックリストに存在するすべてのサイトがブロックされています。サイトをブロック解除するホワイトリストに転送</system:String>
+    <system:String x:Key="SelectAll">選ばれたすべて</system:String>
+    <system:String x:Key="Add">を追加 --&gt;</system:String>
+    <system:String x:Key="Remove">&lt;-- を削除</system:String>
+    <system:String x:Key="Next">次</system:String>
+    <system:String x:Key="FinalPageText">変更が正常に完了しました。 以下の構成が終了している</system:String>
+    <system:String x:Key="AdditionalOption1">構成してください </system:String>
+    <system:String x:Key="AdditionalOption2"> このコンピュータのDNSとして</system:String>
+    <system:String x:Key="AdditionalOption3">不必要なポップアップと広告をブロックしてください</system:String>
+    <system:String x:Key="AdditionalOption4">永久に設定を維持する</system:String>
+    <system:String x:Key="AdditionalOption5">次の期間のセッティングを作ってください：</system:String>
+    <system:String x:Key="Hours">時間</system:String>
+    <system:String x:Key="Min">分</system:String>
+    <system:String x:Key="Finish">完了</system:String>
+    <system:String x:Key="FinalPageText2">ブロックされる領域：</system:String>
+    <system:String x:Key="FinalPageText3">ポップアップ広告がブロックされます。</system:String>
+    <system:String x:Key="FinalPageText4">使われるOpenDNS：</system:String>
+    <system:String x:Key="FinalPageText5">残り時間:</system:String>
+    <system:String x:Key="Second">秒</system:String>
+    <system:String x:Key="FinalPageText6">このボタンをクリックして復元する</system:String>
+    <system:String x:Key="FinalPageText7">この窓を閉めるために、「Esc」を押してください。</system:String>
+    <system:String x:Key="BrowserMessage">変更を有効にするには、ブラウザを再起動する必要があります。</system:String>
+    <system:String x:Key="hostMessage">ホスト・ファイルにリストされる領域が、あります。あなたは、彼らを保ちたいです。</system:String>
+    <system:String x:Key="PasswordWrongMessage">あなたにより提供されるパスワードは、正しくありません。もう一度提供してください</system:String>
+    <system:String x:Key="WrongOldPass">提供されている以前のパスワードが正しくありません。 正しいパスワードを入力してください。</system:String>
+    <system:String x:Key="PassNotMatch">あなた don't 一致によって提供されたパスワード。確認してください。</system:String>
+    <system:String x:Key="OpenDnsc">OpenDNSこのシステムのDNSに設定されています。</system:String>
+    <system:String x:Key="OpenDnsnc">OpenDNSこのシステムに設定されていません。</system:String>
+    <system:String x:Key="OpenDnsac">OpenDNSはすでにこのシステムのDNSに設定されていました。</system:String>
+    <system:String x:Key="UnableToOpenDns">アプリケーションは、Opendnsを構成することができませんでした</system:String>
+    <system:String x:Key="PopUpBlocked">ポップアップと広告は、このシステム上で妨害されます。</system:String>
+    <system:String x:Key="PopUpNotBlocked">ポップアップAnd Adsは、妨げられません</system:String>
+    <system:String x:Key="DomainsCustomized">ユーザーによってカスタマイズされます。</system:String>
+    <system:String x:Key="DomainsDefault">使われる領域のデフォルト・セット。</system:String>
+    <system:String x:Key="SettingRestored">設定が復元されました。今、あなたは社会的なサイトにアクセスすることができます</system:String>
+    <system:String x:Key="SettingRestoredMessage">システム構成復元され</system:String>
+    <system:String x:Key="ApplicationInactive">Social Silence.
+アプリケーション・ステータス：不活発な</system:String>
+    <system:String x:Key="ApplicaitonActive">Social Silence.
+アプリケーション・ステータス：活発な</system:String>
+    <system:String x:Key="UsePassword">アプリケーションにアクセスするためにパスワードを使用する</system:String>
+    <system:String x:Key="OldPassword">前のパスワード</system:String>
+    <system:String x:Key="ConfirmPassword">パスワードを確かめて</system:String>
+    <system:String x:Key="SettingPassword">パスワード(8文字)</system:String>
+    <system:String x:Key="RestoreApp">アプリケーションを復元</system:String>
+    <system:String x:Key="AboutUs">私達について</system:String>
+    <system:String x:Key="SetPassword">設定 / パスワードの変更</system:String>
+    <system:String x:Key="RemovePassword">パスワードを削除する</system:String>
+    <system:String x:Key="RemovePasswordText1">パスワードが正常に削除されました</system:String>
+    <system:String x:Key="ClickIcon">変更を加えるには、このアイコンをクリックして</system:String>
+    <system:String x:Key="RemovePasswordText3">ユーザー確認のためにパスワードを入力してください</system:String>
+    <system:String x:Key="RestoreSettingText1">きちんと閉じていなかったアプリケーションの以前のセッション</system:String>
+    <system:String x:Key="RestoreSettingText2">システムDNS復元します。</system:String>
+    <system:String x:Key="RestoreSettingText3">設定を復元するには下のボタンをクリックします</system:String>
+    <system:String x:Key="CustomerSurveyText1">このアンケートにご記入願います。</system:String>
+    <system:String x:Key="CustomerSurveyText2">このアプリケーション レートしてください</system:String>
+    <system:String x:Key="CustomerSurveyText23">アプリケーションが使いやすいでした</system:String>
+    <system:String x:Key="CustomerSurveyText4">他の人にこのアプリケーションをお勧めします</system:String>
+    <system:String x:Key="CustomerSurveyText5">サポートされてネイティブ言語</system:String>
+    <system:String x:Key="CustomerSurveyText6">十分な機能</system:String>
+    <system:String x:Key="CustomerSurveyText7">オペレーティングシステム</system:String>
+    <system:String x:Key="SetPasswordText1">すべてのフィールドは義務的です</system:String>
+    <system:String x:Key="SetPasswordText2">パスワードを作成していない</system:String>
+    <system:String x:Key="SetPasswordText3">パスワードが正常に作成</system:String>
+    <system:String x:Key="SetPasswordText4">すべてのフィールドは義務的です . スペースおよびタブだけが許可されていません</system:String>
+    <system:String x:Key="RemovePasswordText2">パスワードは削除されました </system:String>
+    <system:String x:Key="Yes">はい</system:String>
+    <system:String x:Key="No">いいえ</system:String>
+
+
+</ResourceDictionary>

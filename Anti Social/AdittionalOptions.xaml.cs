@@ -49,15 +49,28 @@ namespace SocialSilence
         {
             InitializeComponent();
         }
-        public AdittionalOptions(ObservableCollection<string> theList, MessageBoxResult res,string path,bool customized , List<string> fromHost ):this()
+        public AdittionalOptions(ObservableCollection<string> theList, MessageBoxResult res,bool customized , List<string> fromHost ):this()
         {
             domainsToBlock = theList;                                                               // This is the list of names of domains that are going to be blocked . 
             PopUpResult = res;                                                                      // This is the message box value if the user wants to add domains from host file.
-            filePath = path;
             Hours.IsEnabled = false;
             Min.IsEnabled = false;
             domainCustomized = customized;                                                          // This is the bool value to show that the domain list has been customized or not.
             domainsFromHostFile = fromHost;
+            this.Loaded += AdittionalOptions_Loaded;
+        }
+
+        void AdittionalOptions_Loaded(object sender, RoutedEventArgs e)
+        {
+           this.NavigationService.Navigating +=NavigationService_Navigating;
+        }
+
+        void NavigationService_Navigating(object sender, NavigatingCancelEventArgs e)
+        {
+            if (e.NavigationMode == NavigationMode.Back)
+            {
+                ShowsNavigationUI = false;
+            }
         }
 
         private void h1_RequestNavigate(object sender, RequestNavigateEventArgs e)                  // This method is to opendns url in internet explorer. 
@@ -69,10 +82,10 @@ namespace SocialSilence
 
         private void FinishSetting(object sender, RoutedEventArgs e)
         {
-            if(hourTextBox.Text != null)
+            if (hourTextBox.Text != null && !hourTextBox.Text.Equals(""))
             hours = Convert.ToInt32(hourTextBox.Text);
 
-            if(minTextBox.Text != null)
+            if (minTextBox.Text != null && !minTextBox.Text.Equals(""))
             min = Convert.ToInt32(minTextBox.Text);
            //Stopwatch watch = new Stopwatch();
            // watch.Start();
@@ -103,7 +116,7 @@ namespace SocialSilence
                     }
                     catch
                     {
-                        Task.Delay(2000);
+                        Thread.Sleep(2000);
                         WriteToFileSuperFast(domainsFromHostFile, null, blacklist_path);
 
                     }
@@ -119,7 +132,7 @@ namespace SocialSilence
             }
             else                                                                              // This block will execute if the user do not want to block popup and ads
             {
-                if (PopUpResult.Equals(MessageBoxResult.Yes))                       // This block is completed. Has to complete above block . 
+                if (PopUpResult.Equals(MessageBoxResult.Yes))                      
                 {
                     try
                     {
@@ -129,7 +142,7 @@ namespace SocialSilence
                     }
                     catch
                     {
-                        Task.Delay(2000);
+                        Thread.Sleep(2000);
                         WriteToFileSuperFast(domainsFromHostFile, null, @"Resources\host");
 
                     }
@@ -145,7 +158,7 @@ namespace SocialSilence
                 }
                 catch 
                 {
-                    Task.Delay(2000);
+                    Thread.Sleep(2000);
                     System.IO.File.Copy(@"Resources\host", hostfile_location, true);
                 }
 
@@ -189,8 +202,8 @@ namespace SocialSilence
                 }
             }
 
-            FinalPage finalObj = new FinalPage(domainCustomized, openDnsUsed, popupBlocked,time,filePath );
-
+            FinalPage finalObj = new FinalPage(domainCustomized, openDnsUsed, popupBlocked,time);
+            finalObj.ShowsNavigationUI = false;
             NavigationService.Navigate(finalObj);
             //finalObj.ShowsNavigationUI = false;          
 
@@ -370,10 +383,11 @@ namespace SocialSilence
                       
                         foreach (string str in (Array)(oR.Properties["DNSServerSearchOrder"].Value))
                         {
-                            if (str != "208.67.222.222" && str != "208.67.220.220")
-                            {
-                                file.WriteLine(str);
-                            }
+                            //if (str != "208.67.222.222" && str != "208.67.220.220")           // in Case if the user is using the OpenDns already
+                            //{
+                            //    file.WriteLine(str);
+                            //}
+                            file.WriteLine(str);
                         }
                     }
 
@@ -468,6 +482,8 @@ namespace SocialSilence
             SettingForever.IsEnabled = true;
             Hours.IsEnabled = false;
             Min.IsEnabled = false;
+            hourTextBox.Clear();
+            minTextBox.Clear();
         }
 
         private void EnableTimeSpinner(object sender, RoutedEventArgs e)

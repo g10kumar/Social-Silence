@@ -17,6 +17,9 @@ using System.IO;
 using System.Reflection;
 using Microsoft.Win32;
 using System.Management;
+using System.Windows.Threading;
+using System.Text.RegularExpressions;
+using System.Diagnostics;
 
 namespace SocialSilence
 {
@@ -25,11 +28,15 @@ namespace SocialSilence
     /// </summary>
     public partial class PasswordRequire : CommonFunctions
     {
-        
+
+        public static string filePath;
         string passwordStored;
         string userLanguage;
         public  static System.Windows.Forms.NotifyIcon notifyIcon = null;
         private Dictionary<string, System.Drawing.Icon> IconHandles = null;
+        public static bool passUsed = false;
+        public static bool firstRun = false;
+        System.Security.Cryptography.MD5CryptoServiceProvider hashConverter = new System.Security.Cryptography.MD5CryptoServiceProvider(); public static string notificationToolTip;
 
         public PasswordRequire()
         {
@@ -59,11 +66,33 @@ namespace SocialSilence
 
         async void PasswordRequire_Loaded(object sender, RoutedEventArgs e)
         {
+            Process[] currentProcess = Process.GetProcesses();
+            List<string> process = new List<string>();
+            MessageBoxResult result = MessageBoxResult.None;
+            foreach (Process pro in currentProcess)
+            {
+                if(pro.ProcessName=="SocialSilence")
+                process.Add(pro.ProcessName);
+            }
+            if (process.Count() != 1 &&  process.Count() != 0  )  // Checking for Instances of current application running . 
+            {                
+                result = Xceed.Wpf.Toolkit.MessageBox.Show("There are current Instances of same Application running on this computer.", "Message", MessageBoxButton.OK);
+
+                if (result == MessageBoxResult.OK)
+                {
+                    App.Current.MainWindow.Close();
+                }
+
+            }
+
+            
+
             Rect workArea = System.Windows.SystemParameters.WorkArea;
             App.Current.MainWindow.Left = workArea.Left + (workArea.Width - this.WindowWidth) / 2;
             App.Current.MainWindow.Top = workArea.Top + (workArea.Height - this.WindowHeight) / 2;
             ((NavigationWindow)LogicalTreeHelper.GetParent(this)).ResizeMode = ResizeMode.CanMinimize;
-
+            NavigationWindow win = (NavigationWindow)Window.GetWindow(this);
+            win.Closing += win_Closing;
             
             var OSname = (from x in new ManagementObjectSearcher("SELECT * FROM Win32_OperatingSystem").Get().OfType<ManagementObject>()
                          select x.GetPropertyValue("Caption")).FirstOrDefault();
@@ -71,12 +100,26 @@ namespace SocialSilence
             if (OSname.ToString().Contains("Windows 8"))
             {
                 string[] languageSet = (string[])Registry.GetValue(@"HKEY_CURRENT_USER\Control Panel\International\User Profile", "Languages", null);
-                userLanguage = languageSet[0].Remove(2) ;
+                if (languageSet[0].Length > 2)
+                {
+                    userLanguage = languageSet[0].Remove(2);
+                }
+                else
+                {
+                    userLanguage = languageSet[0];
+                }
             }
             else if (OSname.ToString().Contains("Windows 7"))
             {
                 string[] languageSet = (string[])Registry.GetValue(@"HKEY_CURRENT_USER\Control Panel\Desktop\MuiCached", "MachinePreferredUILanguages", null);
-                userLanguage = languageSet[0].Remove(2);
+                if (languageSet[0].Length > 2)
+                {
+                    userLanguage = languageSet[0].Remove(2);
+                }
+                else
+                {
+                    userLanguage = languageSet[0];
+                }
             }
 
 
@@ -91,10 +134,17 @@ namespace SocialSilence
                 notifyIcon = new System.Windows.Forms.NotifyIcon();
                 notifyIcon.Click += notifyIcon_Click;
                 notifyIcon.Icon = IconHandles["QuickLaunch"];
-                notifyIcon.BalloonTipTitle = "Windows Social Silence";
-                notifyIcon.BalloonTipText = "Click on this icon to make changes";
-                //notifyIcon.ContextMenuStrip.MouseLeave += ContextMenuStrip_MouseLeave;
-                notifyIcon.Visible = true;             
+                notifyIcon.BalloonTipTitle = "Social Silence";
+                notifyIcon.BalloonTipText = (string)FindResource("ClickIcon"); ;
+                notifyIcon.Visible = true;
+                notifyIcon.ShowBalloonTip(500);                
+                notificationToolTip = (string)FindResource("ApplicationInactive");
+                setNotifyIconText(notifyIcon, notificationToolTip);
+               // System.Windows.Forms.ContextMenu menu = notifyIcon.ContextMenu;
+               // System.Windows.Forms.MenuItem item3 = menu.MenuItems[3];
+                //item3.Visible = false;
+
+                
 
             }
             catch (Exception ex)
@@ -106,23 +156,30 @@ namespace SocialSilence
             {
                 IsolatedStorageFile password = IsolatedStorageFile.GetStore(IsolatedStorageScope.User | IsolatedStorageScope.Domain | IsolatedStorageScope.Assembly, null, null);
                 filePath = password.GetType().GetField("m_RootDir", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(password).ToString();
-                StreamReader passReader = new StreamReader(new IsolatedStorageFileStream("Win32AppPas.bin", FileMode.OpenOrCreate, password));                
-               // File.SetAttributes(filePath + "Win32AppPas.bin", FileAttributes.Hidden|FileAttributes.System);
-                File.SetAttributes(filePath + "Win32AppPas.bin", FileAttributes.Normal);
-                if (passReader != null)
+                if(!File.Exists(filePath +"host"))
                 {
-                    string p = await passReader.ReadLineAsync();
-                    if (p == null || p=="")                                  // If there is no password in the file then the application is going to start from Start Page. 
+                    firstRun = true;
+                }
+                using (StreamReader passReader = new StreamReader(new IsolatedStorageFileStream("Win32AppPas.bin", FileMode.OpenOrCreate, password)))
+                {
+                    // File.SetAttributes(filePath + "Win32AppPas.bin", FileAttributes.Hidden|FileAttributes.System);
+                    File.SetAttributes(filePath + "Win32AppPas.bin", FileAttributes.Normal);
+                    if (passReader != null)
                     {
-                        StartPage pobj = new StartPage(filePath);
-                        this.NavigationService.Navigate(pobj);
-                    }
-                    else
-                    {
-                        passwordStored = p;
+                        string p = await passReader.ReadToEndAsync();
+                        if (p == null || p == "")                                  // If there is no password in the file then the application is going to start from Start Page. 
+                        {
+                            notifyIcon.Click -= notifyIcon_Click;
+                            StartPage pobj = new StartPage();
+                            this.NavigationService.Navigate(pobj);
+                        }
+                        else
+                        {
+                            passwordStored = p;
+                        }
                     }
                 }
-                passReader.Close();
+                File.SetAttributes(filePath + "Win32AppPas.bin", FileAttributes.Hidden | FileAttributes.System);
                 
             }
             catch(Exception ex)
@@ -131,25 +188,44 @@ namespace SocialSilence
             }
 
 
+        }      
+
+
+        void win_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            if (((System.Windows.Controls.Page)(((System.Windows.Controls.ContentControl)(sender)).Content)).Title != "FinalPage" && ((System.Windows.Controls.Page)(((System.Windows.Controls.ContentControl)(sender)).Content)).Title != "ApplicationFinished")
+            {
+                notifyIcon.Dispose();
+            }
+            else
+            {
+                e.Cancel = true;
+            }
+            
         }
 
-        //void ContextMenuStrip_MouseLeave(object sender, EventArgs e)
-        //{
-        //    SocialSilence.SysTrayMenu systray = new SysTrayMenu();
-        //    systray.IsOpen = false;
-        //}
 
         private void notifyIcon_Click(object sender, EventArgs e)
         {
             SocialSilence.SysTrayMenu systray = new SysTrayMenu();
             systray.IsOpen = true;
+            if (passUsed)
+            {
+                if (!((System.Windows.Controls.HeaderedItemsControl)(((System.Windows.Controls.ItemsControl)(systray)).Items[6])).Equals(null))
+                {
+                    ((System.Windows.Controls.HeaderedItemsControl)(((System.Windows.Controls.ItemsControl)(systray)).Items[6])).Visibility = System.Windows.Visibility.Collapsed;
+                }
+            }
+           var  _popupTimer = new DispatcherTimer(DispatcherPriority.Normal);
+           _popupTimer.Interval = TimeSpan.FromMilliseconds(5000);
+           _popupTimer.Tick += (obj, x) =>
+           {
+               systray.IsOpen = false;
+           };
+           _popupTimer.Start();
 
-        }
 
-        void item2_Click(object sender, RoutedEventArgs e)
-        {
-            SetPassword passObj = new SetPassword();
-            passObj.Show();
+            
         }
 
 
@@ -158,9 +234,23 @@ namespace SocialSilence
         {
             string passWrong = (string)this.FindResource("PasswordWrongMessage");
             string userPassword = Password.Password;
+
+            byte[] data = System.Text.Encoding.ASCII.GetBytes(userPassword);
+
+            data = hashConverter.ComputeHash(data);
+
+            userPassword = System.Text.Encoding.ASCII.GetString(data);
+
+            userPassword = Regex.Replace(userPassword, @"\t|\n|\r", "");
+
+            passwordStored = Regex.Replace(passwordStored, @"\t|\n|\r", "");
+
+
             if (userPassword == passwordStored && userPassword != null && userPassword != "")
             {
-                StartPage pobj = new StartPage(filePath);
+                passUsed = true;
+                notifyIcon.Click -= notifyIcon_Click;
+                StartPage pobj = new StartPage();
                 this.NavigationService.Navigate(pobj);
               //  ShowsNavigationUI = true;
             }
@@ -175,9 +265,22 @@ namespace SocialSilence
         {
             string passWrong = (string)this.FindResource("PasswordWrongMessage");
             string userPassword = Password.Password;
+
+            byte[] data = System.Text.Encoding.ASCII.GetBytes(userPassword);
+
+            data = hashConverter.ComputeHash(data);
+
+            userPassword = System.Text.Encoding.ASCII.GetString(data);
+
+            userPassword = Regex.Replace(userPassword, @"\t|\n|\r", "");
+
+            passwordStored = Regex.Replace(passwordStored, @"\t|\n|\r", "");
+
             if (userPassword == passwordStored && userPassword != null && userPassword != "")
             {
-                StartPage pobj = new StartPage(filePath);
+                passUsed = true;
+                notifyIcon.Click -= notifyIcon_Click;
+                StartPage pobj = new StartPage();
                 this.NavigationService.Navigate(pobj);
               //  ShowsNavigationUI = true;
             }

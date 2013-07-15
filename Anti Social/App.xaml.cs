@@ -15,6 +15,6 @@ namespace SocialSilence
     /// </summary>
     public partial class App : Application
     {
-
+        
      }
 }

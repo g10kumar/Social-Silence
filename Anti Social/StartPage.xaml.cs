@@ -18,6 +18,9 @@ using System.IO;
 using System.Text.RegularExpressions;
 using System.Collections.ObjectModel;
 using System.Xml.Linq;
+using System.Windows.Threading;
+using System.Runtime.InteropServices;
+using System.Windows.Interop;
 
 
 
@@ -29,25 +32,44 @@ namespace SocialSilence
     public partial class StartPage : CommonFunctions
     {
 
+        public static int GetWindowLong(IntPtr hWnd, int nIndex)
+        {
+            if (IntPtr.Size == 4)
+            {
+                return GetWindowLong32(hWnd, nIndex);
+            }
+            return GetWindowLongPtr64(hWnd, nIndex);
+        }
+
+
+        [DllImport("user32.dll", EntryPoint = "GetWindowLong", CharSet = CharSet.Auto)]
+        private static extern int GetWindowLong32(IntPtr hWnd, int nIndex);
+
+        [DllImport("user32.dll", EntryPoint = "GetWindowLongPtr", CharSet = CharSet.Auto)]
+        private static extern int GetWindowLongPtr64(IntPtr hWnd, int nIndex);
+
+        private const int GWL_STYLE = -16;
         bool backUpHost = true;
         ObservableCollection<string> defaultlist = new ObservableCollection<string>();
         MessageBoxResult result;
         List<string> domainsPresent = new List<string>();
         string hostMessage;
+        public static int getwindow;
+
         public StartPage()
         {
             InitializeComponent();
+            Loaded += StartPage_Loaded;
                       
         }
 
-        public StartPage(string path):this()
-        {
-            filePath = path;                                                    // This is the path of the local file storage for the application.
-            Loaded += StartPage_Loaded;
-        }
 
         private void StartPage_Loaded(object sender, RoutedEventArgs e)         // On loading the page , create a backup of the host file into application . 
         {
+            NavigationWindow win = (NavigationWindow)Window.GetWindow(this);
+            var hwnd = new WindowInteropHelper(win).Handle;
+            getwindow = GetWindowLong(hwnd, GWL_STYLE);       
+            PasswordRequire.notifyIcon.Click += notifyIcon_Click;
             string hostfile_location = PSHostsFile.HostsFile.GetHostsPath();
             FileAttributes hostattributes = File.GetAttributes(hostfile_location);
 
@@ -63,6 +85,9 @@ namespace SocialSilence
                 if(Regex.IsMatch(line,matchLine))
                 {
                     backUpHost = false;                                               // If the host file was created by application do not make copy .
+                    RestoreSetting restoreObj = new RestoreSetting(hostfile_location);
+                    restoreObj.ShowsNavigationUI = false;
+                    NavigationService.Navigate(restoreObj);
                     break;
                 }
             }
@@ -70,20 +95,34 @@ namespace SocialSilence
            
             if (backUpHost)
             {
-                if (System.IO.File.Exists(filePath + "host"))                                // Check if the backkup host file exits or not . 
+                if (System.IO.File.Exists(PasswordRequire.filePath + "host"))                                // Check if the backkup host file exits or not . 
                 {
-                    FileAttributes hostAttrib = File.GetAttributes(filePath + "host");
+                    FileAttributes hostAttrib = File.GetAttributes(PasswordRequire.filePath + "host");
                     if (hostAttrib.ToString().Contains(FileAttributes.System.ToString()) || hostAttrib.ToString().Contains(FileAttributes.Hidden.ToString()))
                     {
-                        File.SetAttributes(filePath + "host", FileAttributes.Normal);
+                        File.SetAttributes(PasswordRequire.filePath + "host", FileAttributes.Normal);
                     }
                 }
-                File.Copy(hostfile_location, filePath + "host", true);
-                File.SetAttributes(filePath + "host", FileAttributes.System | FileAttributes.Hidden);
+                File.Copy(hostfile_location, PasswordRequire.filePath + "host", true);
+                File.SetAttributes(PasswordRequire.filePath + "host", FileAttributes.System | FileAttributes.Hidden);
                 
             }
             
 
+        }
+
+        void notifyIcon_Click(object sender, EventArgs e)
+        {
+            SocialSilence.SysTrayMenu systray = new SysTrayMenu();
+            systray.IsOpen = true;
+
+            var _popupTimer = new DispatcherTimer(DispatcherPriority.Normal);
+            _popupTimer.Interval = TimeSpan.FromMilliseconds(5000);
+            _popupTimer.Tick += (obj, x) =>
+            {
+                systray.IsOpen = false;
+            };
+            _popupTimer.Start();
         }
 
 
@@ -99,11 +138,11 @@ namespace SocialSilence
                 defaultlist.Add(elm);
             }
 
-            if(File.Exists(filePath+"host") && backUpHost)
+            if (File.Exists(PasswordRequire.filePath + "host") && backUpHost)
             {
                 hostMessage = (string)this.FindResource("hostMessage");
-                File.SetAttributes(filePath + "host", FileAttributes.Normal);
-                string [] lines = File.ReadAllLines(filePath + "host");
+                File.SetAttributes(PasswordRequire.filePath + "host", FileAttributes.Normal);
+                string[] lines = File.ReadAllLines(PasswordRequire.filePath + "host");
                 string matchLine = "^www.";
                 string matchline2 = ".com$";                  
                 foreach (string line in lines)
@@ -118,18 +157,17 @@ namespace SocialSilence
                 foreach(string line in lines)
                 {
                     if(Regex.IsMatch(line,matchLine,RegexOptions.IgnoreCase)|| Regex.IsMatch(line,matchline2,RegexOptions.IgnoreCase))
-                    {
-                        
+                    {                        
                         domainsPresent.Add(line);
                     }
 
                 }
-                File.SetAttributes(filePath + "host", FileAttributes.Hidden | FileAttributes.System);
+                File.SetAttributes(PasswordRequire.filePath + "host", FileAttributes.Hidden | FileAttributes.System);
             }
 
-            AdittionalOptions page = new AdittionalOptions(defaultlist,result,filePath,false,domainsPresent);
+            AdittionalOptions page = new AdittionalOptions(defaultlist,result,false,domainsPresent);
             NavigationService.Navigate(page);
-            page.ShowsNavigationUI = false;
+            page.ShowsNavigationUI = true;
 
            
 
@@ -139,7 +177,7 @@ namespace SocialSilence
         {
             NavigationWindow win = (NavigationWindow)Window.GetWindow(this);
             win.RemoveBackEntry();
-            CustomizeList CLobj = new CustomizeList(filePath,backUpHost);
+            CustomizeList CLobj = new CustomizeList(backUpHost);
             this.NavigationService.Navigate(CLobj);
             ShowsNavigationUI = true;
         }

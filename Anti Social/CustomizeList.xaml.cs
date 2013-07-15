@@ -39,13 +39,11 @@ namespace SocialSilence
         MessageBoxResult result;
         bool backUpHost;
 
-        public CustomizeList(string path,bool hostBackUP)
+        public CustomizeList(bool hostBackUP)
         {
-            filePath = path;
             InitializeComponent();
             backUpHost = hostBackUP;
             //ShowsNavigationUI = false;
-            //Loaded += Page1_Loaded;
             //System.Windows.Forms.NotifyIcon ni = new System.Windows.Forms.NotifyIcon();
         }
 
@@ -57,13 +55,8 @@ namespace SocialSilence
             }
         }
 
-        void Page1_Loaded(object sender, RoutedEventArgs e)
-        {
-            NavigationWindow win = (NavigationWindow)Window.GetWindow(this);
-            win.ShowsNavigationUI = false;
-        }
 
-        private async void AddToWhiteList(object sender, RoutedEventArgs e)
+        private async  void AddToWhiteList(object sender, RoutedEventArgs e)
         {
             if (!BlackList.SelectedItems.Count.Equals(0))                          // When one or more sites are selected then only work.
             {
@@ -134,7 +127,7 @@ namespace SocialSilence
                 //{
                 //    Blackbuffer.Add(bsite);
                 //}
-                Blackbuffer.AddRange((IEnumerable<string>)WhiteList.SelectedItems);         // This line is adding sites from the buffer . 
+                Blackbuffer.AddRange(((IEnumerable<object>)WhiteList.SelectedItems).Cast<string>());        // This line is adding sites from the buffer . 
 
                 Blackbuffer.Sort();
 
@@ -150,11 +143,11 @@ namespace SocialSilence
 
                 foreach (string bsite in site_array )
                 {
-                    await WhiteList.Dispatcher.BeginInvoke((Action)delegate { WhiteList.ItemsSource = null; whiteListed.Remove(bsite); }, null);
+                  await WhiteList.Dispatcher.BeginInvoke((Action)delegate { WhiteList.ItemsSource = null; whiteListed.Remove(bsite); }, null);
                 }
 
                 Blackbuffer.Clear();
-                WhiteList.Items.Clear();
+                WhiteList.Items.Clear();                
                 WhiteList.ItemsSource = whiteListed;
                 SelectAllWhiteList.IsChecked = false;
             }
@@ -165,22 +158,22 @@ namespace SocialSilence
         private async void Store_Lists(object sender, RoutedEventArgs e)
         {
 
-            if (!whiteListed.Count.Equals(0) || blackListed.Count.Equals(192))
-            {
+            if (!whiteListed.Count.Equals(0) || blackListed.Count.Equals(196))                      // Update list on all times , even when all the items are removed
+            {                                                                                       // from White list .
                 IsolatedStorageFile whiteSite = IsolatedStorageFile.GetStore(IsolatedStorageScope.User | IsolatedStorageScope.Domain | IsolatedStorageScope.Assembly, null, null);
-                var Writer = new StreamWriter(new IsolatedStorageFileStream("WhiteList.bin", FileMode.Create, whiteSite));
-
-                foreach (string str in whiteListed)
+                using (var Writer = new StreamWriter(new IsolatedStorageFileStream("WhiteList.bin", FileMode.Create, whiteSite)))
                 {
-                    await Writer.WriteLineAsync(str);
+                    foreach (string str in whiteListed)
+                    {
+                        await Writer.WriteLineAsync(str);
+                    }
                 }
-                Writer.Close();
             }
 
-            if (File.Exists(filePath + "host") && backUpHost)
+            if (File.Exists(PasswordRequire.filePath + "host") && backUpHost)
             {
-                File.SetAttributes(filePath+"host",FileAttributes.Normal);
-                string[] lines = File.ReadAllLines(filePath + "host");
+                File.SetAttributes(PasswordRequire.filePath + "host", FileAttributes.Normal);
+                string[] lines = File.ReadAllLines(PasswordRequire.filePath + "host");
                 string matchLine = "^www.";
                 string matchline2 = ".com$";
                 foreach (string line in lines)
@@ -202,13 +195,13 @@ namespace SocialSilence
 
                 }
 
-                File.SetAttributes(filePath + "host", FileAttributes.Hidden | FileAttributes.System);
+                File.SetAttributes(PasswordRequire.filePath + "host", FileAttributes.Hidden | FileAttributes.System);
             }
             
             
 
          
-            AdittionalOptions page = new AdittionalOptions(blackListed,result,filePath,true,domains_present);
+            AdittionalOptions page = new AdittionalOptions(blackListed,result,true,domains_present);
             NavigationService.Navigate(page);
             page.ShowsNavigationUI = false;
 
@@ -222,11 +215,12 @@ namespace SocialSilence
             try
             {
             IsolatedStorageFile domain = IsolatedStorageFile.GetStore(IsolatedStorageScope.User | IsolatedStorageScope.Domain | IsolatedStorageScope.Assembly, null, null);
-            StreamReader Reader = new StreamReader(new IsolatedStorageFileStream("WhiteList.bin", FileMode.OpenOrCreate, domain));
+            using (StreamReader Reader = new StreamReader(new IsolatedStorageFileStream("WhiteList.bin", FileMode.OpenOrCreate, domain)))
+            {
                 if (Reader != null)
                 {
                     string p = await Reader.ReadToEndAsync();
-                    if (p == null || p== "")
+                    if (p == null || p == "")
                     {
                         LoadAllFromXml();
                     }
@@ -234,17 +228,17 @@ namespace SocialSilence
                     {
                         whiteListed.Clear();
                         string[] Wsite = p.Split(new string[] { "\r\n" }, StringSplitOptions.RemoveEmptyEntries);
-                        foreach(string strin in Wsite)
+                        foreach (string strin in Wsite)
                         {
-                            
+
                             whiteListed.Add(strin);
-                            
+
                         }
-                       
+
                         LoadAllFromXml();
                     }
                 }
-                Reader.Close();
+            }
             }
             catch
             {

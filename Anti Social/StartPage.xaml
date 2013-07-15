@@ -63,7 +63,7 @@
         <Button x:Name="DefaultSetting" Margin="26,44,25,0" VerticalAlignment="Top" Style="{StaticResource RoundCorner}" Height="76"  Content="{DynamicResource StartPageDefaultText}" Click="GoWithDefault" />
         <Button Content="{DynamicResource StartPageCustomizeText}" Style="{StaticResource RoundCorner}" Margin="26,141,25,0" VerticalAlignment="Top"  Height="76" Click="GoToCustomizeList"/>
         <Grid HorizontalAlignment="Left" Height="45" VerticalAlignment="Bottom" Width="594" Background="{DynamicResource {x:Static SystemColors.ControlLightBrushKey}}" Margin="0,255,-294,0">
-            <Button Content="{DynamicResource Cancel}" HorizontalAlignment="Left" Margin="498,15,0,10" Width="75" Height="Auto" IsCancel="True" Click="btnClose_Click" FontSize="16"/>
+            <Button Content="{DynamicResource Cancel}" HorizontalAlignment="Left" Margin="497,10,0,15" Width="75" IsCancel="True" Click="btnClose_Click" Height="Auto"/>
         </Grid>
     </Grid>
 </local:CommonFunctions>

@@ -37,4 +37,48 @@ Verschieben Sites zu Weiße Liste, um sie Entblocken. .</system:String>
     <system:String x:Key="PasswordWrongMessage">Passwort zur Verfügung gestellt von Ihnen ist nicht korrekt. Bitte geben Sie wieder</system:String>
     <system:String x:Key="WrongOldPass">Vorherige Passwort ist nicht korrekt. Verfügung stellen korrekte Passwort.</system:String>
     <system:String x:Key="PassNotMatch">Kennwort eingegebenen nicht übereinstimmt . Bitte überprüfen Sie</system:String>
+     <system:String x:Key="OpenDnsc">OpenDNS wird als der DNS dieses Systems konfiguriert.</system:String>
+    <system:String x:Key="OpenDnsnc">OpenDNS wird auf diesem System nicht konfiguriert.</system:String>
+    <system:String x:Key="OpenDnsac">OpenDNS wurde bereits als der DNS dieses Systems konfiguriert.</system:String>
+    <system:String x:Key="UnableToOpenDns">Anwendung war unfähig, OpenDNS auf diesem System zu konfigurieren.</system:String>
+    <system:String x:Key="PopUpBlocked">PopUp Und Anzeigen werden auf diesem System blockiert.</system:String>
+    <system:String x:Key="PopUpNotBlocked">PopUp Und Anzeigen werden auf diesem System nicht blockiert.</system:String>
+    <system:String x:Key="DomainsCustomized">Kundenspezifisch vom Benutzer.</system:String>
+    <system:String x:Key="DomainsDefault">Verzug-Satz von  Domänen Verwendeten.</system:String>
+    <system:String x:Key="SettingRestored">Einstellung ist wieder hergestellt worden. Jetzt können Sie auf soziale Seiten zugreifen</system:String>
+    <system:String x:Key="SettingRestoredMessage">Systemeinstellungen Sind wieder hergestellt worden</system:String>
+    <system:String x:Key="ApplicationInactive">Social Silence.
+Anwendung Status: Inaktiv</system:String>
+    <system:String x:Key="ApplicaitonActive">Social Silence.
+Anwendung Status: Aktiv</system:String>
+    <system:String x:Key="UsePassword">Verwenden Sie Kennwort, um auf Anwendung zuzugreifen</system:String>
+    <system:String x:Key="OldPassword">Vorheriges Passwort</system:String>
+    <system:String x:Key="ConfirmPassword">Passwort bestätigen</system:String>
+    <system:String x:Key="SettingPassword">Passwort (Max 8 Buchstaben)</system:String>
+    <system:String x:Key="RestoreApp">Wiederherstellen Anwendung</system:String>
+    <system:String x:Key="AboutUs">Über uns</system:String>
+    <system:String x:Key="SetPassword">Gesetzt/Kennwort ändern</system:String>
+    <system:String x:Key="RemovePassword">Kennwort entfernen</system:String>
+    <system:String x:Key="RemovePasswordText1">Passwort wurde erfolgreich entfernt</system:String>
+    <system:String x:Key="ClickIcon">Klicken Sie an diese Ikone, um Änderungen vorzunehmen </system:String>
+    <system:String x:Key="RemovePasswordText3">Bitte geben Sie  Passwort ein,  zu bestätigen der  Benutzer .</system:String>
+    <system:String x:Key="RestoreSettingText1">Es scheint, dass die vorherige Sitzung der Anwendung richtig nicht geschlossen wurde .</system:String>
+    <system:String x:Key="RestoreSettingText2">Wiederherstellen System DNS</system:String>
+    <system:String x:Key="RestoreSettingText3">Klicken unter dem Knopf, zum der Einstellung wieder herzustellen </system:String>
+    <system:String x:Key="CustomerSurveyText1">Bitte füllen Sie das folgende Umfrage</system:String>
+    <system:String x:Key="CustomerSurveyText2">Bitte bewerten Sie diese Anwendung</system:String>
+    <system:String x:Key="CustomerSurveyText23">Anwendung war Leicht zu verwenden</system:String>
+    <system:String x:Key="CustomerSurveyText4">Empfehlen Sie diese Anwendung, um Freunde</system:String>
+    <system:String x:Key="CustomerSurveyText5">Nativ Sprache Unterstützte</system:String>
+    <system:String x:Key="CustomerSurveyText6">Ausreichende Funktionalität</system:String>
+    <system:String x:Key="CustomerSurveyText7">Betriebssystem</system:String>
+    <system:String x:Key="SetPasswordText1">Alle Felder sind obligatorisch.</system:String>
+    <system:String x:Key="SetPasswordText2">Passwort nicht erstellt</system:String>
+    <system:String x:Key="SetPasswordText3">Passwort wurde erfolgreich erstellt.</system:String>
+    <system:String x:Key="SetPasswordText4">Alle Felder sind obligatorisch.Nur Leerzeichen und Tabulatoren sind nicht zulässig .</system:String>
+    <system:String x:Key="RemovePasswordText2">Passwort entfernt</system:String>
+    <system:String x:Key="Yes">Ja</system:String>
+    <system:String x:Key="No">Nein</system:String>
+
+
 </ResourceDictionary>

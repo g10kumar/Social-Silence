@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows;
 using System.Runtime.InteropServices;
+using System.IO.IsolatedStorage;
+using System.IO;
+using System.Windows.Interop;
 
 
 namespace SocialSilence
@@ -30,9 +33,17 @@ namespace SocialSilence
                 menuItem = new MenuItem();
                 menuItem.Click += (sender, e) =>
                 {
-                    App.Current.MainWindow.Show();
+                    if (App.Current.MainWindow.WindowState == WindowState.Minimized)
+                    {
+                        App.Current.MainWindow.WindowState = WindowState.Normal;
+                    }
+                    else
+                    {
+                        App.Current.MainWindow.Show();
+                        CommonFunctions.isHidden = false;
+                    }
                 };
-                menuItem.Header = "Restore Applicaiton";
+                menuItem.Header = FindResource("RestoreApp"); 
                 quickLaunchMenuItems.Add(menuItem);
                 quickLaunchMenuItems.Add(new Separator());
 
@@ -41,7 +52,7 @@ namespace SocialSilence
                 {
                     
                 };
-                menuItem.Header = "About Us";
+                menuItem.Header = FindResource("AboutUs");
                 quickLaunchMenuItems.Add(menuItem);
                 quickLaunchMenuItems.Add(new Separator());
 
@@ -51,25 +62,33 @@ namespace SocialSilence
                     SetPassword passObj = new SetPassword();
                     passObj.Show();
                 };
-                menuItem.Header = "Set/Change application Password";
+                menuItem.Header = FindResource("SetPassword");
                 quickLaunchMenuItems.Add(menuItem);
                 quickLaunchMenuItems.Add(new Separator());
+
+                    if (PasswordRequire.passUsed)
+                    {
+                        menuItem = new MenuItem();
+                        menuItem.Click += (sender, e) =>
+                        {
+                            RemovePassword remObj = new RemovePassword();
+                            remObj.Show();
+                        };
+                        menuItem.Header = FindResource("RemovePassword");
+                        quickLaunchMenuItems.Add(menuItem);
+                        quickLaunchMenuItems.Add(new Separator());
+                    }
+               
 
                 Placement = System.Windows.Controls.Primitives.PlacementMode.AbsolutePoint;
                 VerticalOffset = mousePosition.Y - 2;
                 HorizontalOffset = mousePosition.X - 8;
-
-                PasswordRequire.notifyIcon.ContextMenuStrip.MouseLeave += ContextMenuStrip_MouseLeave;
 
             }
             catch
             { }
         }
 
-        void ContextMenuStrip_MouseLeave(object sender, EventArgs e)
-        {
-            SocialSilence.SysTrayMenu systray = new SysTrayMenu();
-            systray.IsOpen = false;
-        }
+
     }
 }

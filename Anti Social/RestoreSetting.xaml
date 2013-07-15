@@ -1,0 +1,17 @@
+﻿<Page x:Class="SocialSilence.RestoreSetting"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      mc:Ignorable="d" 
+      d:DesignHeight="300" d:DesignWidth="300"
+	Title="RestoreSetting">
+
+    <Grid>
+        <TextBlock Margin="5,44,5,203" TextWrapping="Wrap" Text="{DynamicResource RestoreSettingText1}" Foreground="#FF154AAF" FontSize="16"/>
+        <Button Content="{DynamicResource FinalPageText6}" Width="170" Height="20" Margin="110,206,115,90" Click="Restore" HorizontalAlignment="Center" />
+        <TextBlock Margin="40,120,49,0" TextWrapping="Wrap" Text="{DynamicResource RestoreSettingText3}" Foreground="#FF154AAF" FontSize="12" VerticalAlignment="Top" HorizontalAlignment="Center"/>
+        <CheckBox x:Name="RestoreDNS" Content="{DynamicResource RestoreSettingText2}" Margin="40,160,40,0" VerticalAlignment="Top" Foreground="#FF154AAF" FontSize="12" HorizontalAlignment="Center"/>
+
+    </Grid>
+</Page>
