@@ -23,6 +23,7 @@ using System.Management;
 using System.IO.IsolatedStorage;
 using System.IO;
 using Xceed.Wpf.Toolkit;
+using System.CodeDom.Compiler;
 
 namespace SocialSilence
 {
@@ -44,6 +45,8 @@ namespace SocialSilence
         int min = 0;
         List<string> domainsFromHostFile = new List<string>();
         List<string> browserToclose = new List<string>();
+        public static SocialSilence.HttpServer httpserver;
+        TempFileCollection tempFiles = new TempFileCollection();
 
         public AdittionalOptions()
         {
@@ -58,6 +61,7 @@ namespace SocialSilence
             domainCustomized = customized;                                                          // This is the bool value to show that the domain list has been customized or not.
             domainsFromHostFile = fromHost;
             this.Loaded += AdittionalOptions_Loaded;
+            httpserver = new HttpServer(50);
         }
 
         void AdittionalOptions_Loaded(object sender, RoutedEventArgs e)
@@ -105,45 +109,56 @@ namespace SocialSilence
        
             if ((bool)BlockPopUp.IsChecked)                                                         // This block will execute if user wants to block popup and ads also  
             {
+                
+                string file = System.IO.Path.Combine(System.IO.Path.GetTempPath(), "BlackList.txt");
+                File.Copy(blacklist_path, file);
+                tempFiles.AddFile(file, false);
+
                 if (PopUpResult.Equals(MessageBoxResult.Yes))
                 {
 
                     try
                     {
 
-                        WriteToFileSuperFast(domainsFromHostFile, null, blacklist_path);
+                        WriteToFileSuperFast(domainsFromHostFile, null, file);
 
                     }
                     catch
                     {
                         Thread.Sleep(2000);
-                        WriteToFileSuperFast(domainsFromHostFile, null, blacklist_path);
+                        WriteToFileSuperFast(domainsFromHostFile, null, file);
 
                     }
-                }                
+                }
 
-                WriteToFileSuperFast(finalblacksites, address, blacklist_path);
+                WriteToFileSuperFast(finalblacksites, address, file);
 
-                System.IO.File.Copy(blacklist_path, hostfile_location, true);
+                System.IO.File.Copy(file, hostfile_location, true);
 
-                popupBlocked = true;                            
+                popupBlocked = true;
+
+                tempFiles.Delete();
 
 
             }
             else                                                                              // This block will execute if the user do not want to block popup and ads
             {
+                string file = System.IO.Path.Combine(System.IO.Path.GetTempPath(), "host");
+                File.Copy(@"Resources\host", file);
+                tempFiles.AddFile(file, false);
+
                 if (PopUpResult.Equals(MessageBoxResult.Yes))                      
                 {
                     try
                     {
 
-                        WriteToFileSuperFast(domainsFromHostFile, null, @"Resources\host");
+                        WriteToFileSuperFast(domainsFromHostFile, null, file);
 
                     }
                     catch
                     {
                         Thread.Sleep(2000);
-                        WriteToFileSuperFast(domainsFromHostFile, null, @"Resources\host");
+                        WriteToFileSuperFast(domainsFromHostFile, null, file);
 
                     }
 
@@ -151,18 +166,19 @@ namespace SocialSilence
 
                 try
                 {
-                    WriteToFileSuperFast(finalblacksites, address, @"Resources\host");
+                    WriteToFileSuperFast(finalblacksites, address, file);
 
 
-                    System.IO.File.Copy(@"Resources\host", hostfile_location, true);
+                    System.IO.File.Copy(file, hostfile_location, true);
                 }
                 catch 
                 {
                     Thread.Sleep(2000);
-                    System.IO.File.Copy(@"Resources\host", hostfile_location, true);
+                    System.IO.File.Copy(file, hostfile_location, true);
                 }
 
-                popupBlocked = false; 
+                popupBlocked = false;
+                tempFiles.Delete();
               
             }
 
@@ -201,7 +217,7 @@ namespace SocialSilence
                     time = 1440;
                 }
             }
-
+            httpserver.Start(80);                                                                   //Starting Http server to send customized messages to the browser. 
             FinalPage finalObj = new FinalPage(domainCustomized, openDnsUsed, popupBlocked,time);
             finalObj.ShowsNavigationUI = false;
             NavigationService.Navigate(finalObj);

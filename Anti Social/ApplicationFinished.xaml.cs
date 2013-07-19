@@ -138,7 +138,7 @@ namespace SocialSilence
                     {
                         SetWindowLongPtr(hwnd, GWL_STYLE, StartPage.getwindow);
                     }
-                    FinalPage.httpserver.Dispose();                                                                             // Stopping HttpServer
+                    AdittionalOptions.httpserver.Dispose();                                                                             // Stopping HttpServer
                     StartPage startObj = new StartPage();
                     this.NavigationService.Navigate(startObj);
                     ShowsNavigationUI = false;
@@ -168,6 +168,7 @@ namespace SocialSilence
         {
             NavigationService.GoBack();                                                                 // When going back like this way constructor is not loaded,
                                                                                                         // but onloaded function is executed. 
+
 
         }
 

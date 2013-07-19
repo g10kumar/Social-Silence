@@ -143,7 +143,7 @@ namespace SocialSilence
                 }
                 else
                 {
-                    Xceed.Wpf.Toolkit.MessageBox.Show("Password Provided by You is not correct . Please provide again");
+                    Xceed.Wpf.Toolkit.MessageBox.Show((string)FindResource("PasswordWrongMessage"));
                     Previous_Pass.Clear();
                 }
             }

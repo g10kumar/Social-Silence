@@ -45,7 +45,6 @@ namespace SocialSilence
         System.Windows.Forms.Timer timer = new System.Windows.Forms.Timer();
         private const int GWL_STYLE = -16;
         private const int WS_SYSMENU = 0x80000;
-        public static SocialSilence.HttpServer httpserver = new HttpServer(50);
         FileSystemWatcher watcher = new FileSystemWatcher(System.IO.Path.GetDirectoryName(hostfile_location));
 
         public static int GetWindowLong(IntPtr hWnd, int nIndex)
@@ -254,7 +253,6 @@ namespace SocialSilence
                 await Dispatcher.BeginInvoke((Action)delegate { setNotifyIconText(PasswordRequire.notifyIcon, (string)this.FindResource("ApplicaitonActive") + "\nTime left\n" + hours.Text + "Hours" + " " + minutes.Text + "Min" + " " + sec.Text + "Sec"); }, null);
             }
 
-            httpserver.Start(80);                                                                   //Starting Http server to send customized messages to the browser. 
             watcher.EnableRaisingEvents = true;
             //tcplistner = new TcpListener(localAddr, port);
             //Thread thread = new Thread(new ThreadStart(Listen));
@@ -331,47 +329,49 @@ namespace SocialSilence
             try
             {
                 IsolatedStorageFile password = IsolatedStorageFile.GetStore(IsolatedStorageScope.User | IsolatedStorageScope.Domain | IsolatedStorageScope.Assembly, null, null);
-                StreamReader passReader = new StreamReader(new IsolatedStorageFileStream("Win32AppPas.bin", FileMode.OpenOrCreate, password));
-                FileAttributes passatt = File.GetAttributes(PasswordRequire.filePath + "Win32AppPas.bin");
-                if (!passatt.ToString().Contains(FileAttributes.Hidden.ToString()) || !passatt.ToString().Contains(FileAttributes.System.ToString()))
+                using (StreamReader passReader = new StreamReader(new IsolatedStorageFileStream("Win32AppPas.bin", FileMode.OpenOrCreate, password)))
                 {
-                    File.SetAttributes(PasswordRequire.filePath + "Win32AppPas.bin", FileAttributes.Hidden | FileAttributes.System);
-                }
-                if (passReader != null)
-                {
-                    string p = await passReader.ReadToEndAsync();
-                    if (p == null || p=="")
+                    FileAttributes passatt = File.GetAttributes(PasswordRequire.filePath + "Win32AppPas.bin");
+                    if (!passatt.ToString().Contains(FileAttributes.Hidden.ToString()) || !passatt.ToString().Contains(FileAttributes.System.ToString()))
                     {
-                        timer.Stop();
-                        watcher.EnableRaisingEvents = false;
-                        Window appwindow = (Window)App.Current.MainWindow;
-                        var hwnd = new WindowInteropHelper(appwindow).Handle;
-                        SetWindowLongPtr(hwnd, GWL_STYLE, StartPage.getwindow);
-                        int getwin = GetWindowLong(hwnd, GWL_STYLE);
-                        SettingRestore(PasswordRequire.filePath, hostfile_location, openDnsused);
-                        string systemRest = (string)this.FindResource("SettingRestoredMessage");
-                        Xceed.Wpf.Toolkit.MessageBox.Show(systemRest);
-                        if (getwin != 382337024)
+                        File.SetAttributes(PasswordRequire.filePath + "Win32AppPas.bin", FileAttributes.Hidden | FileAttributes.System);
+                    }
+                    if (passReader != null)
+                    {
+                        string p = await passReader.ReadToEndAsync();
+                        if (p == null || p == "")
                         {
+                            timer.Stop();
+                            watcher.EnableRaisingEvents = false;
+                            Window appwindow = (Window)App.Current.MainWindow;
+                            var hwnd = new WindowInteropHelper(appwindow).Handle;
                             SetWindowLongPtr(hwnd, GWL_STYLE, StartPage.getwindow);
+                            int getwin = GetWindowLong(hwnd, GWL_STYLE);
+                            SettingRestore(PasswordRequire.filePath, hostfile_location, openDnsused);
+                            string systemRest = (string)this.FindResource("SettingRestoredMessage");
+                            Xceed.Wpf.Toolkit.MessageBox.Show(systemRest);
+                            if (getwin != 382337024)
+                            {
+                                SetWindowLongPtr(hwnd, GWL_STYLE, StartPage.getwindow);
+                            }
+                            
+                            AdittionalOptions.httpserver.Dispose();                                                                           //Stopping Httpserver
+                            setNotifyIconText(PasswordRequire.notifyIcon, (string)FindResource("ApplicationInactive"));
+                            StartPage startObj = new StartPage();
+                            this.NavigationService.Navigate(startObj);
+                            ShowsNavigationUI = false;
                         }
-                        httpserver.Dispose();                                                                           //Stopping Httpserver
-                        setNotifyIconText(PasswordRequire.notifyIcon, (string)FindResource("ApplicationInactive"));
-                        StartPage startObj = new StartPage();
-                        this.NavigationService.Navigate(startObj);
-                        ShowsNavigationUI = false;
-                    }
-                    else
-                    {
-                       // watcher.EnableRaisingEvents = false;                        // This has been moved to next page , and check for password. 
-                        ApplicationFinished passObj = new ApplicationFinished(p, hostfile_location, openDnsused, watcher,timer);
-                        NavigationService.Navigate(passObj);
-                        ShowsNavigationUI = false;
-                        
-                    }
-                }
+                        else
+                        {
+                            // watcher.EnableRaisingEvents = false;                        // This has been moved to next page , and check for password. 
+                            ApplicationFinished passObj = new ApplicationFinished(p, hostfile_location, openDnsused, watcher, timer);
+                            NavigationService.Navigate(passObj);
+                            ShowsNavigationUI = false;
 
-                passReader.Close();
+                        }
+                    }
+
+                }
             }
             catch(Exception ex)
             {
@@ -388,7 +388,7 @@ namespace SocialSilence
             {
                         
                        // ((TextBlock)PasswordRequire.tooltip.Child).Text = (string)this.FindResource("ApplicationInactive");
-                        httpserver.Dispose();                                                                               //Stopping HttpServer
+                        AdittionalOptions.httpserver.Dispose();                                                                               //Stopping HttpServer
                         watcher.EnableRaisingEvents = false;
                         SettingRestore(PasswordRequire.filePath, hostfile_location, openDnsused);
                         //MessageBox.Show("System Settings Has Been restored ");

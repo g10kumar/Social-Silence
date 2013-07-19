@@ -59,14 +59,21 @@ namespace SocialSilence
 
         public void Start(int port)
         {
-            _listener.Prefixes.Add(String.Format(@"http://+:{0}/", port));
-            _listener.Start();
-            _listenerThread.Start();
-
-            for (int i = 0; i < _workers.Length; i++)
+            try
             {
-                _workers[i] = new Thread(Worker);
-                _workers[i].Start();
+                _listener.Prefixes.Add(String.Format(@"http://+:{0}/", port));
+                _listener.Start();
+                _listenerThread.Start();
+
+                for (int i = 0; i < _workers.Length; i++)
+                {
+                    _workers[i] = new Thread(Worker);
+                    _workers[i].Start();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message + ex.StackTrace);
             }
         }
 
@@ -108,14 +115,14 @@ namespace SocialSilence
         {
             try
             {
-                _stop.Set();                
+                _stop.Set();
                 _listenerThread.Join();
                 foreach (Thread worker in _workers)
                 {
                     worker.Join();
                 }
-                _listener.Stop();
                // App.Current.MainWindow.Close();
+                _listener.Stop();
 
             }
             catch(Exception ex)
